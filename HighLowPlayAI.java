@@ -20,13 +20,41 @@ class HighLowPlayAI extends Player {
         // Get the first suit that was played this round
 		Suit firstSuit = getFirstSuit(masterCopy.currentRound);
 
+        boolean heartsBroken = masterCopy.hasHeartsBroken;
+
         // If we are the first one to play a card this round, play the lowest card in our hand
-        if (firstSuit == null) return hand.remove(0); // !!! non hearts !!!
+        if (firstSuit == null) {
+            if (heartsBroken || hasAllHearts()) {
+                return hand.remove(0); // just return lowest ??? is this lowest or just lowest of first suit ???
+            }
+            else {
+                int index = 0;
+				while (hand.get(index).getSuit() == Suit.HEARTS) {
+					index++;
+				}
+                return hand.remove(0); // return lowest non hearts !!! check that it works
+            }
+        }
         
         SuitRange range = getSuitRange(firstSuit, hand);
 
-        // If we don't have cards in the suit that was first played, return lowest card in hand // !!! non hearts !!!
-		if (range.getRange() == 0) return hand.remove(0);
+        // If we don't have cards in the suit that was first played, return highest card in hand 
+		if (range.getRange() == 0) {
+            // if hearts have been broken, return highest hearts
+            if (heartsBroken || hasAllHearts()) {
+                SuitRange heartsSuitRange = getSuitRange(Suit.HEARTS, hand);
+                return hand.remove(heartsSuitRange.endIndex); 
+            }
+            else {
+                // otherwise just the highest card that's not a hearts
+                // ??? !!! is this the highest card or is it just moving backwards in the deck? check the deck order
+                int index = hand.size()-1;
+				while (hand.get(index).getSuit() == Suit.HEARTS) {
+					index--;
+				}
+                return hand.remove(index); 
+            }
+        }
 
         // If we have cards in the suit that was first played
         Card firstCard = masterCopy.currentRound.get(0);
