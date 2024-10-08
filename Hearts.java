@@ -6,8 +6,8 @@ public class Hearts {
 		Deck thing = new Deck();
 
 		// Assume this order is clockwise
-		//Player p1 = new RandomPlayAI("WellsRandomPlay");
-		Player p1 = new LowPlayAI("WellsLowPlay");
+		Player p1 = new HighLowPlayAI("EdHighLowPlay");
+		// Player p1 = new LowPlayAI("WellsLowPlay");
 		//Player p4 = new RandomPlayAI("Wells");
 		Player p2 = new RandomPlayAI("JaiRandomPlay");
 		Player p3 = new LookAheadPlayer("AntLookAhead");

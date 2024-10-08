@@ -13,7 +13,7 @@ class HighLowPlayAI extends Player {
         // For human debugging: print the hand
 		printHand();
 
-		// If this is the first move, then we must play the two of clubs 
+		// If this is the first move in the game, then we must play the two of clubs - DONE
 		if (masterCopy.firstMove())
 			return hand.remove(0);
 
@@ -22,51 +22,80 @@ class HighLowPlayAI extends Player {
 
         boolean heartsBroken = masterCopy.hasHeartsBroken;
 
-        // If we are the first one to play a card this round, play the lowest card in our hand
+        // If we are the first move in the round, play the lowest card
         if (firstSuit == null) {
+            // return the lowest card that's not a hearts
+            SuitRange clubsSuitRange = getSuitRange(Suit.CLUBS, hand);
+            SuitRange diamondsSuitRange = getSuitRange(Suit.DIAMONDS, hand);
+            SuitRange spadesSuitRange = getSuitRange(Suit.SPADES, hand);
+            int lowIndex = Integer.MAX_VALUE;
+            Value clubsLow = null;
+            Value diamondsLow = null;
+            Value spadesLow = null;
+
+            // !!! make this check cleaner later!!! - maybe make a helper function in Player called getAnyValue() that returns -1 when you call hand.getAnyValue() on a Value that's not in your hand 
+            if (clubsSuitRange.startIndex != -1) {
+                clubsLow = hand.get(clubsSuitRange.startIndex).getValue(); 
+                lowIndex = clubsSuitRange.startIndex;
+            }
+
+            if (diamondsSuitRange.startIndex != -1) {
+                diamondsLow = hand.get(diamondsSuitRange.startIndex).getValue(); 
+            }
+
+            if (spadesSuitRange.startIndex != -1) {
+                spadesLow = hand.get(spadesSuitRange.startIndex).getValue(); 
+            }
+
+            if (diamondsSuitRange.startIndex !=-1 && diamondsLow.compareTo(lowCard) < lowCard || lowCard == -1) { 
+                lowCard = diamondsSuitRange.startIndex; }
+            if (spadesSuitRange.startIndex !=-1 && spadesSuitRange.startIndex < lowCard || lowCard == -1) { 
+                lowCard = spadesSuitRange.startIndex; } 
+
             if (heartsBroken || hasAllHearts()) {
-                return hand.remove(0); // just return lowest ??? is this lowest or just lowest of first suit ???
+                // if hearts is legal, we want the lowest card in our hand overall, which can be a hearts too
+                SuitRange heartsSuitRange = getSuitRange(Suit.HEARTS, hand);
+                if (heartsSuitRange.startIndex !=-1 && heartsSuitRange.startIndex < lowCard || lowCard == -1) { 
+                    lowCard = heartsSuitRange.startIndex; } 
             }
-            else {
-                int index = 0;
-				while (hand.get(index).getSuit() == Suit.HEARTS) {
-					index++;
-				}
-                return hand.remove(0); // return lowest non hearts !!! check that it works
-            }
+
+            return hand.remove(lowCard);
         }
         
         SuitRange range = getSuitRange(firstSuit, hand);
 
         // If we don't have cards in the suit that was first played, return highest card in hand 
 		if (range.getRange() == 0) {
-            // if hearts have been broken, return highest hearts
+            // if hearts have been broken, return highest hearts - DONE
             if (heartsBroken || hasAllHearts()) {
                 SuitRange heartsSuitRange = getSuitRange(Suit.HEARTS, hand);
-                return hand.remove(heartsSuitRange.endIndex); 
+                // check that we have hearts in our hand
+                if (heartsSuitRange.endIndex != -1) {
+                    return hand.remove(heartsSuitRange.endIndex - 1); 
+                }
             }
-            else {
-                // otherwise just the highest card that's not a hearts
-                // ??? !!! is this the highest card or is it just moving backwards in the deck? check the deck order
-                int index = hand.size()-1;
-				while (hand.get(index).getSuit() == Suit.HEARTS) {
-					index--;
-				}
-                return hand.remove(index); 
-            }
+            // otherwise just the highest card that's not a hearts
+            SuitRange clubsSuitRange = getSuitRange(Suit.CLUBS, hand);
+            SuitRange diamondsSuitRange = getSuitRange(Suit.DIAMONDS, hand);
+            SuitRange spadesSuitRange = getSuitRange(Suit.SPADES, hand);
+            int highCard = clubsSuitRange.endIndex - 1;
+            if (diamondsSuitRange.endIndex - 1 > highCard) { highCard = diamondsSuitRange.endIndex - 1; }
+            if (spadesSuitRange.endIndex - 1 > highCard) { highCard = spadesSuitRange.endIndex - 1; } 
+
+            return hand.remove(highCard); 
         }
 
-        // If we have cards in the suit that was first played
+        // If we have cards in the suit that was first played - DONE
         Card firstCard = masterCopy.currentRound.get(0);
-        for (int i = range.endIndex; i >= range.startIndex; i--) {
-            // remove our highest card less than the card played
-			if (hand.get(i).compareTo(firstCard) < 0) { // !!! check that compareto works
+        System.out.println(range.endIndex);
+        for (int i = range.endIndex - 1; i >= range.startIndex; i--) {
+            // remove our highest card less than the card played - DONE
+			if (hand.get(i).compareTo(firstCard) < 0) { 
                 return hand.remove(i);
             }
         }
-        // If none of our cards are smaller than the suit that was played, play the lowest card in the suit
-        return hand.remove(range.startIndex); // !!! make sure indices line up
+        // If none of our cards are smaller than the suit that was played, play the lowest card in the suit - DONE
+        return hand.remove(range.startIndex); 
 
-        // ??? (Later add: If hearts have been broken, play the lowest hearts before another suit)
 	}
 }
