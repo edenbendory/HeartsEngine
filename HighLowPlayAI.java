@@ -74,7 +74,7 @@ class HighLowPlayAI extends Player {
         
         SuitRange range = getSuitRange(firstSuit, hand);
 
-        // If we don't have cards in the suit that was first played, return highest card in hand 
+        // If we don't have cards in the suit that was first played, return highest card in hand - DONE
 		if (range.getRange() == 0) {
             // if hearts have been broken, return highest hearts - DONE
             if (heartsBroken || hasAllHearts()) {
