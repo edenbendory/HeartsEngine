@@ -24,18 +24,18 @@ class HighLowPlayAI extends Player {
 
         // If we are the first move in the round, play the lowest card
         if (firstSuit == null) {
-            // return the lowest card that's not a hearts
+            // return the lowest card that's not a hearts - DONE
             SuitRange clubsSuitRange = getSuitRange(Suit.CLUBS, hand);
             SuitRange diamondsSuitRange = getSuitRange(Suit.DIAMONDS, hand);
             SuitRange spadesSuitRange = getSuitRange(Suit.SPADES, hand);
-            int lowIndex = Integer.MAX_VALUE;
-            Value clubsLow = null;
+            int lowIndex = 0;
+            Value lowValue = Value.ACE;
             Value diamondsLow = null;
             Value spadesLow = null;
 
             // !!! make this check cleaner later!!! - maybe make a helper function in Player called getAnyValue() that returns -1 when you call hand.getAnyValue() on a Value that's not in your hand 
             if (clubsSuitRange.startIndex != -1) {
-                clubsLow = hand.get(clubsSuitRange.startIndex).getValue(); 
+                lowValue = hand.get(clubsSuitRange.startIndex).getValue(); 
                 lowIndex = clubsSuitRange.startIndex;
             }
 
@@ -47,19 +47,29 @@ class HighLowPlayAI extends Player {
                 spadesLow = hand.get(spadesSuitRange.startIndex).getValue(); 
             }
 
-            if (diamondsSuitRange.startIndex !=-1 && diamondsLow.compareTo(lowCard) < lowCard || lowCard == -1) { 
-                lowCard = diamondsSuitRange.startIndex; }
-            if (spadesSuitRange.startIndex !=-1 && spadesSuitRange.startIndex < lowCard || lowCard == -1) { 
-                lowCard = spadesSuitRange.startIndex; } 
+            if (diamondsLow != null && diamondsLow.compareTo(lowValue) <= 0) { 
+                lowValue = diamondsLow;
+                lowIndex =  diamondsSuitRange.startIndex; 
+            }
+            if (spadesLow != null && spadesLow.compareTo(lowValue) <= 0) { 
+                lowValue = spadesLow;
+                lowIndex =  spadesSuitRange.startIndex; 
+            } 
 
             if (heartsBroken || hasAllHearts()) {
                 // if hearts is legal, we want the lowest card in our hand overall, which can be a hearts too
                 SuitRange heartsSuitRange = getSuitRange(Suit.HEARTS, hand);
-                if (heartsSuitRange.startIndex !=-1 && heartsSuitRange.startIndex < lowCard || lowCard == -1) { 
-                    lowCard = heartsSuitRange.startIndex; } 
+                Value heartsLow = null;
+                if (heartsSuitRange.startIndex != -1) {
+                    heartsLow = hand.get(heartsSuitRange.startIndex).getValue(); 
+                }
+                if (heartsLow != null && heartsLow.compareTo(lowValue) < 0) { 
+                    // lowValue = heartsLow; 
+                    lowIndex =  heartsSuitRange.startIndex; 
+                } 
             }
 
-            return hand.remove(lowCard);
+            return hand.remove(lowIndex);
         }
         
         SuitRange range = getSuitRange(firstSuit, hand);
@@ -74,15 +84,40 @@ class HighLowPlayAI extends Player {
                     return hand.remove(heartsSuitRange.endIndex - 1); 
                 }
             }
-            // otherwise just the highest card that's not a hearts
+            
+            // otherwise just the highest card that's not a hearts - DONE
             SuitRange clubsSuitRange = getSuitRange(Suit.CLUBS, hand);
             SuitRange diamondsSuitRange = getSuitRange(Suit.DIAMONDS, hand);
             SuitRange spadesSuitRange = getSuitRange(Suit.SPADES, hand);
-            int highCard = clubsSuitRange.endIndex - 1;
-            if (diamondsSuitRange.endIndex - 1 > highCard) { highCard = diamondsSuitRange.endIndex - 1; }
-            if (spadesSuitRange.endIndex - 1 > highCard) { highCard = spadesSuitRange.endIndex - 1; } 
+            int highIndex = hand.size() - 1;
+            Value highValue = Value.TWO;
+            Value diamondsHigh = null;
+            Value spadesHigh = null;
 
-            return hand.remove(highCard); 
+            // !!! make this check cleaner later!!! - maybe make a helper function in Player called getAnyValue() that returns -1 when you call hand.getAnyValue() on a Value that's not in your hand 
+            if (clubsSuitRange.endIndex != -1) {
+                highValue = hand.get(clubsSuitRange.endIndex - 1).getValue(); 
+                highIndex = clubsSuitRange.endIndex - 1;
+            }
+
+            if (diamondsSuitRange.endIndex != -1) {
+                diamondsHigh = hand.get(diamondsSuitRange.endIndex - 1).getValue(); 
+            }
+
+            if (spadesSuitRange.endIndex != -1) {
+                spadesHigh = hand.get(spadesSuitRange.endIndex - 1).getValue(); 
+            }
+
+            if (diamondsHigh != null && diamondsHigh.compareTo(highValue) >= 0) { 
+                highValue = diamondsHigh;
+                highIndex =  diamondsSuitRange.endIndex - 1; 
+            }
+            if (spadesHigh != null && spadesHigh.compareTo(highValue) >= 0) { 
+                // highValue = spadesHigh;
+                highIndex =  spadesSuitRange.endIndex - 1; 
+            } 
+
+            return hand.remove(highIndex); 
         }
 
         // If we have cards in the suit that was first played - DONE
