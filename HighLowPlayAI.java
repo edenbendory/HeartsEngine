@@ -59,7 +59,7 @@ class HighLowPlayAI extends Player {
             } 
 
             if (heartsBroken || hasAllHearts()) {
-                // if hearts is legal, we want the lowest card in our hand overall, which can be a hearts too
+                // if hearts is legal, we want the lowest card in our hand overall, which can be a hearts too - DONE
                 SuitRange heartsSuitRange = getSuitRange(Suit.HEARTS, hand);
                 Value heartsLow = null;
                 if (heartsSuitRange.startIndex != -1) {
