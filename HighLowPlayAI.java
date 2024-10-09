@@ -1,7 +1,9 @@
 // this AI will look at the hand and look at the cards currently on the board
 // and play the highest VALID card we can play WITHOUT taking the trick
+// (the highest valid card that is lower than the first card played)
 // if no cards are on the board, will play the lowest non-hearts (if possible)
-// if no cards are on the board and there are only hearts, play the lowest hearts
+// if no cards are on the board and there are only hearts in the player's hand, play the lowest hearts
+// if the player doesn't have the leading suit, play the highest card in the player's hand, prioritizing Hearts
 
 class HighLowPlayAI extends Player {
 
