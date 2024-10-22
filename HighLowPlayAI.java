@@ -123,11 +123,20 @@ class HighLowPlayAI extends Player {
         }
 
         // If we have cards in the suit that was first played - DONE
-        Card firstCard = masterCopy.currentRound.get(0);
-        System.out.println(range.endIndex);
+
+        // Get the max card that's been played this round that's of the leading suit - DONE
+        Card maxCard = masterCopy.currentRound.get(0);
+        int numCardsPlayed = masterCopy.currentRound.size();
+        for (int i = 1; i < numCardsPlayed; i++) {
+            Card curCard = masterCopy.currentRound.get(i);
+            if (curCard.getSuit() == firstSuit && curCard.compareTo(maxCard) > 0) {
+                maxCard = curCard;
+            }
+        }
+        
         for (int i = range.endIndex - 1; i >= range.startIndex; i--) {
-            // remove our highest card less than the card played - DONE
-			if (hand.get(i).compareTo(firstCard) < 0) { 
+            // remove our highest card less than the max card played - DONE
+			if (hand.get(i).compareTo(maxCard) < 0) { 
                 return hand.remove(i);
             }
         }
