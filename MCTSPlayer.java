@@ -57,9 +57,9 @@ class MCTSPlayer extends Player {
 	int runMCTS (State origState) {
 		root = new Node(origState, playoutHand, null);
 		for (int i = 0; i < noIterations; i++) {
-			Node expanded = treePolicy(root);
-			int valueChange = assignReward(expanded);
-			backProp(expanded, valueChange);
+			Node expanded = treePolicy(root); // expands by one node
+			int valueChange = assignReward(expanded); // plays out game on the one node
+			backProp(expanded, valueChange); // backpropogates
 		}
 		return bestRewardChild(root);
 	}
@@ -107,7 +107,7 @@ class MCTSPlayer extends Player {
 			for (int i = firstIndex; i < lastIndex; i++) {
 				// Notice: This will leave some children to be null, since they are invalid
 				if (thisNode.children[i] == null) {
-					return expandTree(thisNode, i);
+					return expandTree(thisNode, i); 
 				}
 			}
 			thisNode = bestChild(thisNode, 0.1);
@@ -117,7 +117,7 @@ class MCTSPlayer extends Player {
 
 	// This method actually creates and adds children to the tree (and runs the first step of advance)
 	Node expandTree (Node roNode, int childNo) {
-		State childState = new State(roNode.thisState);
+		State childState = new State(roNode.thisState); // inherits copy of parent state
 		ArrayList<Card> childHand = new ArrayList<Card>(roNode.currentHand);
 		// Remove the card from the hand of the child
 		// Should probably set a debug here
@@ -160,6 +160,7 @@ class MCTSPlayer extends Player {
 			SuitRange range = getSuitRange(firstSuit, finalHand);
 			int firstIndex = range.startIndex;
 			int lastIndex = range.endIndex;
+			// if we're leading
 			if (firstSuit == null) {
 				int debug = -1;
 				while (debug == -1) { 
