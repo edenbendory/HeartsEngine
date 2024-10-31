@@ -17,7 +17,7 @@ public class UCTPlayer extends Player {
 		int 			winCount;			
 		int 			visitCount;
 		Node 			parent;
-		Node[] 			children;
+		Node[] 			children; // !!! change so this is an arrayList of only valid children, not an array 
 		int 			depth;
 
 		Node (State s, ArrayList<Card> hand, Node p) {
@@ -27,7 +27,7 @@ public class UCTPlayer extends Player {
 			visitCount = 0;
 			parent = p;
 			children = new Node[hand.size()]; 		// largest amount of children is # of cards in the hand
-			if (p != null) depth = p.depth + 1;
+            if (p != null) depth = p.depth + 1;
 			else depth = 0;
 		}
 	}
@@ -42,10 +42,39 @@ public class UCTPlayer extends Player {
 
     boolean setDebug() { return false; }
 
+    void generateHands(State state, Node root) {
+        int handSize = root.curHand.size();
+        ArrayList<Card> cardsLeft = new ArrayList<Card> (state.cardsPlayed.invertDeck);
+        Collections.shuffle(cardsLeft);
+        ArrayList<Card> p1Hand;
+        ArrayList<Card> p2Hand;
+        ArrayList<Card> p3Hand;
+        ArrayList<Player> players = new ArrayList<>();
+        Player p1 = new Player("p1") {};
+        Player p2 = new Player("p2");
+        Player p3 = new Player("p3");
+        players.add(p1);
+        players.add(p2);
+        players.add(p3);
+        for (int i = 0; i < cardsLeft.size(); i++) { 
+            for (Player p : players) { 
+                p.addToHand ( cardsLeft.remove(i) ); 
+            } 
+        }
+
+        for (int i = 0; i < state.currentRound.size(); i++) {
+            int playerIndex = i + firstPlayer 
+        }
+        myPlayerIndex = 
+        ArrayList<Card> curHand;
+    }
+
     int runMCTS (State originalState) {
+        root = new Node(originalState, playoutHand, null);
+        generateHands(originalState, root);
+
         // run multiple games until we've hit the max number
         for (int i = 0; i < numIterations; i++) {
-            root = new Node(originalState, playoutHand, null);
 
             // Select which Node to expand
             Node bestNode = selectBestNode(root); 
@@ -55,9 +84,9 @@ public class UCTPlayer extends Player {
 
             // simulation 
             Node nodeToExplore = bestNode;
-            if (bestNode.getChildArray().size() > 0) { // corner case - ???
-                nodeToExplore = bestNode.getRandomChildNode(); // select which random child to simulate (attach a winScore to)
-            }
+            // if (bestNode.getChildArray().size() > 0) { // corner case - ???
+            //     nodeToExplore = bestNode.getRandomChildNode(); // select which random child to simulate (attach a winScore to)
+            // }
             int valueChange = simulateRandomPlayout(nodeToExplore); // Simulate
 
             // backpropogation
@@ -73,98 +102,109 @@ public class UCTPlayer extends Player {
 
 		// Go through this node
 		while (curNode.state.isGameValid() && maxDepth > curNode.depth) {
-
-            // Find out which children are valid 
-            int[] indexRange = getValidRange(curNode);
-            int firstIndex = indexRange[1];
-            int lastIndex = indexRange[2];
-
-			// choose which Node is the best of the valid child nodes
-			thisNode = bestChild(thisNode, 0.1);
+            // if we're not at a leaf node 
+            if (curNode.children.length > 0) {
+                // choose which Node is the best of the valid child nodes
+                curNode = bestUCTChild(curNode);
+            }
+            // can no longer apply UCT to find a successor node (at a leaf node)
+            else {
+                return curNode;
+            }
 		}
-		return thisNode;
+		return curNode;
 	}
+
+    public static double uctValue(int totalVisitCount, double nodeWinCount, int nodeVisitCount) {
+        if (nodeVisitCount == 0) {
+            return Integer.MAX_VALUE;
+        }
+        return (
+            ((double) nodeWinCount / (double) nodeVisitCount) 
+            + Math.sqrt(2) * Math.sqrt(Math.log(totalVisitCount) / (double) nodeVisitCount));
+    }
+
+    private static Node bestUCTChild(Node node) {
+        // return the child with the max uctValue
+        double bestValue = -Double.MAX_VALUE;
+        int bestIndex = 0; // ??? good to start with child 0?
+
+        for (int i = 0; i < node.children.length; i++) {
+            Node curChild = node.children[i];
+            if (curChild != null) {
+                double uctVal = uctValue(node.visitCount, curChild.winCount, curChild.visitCount);
+                if (uctVal > bestValue) {
+					bestValue = uctVal;
+					bestIndex = i;
+				}
+            }
+        }
+
+        return node.children[bestIndex];
+    }
+
+    // Expands the game tree by appending all possible states from curNode (the leaf node)
+    private void expandNode(Node curNode) {
+        // Find out which children are valid 
+        int[] indexRange = getValidRange(curNode);
+        int firstIndex = indexRange[1];
+        int lastIndex = indexRange[2];
+
+        // Create a new Node representing each valid child 
+        for (int i = firstIndex; i < lastIndex; i++) {
+            // Notice: This will leave some children to be null, since they are invalid
+            addNewChild(curNode, i);
+        }
+    }
 
     // Returns the range of valid "children" cards that curNode can play this round
     private int[] getValidRange(Node curNode) {
-         // Get the first suit that was played this round
-        Suit firstSuit = getFirstSuit(curNode.state.currentRound);
+        // Get the first suit that was played this round
+       Suit firstSuit = getFirstSuit(curNode.state.currentRound);
 
-        SuitRange range = getSuitRange(firstSuit, curNode.curHand);
-        // If we have firstSuit, get the range of cards we can play rn
-        int firstIndex = range.startIndex;
-        int lastIndex = range.endIndex;
+       SuitRange range = getSuitRange(firstSuit, curNode.curHand);
+       // If we have firstSuit, get the range of cards we can play rn
+       int firstIndex = range.startIndex;
+       int lastIndex = range.endIndex;
 
-        // If this is the first move in the round
-        if (firstSuit == null) {
-            // If hearts has broken or we only have hearts left, we can play any card in our hand
-            if (curNode.state.hasHeartsBroken || hasAllHearts(curNode.curHand)) {
-                firstIndex = 0;
-                lastIndex = curNode.curHand.size();
-            } else {
-                // If hearts has not broken, and we have at least one non-hearts card we can play
-                SuitRange heartsRange = getSuitRange(Suit.HEARTS, curNode.curHand);
-                // If we have no hearts, we can play anything
-                if (heartsRange.startIndex == -1) {
-                    firstIndex = 0;
-                    lastIndex = curNode.curHand.size();
-                } else {
-                    // Otherwise, we need to eliminate the hearts range
-                    firstIndex = 0;
-                    lastIndex = heartsRange.startIndex;
-                }
-            }
-        } 
-        
-        // If we are void in firstSuit (if firstIndex is -1 and firstSuit != null), we can play any card in our hand
-        if (firstIndex == -1) {
-            firstIndex = 0;
-            lastIndex = curNode.curHand.size();
-        }
+       // If this is the first move in the round
+       if (firstSuit == null) {
+           // If hearts has broken or we only have hearts left, we can play any card in our hand
+           if (curNode.state.hasHeartsBroken || hasAllHearts(curNode.curHand)) {
+               firstIndex = 0;
+               lastIndex = curNode.curHand.size();
+           } else {
+               // If hearts has not broken, and we have at least one non-hearts card we can play
+               SuitRange heartsRange = getSuitRange(Suit.HEARTS, curNode.curHand);
+               // If we have no hearts, we can play anything
+               if (heartsRange.startIndex == -1) {
+                   firstIndex = 0;
+                   lastIndex = curNode.curHand.size();
+               } else {
+                   // Otherwise, we need to eliminate the hearts range
+                   firstIndex = 0;
+                   lastIndex = heartsRange.startIndex;
+               }
+           }
+       } 
+       
+       // If we are void in firstSuit (if firstIndex is -1 and firstSuit != null), we can play any card in our hand
+       if (firstIndex == -1) {
+           firstIndex = 0;
+           lastIndex = curNode.curHand.size();
+       }
 
-        int[] indexRange = new int[2];
-        indexRange[1] = firstIndex;
-        indexRange[2] = lastIndex;
-        return indexRange;
-    }
+       int[] indexRange = new int[2];
+       indexRange[1] = firstIndex;
+       indexRange[2] = lastIndex;
+       return indexRange;
+   }
 
     // Used to check if all the cards in the given hand is hearts 
-	private boolean hasAllHearts(ArrayList<Card> hand) {
-		boolean flag = true;
-		for (Card c : hand) { if (c.getSuit() != Suit.HEARTS) flag = false; }
-		return flag;
-	}
-
-    public class UCT {
-        public static double uctValue(
-          int totalVisitCount, double nodeWinCount, int nodeVisitCount) {
-            if (nodeVisitCount == 0) {
-                return Integer.MAX_VALUE;
-            }
-            return ((double) nodeWinCount / (double) nodeVisitCount) 
-              + 1.41 * Math.sqrt(Math.log(totalVisitCount) / (double) nodeVisitCount);
-        }
-    
-        public static Node bestNodeWithUCT(Node node) {
-            // ??? maybe just use MCTS player ???
-            int parentVisitCount = node.visitCount + 1;
-            // return the child with the max uctValue
-            return Collections.max(
-              node.children,
-              Comparator.comparing(c -> uctValue(parentVisitCount, 
-                c.winCount, c.visitCount)));
-        }
-    }
-
-
-    private void expandNode(Node curNode, int firstIndex, int lastIndex) {
-        // Add new Nodes for each valid child 
-        for (int i = firstIndex; i < lastIndex; i++) {
-            // Notice: This will leave some children to be null, since they are invalid
-            if (curNode.children[i] == null) {
-                addNewChild(curNode, i);
-            }
-        }
+    private boolean hasAllHearts(ArrayList<Card> hand) {
+        boolean flag = true;
+        for (Card c : hand) { if (c.getSuit() != Suit.HEARTS) flag = false; }
+        return flag;
     }
 
     private void addNewChild(Node parentNode, int childIndex) {
@@ -177,5 +217,7 @@ public class UCTPlayer extends Player {
 		// Create a new child node that corresponds to the card we have just successfully played
 		parentNode.children[childIndex] = new Node(childState, childHand, parentNode);
     }
+
+
 }
 
