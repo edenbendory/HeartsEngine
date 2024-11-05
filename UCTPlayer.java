@@ -14,6 +14,7 @@ public class UCTPlayer extends Player {
     public class Node {
 		State 			state;
 		ArrayList<Card> curHand;
+        int             playerIndex;
 		int 			winCount;			
 		int 			visitCount;
 		Node 			parent;
@@ -23,6 +24,7 @@ public class UCTPlayer extends Player {
 		Node (State s, ArrayList<Card> hand, Node p) {
 			state = s;
 			curHand = hand;
+            playerIndex = state.playerIndex;
 			winCount = 0;
 			visitCount = 0;
 			parent = p;
@@ -42,36 +44,60 @@ public class UCTPlayer extends Player {
 
     boolean setDebug() { return false; }
 
-    void generateHands(State state, Node root) {
-        int handSize = root.curHand.size();
+    // void generateHands(State state, Node root) {
+    //     ArrayList<Card> cardsLeft = new ArrayList<Card> (state.cardsPlayed.invertDeck);
+    //     Collections.shuffle(cardsLeft);
+
+    //     ArrayList<Player> players = new ArrayList<>();
+    //     Player p1 = new RandomPlayAI("p1");
+    //     Player p2 = new RandomPlayAI("p2");
+    //     Player p3 = new RandomPlayAI("p3");
+    //     players.add(p1);
+    //     players.add(p2);
+    //     players.add(p3);
+
+    //     // currentRound.size() = number player this round (ex- 2 cards have been put down, this is the third player of the round)
+    //     // (# cards played this round) + (index of first player to go - say it's player 1) % 4 = index of current player 
+    //     // for (int i = 0; i < state.currentRound.size(); i++) {
+    //     //     int playerIndex = i + firstPlayer % 4;
+    //     // }
+    //     System.out.println("Current Player Number: " + state.playerIndex);
+    //     System.out.println("Current Root Number: " + root.playerIndex);
+
+    //     int curPlayer = root.playerIndex;
+    //     for (int i = 0; i < cardsLeft.size(); i++) { 
+    //         int dealPlayer = curPlayer
+    //         p.addToHand ( cardsLeft.remove(i) ); 
+    //     }
+
+    // }
+
+    private ArrayList<Card> generateHand(State state, Node node, int handSize) {
         ArrayList<Card> cardsLeft = new ArrayList<Card> (state.cardsPlayed.invertDeck);
         Collections.shuffle(cardsLeft);
-        ArrayList<Card> p1Hand;
-        ArrayList<Card> p2Hand;
-        ArrayList<Card> p3Hand;
-        ArrayList<Player> players = new ArrayList<>();
-        Player p1 = new Player("p1") {};
-        Player p2 = new Player("p2");
-        Player p3 = new Player("p3");
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        for (int i = 0; i < cardsLeft.size(); i++) { 
-            for (Player p : players) { 
-                p.addToHand ( cardsLeft.remove(i) ); 
-            } 
+        ArrayList<Card> hand = new ArrayList<Card>();
+
+        // currentRound.size() = number player this round (ex- 2 cards have been put down, this is the third player of the round)
+        // (# cards played this round) + (index of first player to go - say it's player 1) % 4 = index of current player 
+        // for (int i = 0; i < state.currentRound.size(); i++) {
+        //     int playerIndex = i + firstPlayer % 4;
+        // }
+        System.out.println("Hand Size: " + handSize);
+        System.out.println("Current Player Number: " + state.playerIndex);
+        System.out.println("Current Tree Depth: " + node.depth);
+        System.out.println("Current Node Number: " + node.playerIndex);
+
+        // right now this is random, but later we will change this to update based on player tables 
+        for (int i = 0; i < handSize; i++) { 
+            hand.add(cardsLeft.remove(i)); 
         }
 
-        for (int i = 0; i < state.currentRound.size(); i++) {
-            int playerIndex = i + firstPlayer 
-        }
-        myPlayerIndex = 
-        ArrayList<Card> curHand;
+        return hand;
     }
 
     int runMCTS (State originalState) {
         root = new Node(originalState, playoutHand, null);
-        generateHands(originalState, root);
+        // generateHands(originalState, root);
 
         // run multiple games until we've hit the max number
         for (int i = 0; i < numIterations; i++) {
