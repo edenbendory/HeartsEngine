@@ -4,9 +4,11 @@ import org.w3c.dom.Node;
 
 public class UCTPlayer extends Player {
 
-    ArrayList<Card> playoutHand;
-
+    int             myPNumber;
+    ArrayList<Card> myHand;
+    // ArrayList<ArrayList<Card>>	playerHands; // To keep track of each player's hand
 	Random 			rng;
+
 	final int 		numIterations = 26; 		// How many times we go through MCTS before making a decision
 	final int 		maxDepth = 3; 	// How many nodes to expand to before doing random playouts
 	Node 			root;
@@ -14,23 +16,37 @@ public class UCTPlayer extends Player {
     public class Node {
 		State 			state;
 		ArrayList<Card> curHand;
+        ArrayList<Card> myCurHand;
         int             playerIndex;
 		int 			winCount;			
 		int 			visitCount;
 		Node 			parent;
-		Node[] 			children; // !!! change so this is an arrayList of only valid children, not an array 
+		ArrayList<Node> children; // !!! change so this to match in rest of code
+        int             handIndex;
 		int 			depth;
+        boolean         lastInRound;
 
-		Node (State s, ArrayList<Card> hand, Node p) {
+		Node (State s, ArrayList<Card> hand, ArrayList<Card> myCurHand, Node p) {
 			state = s;
 			curHand = hand;
+            myCurHand = myCurHand;
             playerIndex = state.playerIndex;
+            // playerHands.set(playerIndex, hand); // replace whatever hand was there before with the hand being passed in 
+            // System.out.println("Num player hands now: " + playerHands.size());
 			winCount = 0;
 			visitCount = 0;
 			parent = p;
-			children = new Node[hand.size()]; 		// largest amount of children is # of cards in the hand
-            if (p != null) depth = p.depth + 1;
-			else depth = 0;
+			children = new ArrayList<Node>(); 		// largest amount of children is # of cards in the hand
+            handIndex = -1;
+            if (p != null) {
+                depth = p.depth + 1;
+            }
+            // root
+			else {
+                depth = 0;
+                myPNumber = s.playerIndex;
+            }
+            lastInRound = false;
 		}
 	}
 
@@ -38,8 +54,16 @@ public class UCTPlayer extends Player {
 		super(name); 
 		System.out.println("UCTPlayer AI ("+name+") initialized."); 
 
-		playoutHand = new ArrayList<Card>(hand);	// Need to call this every performAction()
+		myHand = new ArrayList<>(hand);
+        // playerHands = new ArrayList<>();
 		rng = new Random();
+
+        // represents 4 players (currently) empty hands
+        // playerHands.add(new ArrayList<>());
+        // playerHands.add(new ArrayList<>());
+        // playerHands.add(new ArrayList<>());
+        // playerHands.add(new ArrayList<>());
+        // System.out.println("Num player hands: " + playerHands.size());
 	}
 
     boolean setDebug() { return false; }
@@ -72,32 +96,8 @@ public class UCTPlayer extends Player {
 
     // }
 
-    private ArrayList<Card> generateHand(State state, Node node, int handSize) {
-        ArrayList<Card> cardsLeft = new ArrayList<Card> (state.cardsPlayed.invertDeck);
-        Collections.shuffle(cardsLeft);
-        ArrayList<Card> hand = new ArrayList<Card>();
-
-        // currentRound.size() = number player this round (ex- 2 cards have been put down, this is the third player of the round)
-        // (# cards played this round) + (index of first player to go - say it's player 1) % 4 = index of current player 
-        // for (int i = 0; i < state.currentRound.size(); i++) {
-        //     int playerIndex = i + firstPlayer % 4;
-        // }
-        System.out.println("Hand Size: " + handSize);
-        System.out.println("Current Player Number: " + state.playerIndex);
-        System.out.println("Current Tree Depth: " + node.depth);
-        System.out.println("Current Node Number: " + node.playerIndex);
-
-        // right now this is random, but later we will change this to update based on player tables 
-        for (int i = 0; i < handSize; i++) { 
-            hand.add(cardsLeft.remove(i)); 
-        }
-
-        return hand;
-    }
-
     int runMCTS (State originalState) {
-        root = new Node(originalState, playoutHand, null);
-        // generateHands(originalState, root);
+        root = new Node(originalState, myHand, myHand, null);
 
         // run multiple games until we've hit the max number
         for (int i = 0; i < numIterations; i++) {
@@ -128,14 +128,19 @@ public class UCTPlayer extends Player {
 
 		// Go through this node
 		while (curNode.state.isGameValid() && maxDepth > curNode.depth) {
-            // if we're not at a leaf node 
-            if (curNode.children.length > 0) {
+            // if this node has no children
+            if (curNode.children.isEmpty()) {
+                return curNode; // we need to expand on that node
+            }
+            // if this node does have chilren 
+            else {
+                // iterate over the children 
+                for (Node child : curNode.children) {
+                    // if there's a child that hasn't been visited, simulate/explore it
+                    if (child.visitCount == 0) { return child; }
+                }
                 // choose which Node is the best of the valid child nodes
                 curNode = bestUCTChild(curNode);
-            }
-            // can no longer apply UCT to find a successor node (at a leaf node)
-            else {
-                return curNode;
             }
 		}
 		return curNode;
@@ -153,24 +158,30 @@ public class UCTPlayer extends Player {
     private static Node bestUCTChild(Node node) {
         // return the child with the max uctValue
         double bestValue = -Double.MAX_VALUE;
-        int bestIndex = 0; // ??? good to start with child 0?
+        Node bestChild = node.children.get(0); // ??? good to start with child 0?
 
-        for (int i = 0; i < node.children.length; i++) {
-            Node curChild = node.children[i];
-            if (curChild != null) {
-                double uctVal = uctValue(node.visitCount, curChild.winCount, curChild.visitCount);
-                if (uctVal > bestValue) {
-					bestValue = uctVal;
-					bestIndex = i;
-				}
+        for (Node child : node.children) {
+            // if (curChild != null) { // ??? don't need this right ???
+            double uctVal = uctValue(node.visitCount, child.winCount, child.visitCount);
+            if (uctVal > bestValue) {
+                bestValue = uctVal;
+                bestChild = child;
             }
         }
 
-        return node.children[bestIndex];
+        return bestChild;
     }
 
     // Expands the game tree by appending all possible states from curNode (the leaf node)
     private void expandNode(Node curNode) {
+        // if this node hasn't been explored yet, and it has a parent, 
+        // that means it's a child node that was just added (it's not the root), and needs 
+        // to be explored before it's expanded upon 
+        // ??? FIX THIS CONDITION??? 
+        if (curNode.visitCount == 0 && curNode.parent != null) {
+            return;
+        }
+
         // Find out which children are valid 
         int[] indexRange = getValidRange(curNode);
         int firstIndex = indexRange[1];
@@ -178,7 +189,7 @@ public class UCTPlayer extends Player {
 
         // Create a new Node representing each valid child 
         for (int i = firstIndex; i < lastIndex; i++) {
-            // Notice: This will leave some children to be null, since they are invalid
+            // Notice: This will exclude the invalid children (only valid children are added as children)
             addNewChild(curNode, i);
         }
     }
@@ -235,13 +246,57 @@ public class UCTPlayer extends Player {
 
     private void addNewChild(Node parentNode, int childIndex) {
         State childState = new State(parentNode.state); // inherits copy of parent state
-		ArrayList<Card> childHand = new ArrayList<Card>(parentNode.curHand);
+        // don't need to make a copy of parent hand and remove a card, b/c we don't care to save the parent hand unless it's Me (going to generate a random new hand for any other player other than Me)
+        int debug = childState.advanceState(parentNode.curHand.get(childIndex), parentNode.curHand);
 
-		// Remove the card from the hand of the child
-		int debug = childState.advance( childHand.remove(childIndex), childHand ); // !!! change this - tree should include 4 players
+        ArrayList<Card> childHand;
+        int playerIndex = childState.playerIndex;
+        if (playerIndex == myPNumber) {
+            childHand = new ArrayList<>(myHand);
+        }
+        else {
+            childHand = generateHand(childState, parentNode); // generate a random hand based on the state of the game 
+        }
+
+        ArrayList<Card> myCurHand = new ArrayList<>(parentNode.myCurHand); // pass my hand along 
+        if (parentNode.playerIndex == myPNumber) { // if I just went 
+            myCurHand.remove(childIndex); // then update my hand 
+        }
+
+        int handIndex = childIndex;
 
 		// Create a new child node that corresponds to the card we have just successfully played
-		parentNode.children[childIndex] = new Node(childState, childHand, parentNode);
+		parentNode.children.add(new Node(childState, childHand, myCurHand, parentNode));
+    }
+
+    private ArrayList<Card> generateHand(State state, Node node) {
+        ArrayList<Card> cardsLeft = new ArrayList<Card> (state.cardsPlayed.invertDeck);
+        Collections.shuffle(cardsLeft);
+        ArrayList<Card> hand = new ArrayList<Card>();
+
+        // currentRound.size() = number player this round (ex- 2 cards have been put down, this is the third player of the round)
+        // (# cards played this round) + (index of first player to go - say it's player 1) % 4 = index of current player 
+        // for (int i = 0; i < state.currentRound.size(); i++) {
+        //     int playerIndex = i + firstPlayer % 4;
+        // }
+
+        // everyone has the same amount of cards at the beginning of a round - so I should have the same as my parent
+        int handSize = node.curHand.size(); 
+        // unless a new round just started, in which case everyone has put a card down, and so I have one less card than my parent b/c I am first
+        if (state.firstInRound()) {handSize--;} 
+
+        System.out.println("Hand Size: " + handSize);
+        System.out.println("Turn Number: " + state.turnNumber());
+        System.out.println("Current Player Number: " + state.playerIndex);
+        System.out.println("Current Tree Depth: " + node.depth);
+        System.out.println("Current Node Number: " + node.playerIndex);
+
+        // right now this is random, but later we will change this to update based on player tables 
+        for (int i = 0; i < handSize; i++) { 
+            hand.add(cardsLeft.remove(i)); 
+        }
+
+        return hand;
     }
 
 

@@ -65,6 +65,9 @@ class State {
 	// Return this player's score
 	int getScore() { return playerScores.get(playerIndex); }
 
+	// Return what number player you are this round (first to put a card down, second, etc.)
+	int turnNumber() { return currentRound.size() + 1; }
+
 	// Check if that randomly played card is actually in my hand
 	boolean isInMyHand(Card c, ArrayList<Card> playoutHand) {
 		for (Card d : playoutHand) if (c.equals(d)) return true;
@@ -73,6 +76,7 @@ class State {
 
 	// Given some Card c, find a matching card using "equals"
 	// And move it from cardsPlayed.invertDeck to cardsPlayed.allCards
+	// add it to the cards on the table (currentRound)
 	// This may take some time
 	void playCard(Card c) { 
 		for (Card d : cardsPlayed.invertDeck) {
@@ -163,6 +167,18 @@ class State {
 	// then check advance(), then if necessary, add card back to hand
 
 	// Otherwise, return the number of points this last move caused the player to accrue
+	int advanceState(Card c, ArrayList<Card> playoutHand) {
+		if (!checkRound(c,playoutHand)) return -1; // check it's a valid play (and updates hasHeartsBroken accordingly)
+
+		// Move card between decks and put card onto the table
+		playCard(c);
+
+		if (turnNumber() > 4) {
+			// update score 
+			// indicate round has ended
+		}
+		playerIndex = (playerIndex % 4) + 1;
+	}
 
 	// After playing that card, this will advance the game as much as possible
 	int advance(Card c, ArrayList<Card> playoutHand) {
