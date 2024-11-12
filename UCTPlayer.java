@@ -21,7 +21,8 @@ public class UCTPlayer extends Player {
 		int 			winCount;			
 		int 			visitCount;
 		Node 			parent;
-		ArrayList<Node> children; // !!! change so this to match in rest of code
+		ArrayList<Node> children; // !!! change so this to match in rest of code 
+        // TODO: optimize storage, maybe by changing this back to a normal array with null entries, or explore representing cards with bit-vector
         int             handIndex;
 		int 			depth;
         boolean         lastInRound;
@@ -106,7 +107,9 @@ public class UCTPlayer extends Player {
             Node bestNode = selectBestNode(root); 
 
             // Expand that Node
-            expandNode(bestNode); 
+            if (bestNode.children.isEmpty()) { // ??? only if haven't expanded yet ???
+                expandNode(bestNode); 
+            }
 
             // simulation 
             Node nodeToExplore = bestNode;
@@ -134,10 +137,13 @@ public class UCTPlayer extends Player {
             }
             // if this node does have chilren 
             else {
-                // iterate over the children 
-                for (Node child : curNode.children) {
-                    // if there's a child that hasn't been visited, simulate/explore it
-                    if (child.visitCount == 0) { return child; }
+                // if not every child has been visited
+                if (curNode.visitCount < curNode.children.size()) {
+                    // iterate over the children to find the child with visitCount = 0
+                    for (Node child : curNode.children) {
+                        // if there's a child that hasn't been visited, simulate/explore it
+                        if (child.visitCount == 0) { return child; }
+                    }
                 }
                 // choose which Node is the best of the valid child nodes
                 curNode = bestUCTChild(curNode);
@@ -177,6 +183,9 @@ public class UCTPlayer extends Player {
         // if this node hasn't been explored yet, and it has a parent, 
         // that means it's a child node that was just added (it's not the root), and needs 
         // to be explored before it's expanded upon 
+        // --> if the visitCount = 0, and it's the root, continue to expand
+        // --> if the visitCount = 0, an it's not the root, don't expand
+        // --> if the visitCount > 0, then expand 
         // ??? FIX THIS CONDITION??? 
         if (curNode.visitCount == 0 && curNode.parent != null) {
             return;
@@ -246,16 +255,17 @@ public class UCTPlayer extends Player {
 
     private void addNewChild(Node parentNode, int childIndex) {
         State childState = new State(parentNode.state); // inherits copy of parent state
-        // don't need to make a copy of parent hand and remove a card, b/c we don't care to save the parent hand unless it's Me (going to generate a random new hand for any other player other than Me)
         int debug = childState.advanceState(parentNode.curHand.get(childIndex), parentNode.curHand);
 
         ArrayList<Card> childHand;
         int playerIndex = childState.playerIndex;
         if (playerIndex == myPNumber) {
-            childHand = new ArrayList<>(myHand);
+            // if the player we're up to is Me, then we wanna inherit the hand that's been passed down 
+            childHand = new ArrayList<>(parentNode.myCurHand);
         }
         else {
-            childHand = generateHand(childState, parentNode); // generate a random hand based on the state of the game 
+            // otherwise, generate a random hand for the player 
+            childHand = generateHand(childState, parentNode); // generate a random hand based on the state of the game - !!! CHANGE THIS TO BE MORE THAN ONLY THE NUMBER OF CARDS THEIR PARENT HAS !!!
         }
 
         ArrayList<Card> myCurHand = new ArrayList<>(parentNode.myCurHand); // pass my hand along 

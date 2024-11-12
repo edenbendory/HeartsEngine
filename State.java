@@ -132,6 +132,7 @@ class State {
 		for (Card c : currentRound) {
 			if (c.getSuit() == Suit.HEARTS) points++;
 			if (c.getValue() == Value.QUEEN && c.getSuit() == Suit.SPADES) points += 13;
+			// !!! add jack of diamonds -10
 		}
 		return points;
 	}
@@ -146,7 +147,7 @@ class State {
 		int taker = firstPlayer;
 
 		// go through all 4 cards that were played this round
-		for (int i = 0; i < playerScores.size(); i++) {
+		for (int i = 1; i < playerScores.size(); i++) {
 			// keep track of the index of who played it
 			int index = (firstPlayer+i) % playerScores.size();
 			// if this card is the same suit as the first card, proceed
@@ -173,11 +174,33 @@ class State {
 		// Move card between decks and put card onto the table
 		playCard(c);
 
+		// if this is the end of a round:
 		if (turnNumber() > 4) {
 			// update score 
 			// indicate round has ended
+
+			// Round has ended -- check what points have gone where and determine who goes next (use playerScores)
+			int firstPlayer = (playerIndex - currentRound.size() + 1 + playerScores.size()) % playerScores.size();
+			System.out.println("First Player Number: " + firstPlayer);
+			int points = calculatePoints();
+			int taker = findTaker(firstPlayer);
+			playerScores.set(taker, playerScores.get(taker)+points);
+
+			// Check what points to return from this function - UP TO HERE !!!!
+			// !!! In terms of expansion, WE NEED TO RETURN WHICH PLAYER NUMBER IS NEXT. that's the only thing this function will return 
+			// in terms of simulation, UCTPlayer can call isGameValid to check if the game is over - if it's over, can backpropogate
+			// by calling the points array from state 
+			int returnpoints = 0;
+			if (taker == playerIndex) returnpoints = points;
+
+			// Clear the cards on the table (don't worry, pointers to them are tracked in the cardsPlayed deck)
+			currentRound.clear();
 		}
-		playerIndex = (playerIndex % 4) + 1;
+		else {
+			// if this is the middle of a round, the next player is just in order
+			playerIndex = (playerIndex % 4) + 1;
+		}
+		
 	}
 
 	// After playing that card, this will advance the game as much as possible
