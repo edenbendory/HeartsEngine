@@ -2,7 +2,7 @@ import java.util.*;
 
 import org.w3c.dom.Node;
 
-public class UCTPlayer extends Player {
+class UCTPlayer extends Player {
 
     int             myPNumber;
     ArrayList<Card> myHand;
@@ -118,10 +118,10 @@ public class UCTPlayer extends Player {
                 int randomNode = (int) (Math.random() * bestNode.children.size());
                 nodeToExplore = bestNode.children.get(randomNode); // select which random child to simulate (attach a winScore to)
             }
-            int valueChange = simulateRandomPlayout(nodeToExplore); // Simulate
+            ArrayList<Integer> sampleScores = simulateRandomPlayout(nodeToExplore); // Simulate
 
             // backpropogation
-            backPropogation(nodeToExplore, valueChange); 
+            backPropogation(nodeToExplore, sampleScores); 
         }
 
         return bestRewardChild(root);
@@ -194,7 +194,7 @@ public class UCTPlayer extends Player {
         }
 
         // Find out which children are valid 
-        int[] indexRange = getValidRange(curNode);
+        int[] indexRange = getValidRange(curNode.state, curNode.curHand);
         int firstIndex = indexRange[1];
         int lastIndex = indexRange[2];
 
@@ -206,11 +206,11 @@ public class UCTPlayer extends Player {
     }
 
     // Returns the range of valid "children" cards that curNode can play this round
-    private int[] getValidRange(Node curNode) {
+    private int[] getValidRange(State curState, ArrayList<Card> curHand) {
         // Get the first suit that was played this round
-       Suit firstSuit = getFirstSuit(curNode.state.currentRound);
+       Suit firstSuit = getFirstSuit(curState.currentRound);
 
-       SuitRange range = getSuitRange(firstSuit, curNode.curHand);
+       SuitRange range = getSuitRange(firstSuit, curHand);
        // If we have firstSuit, get the range of cards we can play rn
        int firstIndex = range.startIndex;
        int lastIndex = range.endIndex;
@@ -218,16 +218,16 @@ public class UCTPlayer extends Player {
        // If this is the first move in the round
        if (firstSuit == null) {
            // If hearts has broken or we only have hearts left, we can play any card in our hand
-           if (curNode.state.hasHeartsBroken || hasAllHearts(curNode.curHand)) {
+           if (curState.hasHeartsBroken || hasAllHearts(curHand)) {
                firstIndex = 0;
-               lastIndex = curNode.curHand.size();
+               lastIndex = curHand.size();
            } else {
                // If hearts has not broken, and we have at least one non-hearts card we can play
-               SuitRange heartsRange = getSuitRange(Suit.HEARTS, curNode.curHand);
+               SuitRange heartsRange = getSuitRange(Suit.HEARTS, curHand);
                // If we have no hearts, we can play anything
                if (heartsRange.startIndex == -1) {
                    firstIndex = 0;
-                   lastIndex = curNode.curHand.size();
+                   lastIndex = curHand.size();
                } else {
                    // Otherwise, we need to eliminate the hearts range
                    firstIndex = 0;
@@ -239,12 +239,12 @@ public class UCTPlayer extends Player {
        // If we are void in firstSuit (if firstIndex is -1 and firstSuit != null), we can play any card in our hand
        if (firstIndex == -1) {
            firstIndex = 0;
-           lastIndex = curNode.curHand.size();
+           lastIndex = curHand.size();
        }
 
        int[] indexRange = new int[2];
-       indexRange[1] = firstIndex;
-       indexRange[2] = lastIndex;
+       indexRange[0] = firstIndex;
+       indexRange[1] = lastIndex;
        return indexRange;
    }
 
@@ -313,20 +313,48 @@ public class UCTPlayer extends Player {
     }
 
     // pick a random node to simulate
-    private int simulateRandomPlayout(Node node) {
-        Node tempNode = new Node(node);
-        State tempState = tempNode.getState();
-        int boardStatus = tempState.getBoard().checkStatus();
-        if (boardStatus == opponent) {
-            tempNode.getParent().getState().setWinScore(Integer.MIN_VALUE);
-            return boardStatus;
+    private ArrayList<Integer> simulateRandomPlayout(Node node) {
+        // "global" variables that we want to alter throughout the simulation 
+        State tempState = new State(node.state); // state of the game
+        ArrayList<Card> mySimulatedHand = new ArrayList<Card>(node.myCurHand); // my hand
+        ArrayList<Card> cardsLeft = new ArrayList<Card>(tempState.cardsPlayed.invertDeck); // essentially every other player's hand
+
+        int curPlayer = node.playerIndex; // to start off
+        ArrayList<Card> cardPile;
+        // !!! make sure this isn't an infinite loop, and that removing a card from cardPile accurately removes it from cardsLeft (that cardPile = cardsLeft makes cardPile point to cardsLeft's memory)
+        while (!cardsLeft.isEmpty()) {
+            if (curPlayer == myPNumber) {
+                cardPile = mySimulatedHand; // My hand as that node knows it at that point in the tree (not my hand when the tree was created)
+            } else {
+                cardPile = cardsLeft; // !!! later change this to be the YM cards in YMN table
+            }
+
+            // debugging / test
+            System.out.println("Cards Left: ");
+            for (Card curCard : cardPile) {
+                System.out.print(curCard);
+            }
+            System.out.println("Player Hand: ");
+            for (Card curCard : node.curHand) {
+                System.out.print(curCard);
+            }
+            // !!! make sure that the above print statements print out cardsLeft the same way a node's hand is printed, to make sure getValidRange will behave the same way 
+
+            // given the cards in the "pile" (my hand or cardsLeft) we can draw from, determine the valid range of cards that can be played
+            int[] indexRange = getValidRange(tempState, cardPile);
+            int firstIndex = indexRange[0];
+            int lastIndex = indexRange[1];
+
+            // randomly select a card from the valid range of the "pile"
+            Card cardToPlay = cardPile.get(firstIndex + (int)(Math.random() * ((lastIndex - firstIndex) + 1)));
+
+            curPlayer = tempState.advanceState(cardToPlay, cardPile);
+            cardPile.remove(cardToPlay);
         }
-        while (boardStatus == Board.IN_PROGRESS) {
-            tempState.togglePlayer();
-            tempState.randomPlay();
-            boardStatus = tempState.getBoard().checkStatus();
-        }
-        return boardStatus;
+
+        return tempState.playerScores;
     }
+
+
 }
 
