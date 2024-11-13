@@ -166,8 +166,7 @@ class State {
 	// Return -1 if a card that cannot be played is played
 	// On the controller side: first save the pointer to the card, then remove from the hand
 	// then check advance(), then if necessary, add card back to hand
-
-	// Otherwise, return the number of points this last move caused the player to accrue
+	// Otherwise, return the next player's index (based on who took the hand, or just based on who is going next)
 	int advanceState(Card c, ArrayList<Card> playoutHand) {
 		if (!checkRound(c,playoutHand)) return -1; // check it's a valid play (and updates hasHeartsBroken accordingly)
 
@@ -176,31 +175,28 @@ class State {
 
 		// if this is the end of a round:
 		if (turnNumber() > 4) {
-			// update score 
-			// indicate round has ended
-
-			// Round has ended -- check what points have gone where and determine who goes next (use playerScores)
+			// Round has ended -- 1) update what points have gone where and 2) determine who goes next (use playerScores)
 			int firstPlayer = (playerIndex - currentRound.size() + 1 + playerScores.size()) % playerScores.size();
 			System.out.println("First Player Number: " + firstPlayer);
 			int points = calculatePoints();
 			int taker = findTaker(firstPlayer);
 			playerScores.set(taker, playerScores.get(taker)+points);
 
-			// Check what points to return from this function - UP TO HERE !!!!
-			// !!! In terms of expansion, WE NEED TO RETURN WHICH PLAYER NUMBER IS NEXT. that's the only thing this function will return 
-			// in terms of simulation, UCTPlayer can call isGameValid to check if the game is over - if it's over, can backpropogate
-			// by calling the points array from state 
-			int returnpoints = 0;
-			if (taker == playerIndex) returnpoints = points;
+			// For expansion, we need to return which player number is next. that's the only thing this function will return 
+			// For simulation, UCTPlayer can call isGameValid to check if the game is over - if it's over, can backpropogate
+			// by calling the points array from state (doesn't need to return the points from this function)
 
 			// Clear the cards on the table (don't worry, pointers to them are tracked in the cardsPlayed deck)
 			currentRound.clear();
+
+			playerIndex = taker + 1; // !!! TODO: Change so that player index is always in terms of 0-3, not 1-4
 		}
 		else {
 			// if this is the middle of a round, the next player is just in order
 			playerIndex = (playerIndex % 4) + 1;
 		}
 		
+		return playerIndex;
 	}
 
 	// After playing that card, this will advance the game as much as possible

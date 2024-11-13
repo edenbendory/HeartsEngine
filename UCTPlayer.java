@@ -14,20 +14,20 @@ public class UCTPlayer extends Player {
 	Node 			root;
 
     public class Node {
-		State 			state;
-		ArrayList<Card> curHand;
-        ArrayList<Card> myCurHand;
-        int             playerIndex;
-		int 			winCount;			
-		int 			visitCount;
-		Node 			parent;
-		ArrayList<Node> children; // !!! change so this to match in rest of code 
+		State 			state; // the current state of the game
+		ArrayList<Card> curHand; // the card hand of that node
+        ArrayList<Card> myCurHand; // My card hand at the point of the game of that node
+        int             playerIndex; // which player is this node
+		int 			winCount;	// the win score of this node		
+		int 			visitCount; // the visit count of this node
+		Node 			parent; // the parent of this node 
+		ArrayList<Node> children; // the children of this node (in other words, the next state of the game if this node plays each potential card in their hand) !!! change so this to match in rest of code 
         // TODO: optimize storage, maybe by changing this back to a normal array with null entries, or explore representing cards with bit-vector
-        int             handIndex;
-		int 			depth;
-        boolean         lastInRound;
+        int             handIndex; // which number card this node is in their parent's hand
+		int 			depth; // the depth of this node 
+        boolean         lastInRound; // if this node was the last player in the round 
 
-		Node (State s, ArrayList<Card> hand, ArrayList<Card> myCurHand, Node p) {
+		Node (State s, ArrayList<Card> hand, ArrayList<Card> myCurHand, Node p, int index) {
 			state = s;
 			curHand = hand;
             myCurHand = myCurHand;
@@ -38,7 +38,8 @@ public class UCTPlayer extends Player {
 			visitCount = 0;
 			parent = p;
 			children = new ArrayList<Node>(); 		// largest amount of children is # of cards in the hand
-            handIndex = -1;
+            handIndex = index;
+
             if (p != null) {
                 depth = p.depth + 1;
             }
@@ -98,7 +99,7 @@ public class UCTPlayer extends Player {
     // }
 
     int runMCTS (State originalState) {
-        root = new Node(originalState, myHand, myHand, null);
+        root = new Node(originalState, myHand, myHand, null, -1);
 
         // run multiple games until we've hit the max number
         for (int i = 0; i < numIterations; i++) {
@@ -112,10 +113,11 @@ public class UCTPlayer extends Player {
             }
 
             // simulation 
-            Node nodeToExplore = bestNode;
-            // if (bestNode.getChildArray().size() > 0) { // corner case - ???
-            //     nodeToExplore = bestNode.getRandomChildNode(); // select which random child to simulate (attach a winScore to)
-            // }
+            Node nodeToExplore = bestNode; // if we didn't just expand on bestNode, then we're on the node we wanna be simulating
+            if (!bestNode.children.isEmpty()) { // if we did just expand on bestNode, then we wanna choose a random child to simulate on 
+                int randomNode = (int) (Math.random() * bestNode.children.size());
+                nodeToExplore = bestNode.children.get(randomNode); // select which random child to simulate (attach a winScore to)
+            }
             int valueChange = simulateRandomPlayout(nodeToExplore); // Simulate
 
             // backpropogation
@@ -255,17 +257,18 @@ public class UCTPlayer extends Player {
 
     private void addNewChild(Node parentNode, int childIndex) {
         State childState = new State(parentNode.state); // inherits copy of parent state
-        int debug = childState.advanceState(parentNode.curHand.get(childIndex), parentNode.curHand);
+        int nextPlayer = childState.advanceState(parentNode.curHand.get(childIndex), parentNode.curHand);
+        // if (nextPlayer == -1) {System.out.println("Error, we've made a mistake.");}
 
         ArrayList<Card> childHand;
-        int playerIndex = childState.playerIndex;
+        int playerIndex = nextPlayer;
         if (playerIndex == myPNumber) {
             // if the player we're up to is Me, then we wanna inherit the hand that's been passed down 
             childHand = new ArrayList<>(parentNode.myCurHand);
         }
         else {
             // otherwise, generate a random hand for the player 
-            childHand = generateHand(childState, parentNode); // generate a random hand based on the state of the game - !!! CHANGE THIS TO BE MORE THAN ONLY THE NUMBER OF CARDS THEIR PARENT HAS !!!
+            childHand = generateHand(childState, parentNode); // generate a random hand based on the state of the game - !!! CHANGE THIS TO BE MORE THAN ONLY THE NUMBER OF CARDS THEIR PARENT HAS - should be the number of possible cards in their hand (not just the number of cards in their hand) !!!
         }
 
         ArrayList<Card> myCurHand = new ArrayList<>(parentNode.myCurHand); // pass my hand along 
@@ -276,7 +279,7 @@ public class UCTPlayer extends Player {
         int handIndex = childIndex;
 
 		// Create a new child node that corresponds to the card we have just successfully played
-		parentNode.children.add(new Node(childState, childHand, myCurHand, parentNode));
+		parentNode.children.add(new Node(childState, childHand, myCurHand, parentNode, handIndex));
     }
 
     private ArrayList<Card> generateHand(State state, Node node) {
@@ -309,6 +312,21 @@ public class UCTPlayer extends Player {
         return hand;
     }
 
-
+    // pick a random node to simulate
+    private int simulateRandomPlayout(Node node) {
+        Node tempNode = new Node(node);
+        State tempState = tempNode.getState();
+        int boardStatus = tempState.getBoard().checkStatus();
+        if (boardStatus == opponent) {
+            tempNode.getParent().getState().setWinScore(Integer.MIN_VALUE);
+            return boardStatus;
+        }
+        while (boardStatus == Board.IN_PROGRESS) {
+            tempState.togglePlayer();
+            tempState.randomPlay();
+            boardStatus = tempState.getBoard().checkStatus();
+        }
+        return boardStatus;
+    }
 }
 
