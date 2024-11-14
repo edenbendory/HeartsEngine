@@ -7,10 +7,11 @@ public class Hearts {
 
 		// Assume this order is clockwise
 		Player p1 = new HighLowPlayAI("EdHighLowPlay");
-		Player p3 = new LowPlayAI("WellsLowPlay");
+		// Player p3 = new LowPlayAI("WellsLowPlay");
 		//Player p4 = new RandomPlayAI("Wells");
 		Player p2 = new RandomPlayAI("JaiRandomPlay");
 		// Player p3 = new LookAheadPlayer("AntLookAhead");
+		Player p3 = new UCTPlayer("UCTPlayer");
 		Player p4 = new MCTSPlayer("JulianMCTS");
 		// Player p4 = new HumanPlayer("EdenPlay");
 

@@ -162,8 +162,8 @@ class UCTPlayer extends Player {
 
         // Find out which children are valid 
         int[] indexRange = getValidRange(curNode.state, curNode.curHand);
-        int firstIndex = indexRange[1];
-        int lastIndex = indexRange[2];
+        int firstIndex = indexRange[0];
+        int lastIndex = indexRange[1];
 
         // Create a new Node representing each valid child 
         for (int i = firstIndex; i < lastIndex; i++) {
@@ -236,6 +236,7 @@ class UCTPlayer extends Player {
         else {
             // otherwise, generate a random hand for the player 
             childHand = generateHand(childState, parentNode); // generate a random hand based on the state of the game - !!! CHANGE THIS TO BE MORE THAN ONLY THE NUMBER OF CARDS THEIR PARENT HAS - should be the number of possible cards in their hand (not just the number of cards in their hand) 
+            Collections.sort(childHand);
         }
 
         ArrayList<Card> myCurHand = new ArrayList<>(parentNode.myCurHand); // pass my hand along 
@@ -285,6 +286,30 @@ class UCTPlayer extends Player {
         State tempState = new State(node.state); // state of the game
         ArrayList<Card> mySimulatedHand = new ArrayList<>(node.myCurHand); // my hand
         ArrayList<Card> cardsLeft = new ArrayList<>(tempState.cardsPlayed.invertDeck); // essentially every other player's hand
+        Collections.sort(cardsLeft);
+
+        // // debugging / test - to ensure the ordering of both hands / card piles is accurate for generateHand
+        // System.out.print("\n Cards Left ("+cardsLeft.size()+" card");
+        // if (cardsLeft.size() > 1) System.out.print("s");
+        // System.out.print("):\n|");
+        // for (int i = 0; i < cardsLeft.size(); i++) { System.out.format("%3d|", i); }
+        // System.out.print("\n|");
+        // for (int i = 0; i < cardsLeft.size(); i++) { 
+        //     // we can either use printCard() or printCardShort()
+        //     System.out.format("%3s|", cardsLeft.get(i).printCardShort()); 
+        // }
+        // System.out.println("");
+
+        // System.out.print("\n Player`s hand ("+node.curHand.size()+" card");
+        // if (node.curHand.size() > 1) System.out.print("s");
+        // System.out.print("):\n|");
+        // for (int i = 0; i < node.curHand.size(); i++) { System.out.format("%3d|", i); }
+        // System.out.print("\n|");
+        // for (int i = 0; i < node.curHand.size(); i++) { 
+        //     // we can either use printCard() or printCardShort()
+        //     System.out.format("%3s|", node.curHand.get(i).printCardShort()); 
+        // }
+        // System.out.println("");
 
         int curPlayer = node.playerIndex; // to start off
         ArrayList<Card> cardPile;
@@ -295,17 +320,6 @@ class UCTPlayer extends Player {
             } else {
                 cardPile = cardsLeft; // !!! later change this to be the YM cards in YMN table
             }
-
-            // debugging / test
-            System.out.println("Cards Left: ");
-            for (Card curCard : cardPile) {
-                System.out.print(curCard);
-            }
-            System.out.println("Player Hand: ");
-            for (Card curCard : node.curHand) {
-                System.out.print(curCard);
-            }
-            // !!! make sure that the above print statements print out cardsLeft the same way a node's hand is printed, to make sure getValidRange will behave the same way 
 
             // given the cards in the "pile" (my hand or cardsLeft) we can draw from, determine the valid range of cards that can be played
             int[] indexRange = getValidRange(tempState, cardPile);
