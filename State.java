@@ -166,6 +166,7 @@ class State {
 	// Return -1 if a card that cannot be played is played
 	// On the controller side: first save the pointer to the card, then remove from the hand
 	// then check advance(), then if necessary, add card back to hand
+	
 	// Otherwise, return the next player's index (based on who took the hand, or just based on who is going next)
 	int advanceState(Card c, ArrayList<Card> playoutHand) {
 		if (!checkRound(c,playoutHand)) return -1; // check it's a valid play (and updates hasHeartsBroken accordingly)

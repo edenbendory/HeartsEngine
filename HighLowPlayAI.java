@@ -9,8 +9,10 @@ class HighLowPlayAI extends Player {
 
     HighLowPlayAI(String name) { super(name); System.out.println("High Low Play AI ("+name+") initialized.");  }
 
+    @Override
     boolean setDebug() { return false; }
 
+    @Override
 	Card performAction (State masterCopy) {
         // For human debugging: print the hand
 		printHand();
