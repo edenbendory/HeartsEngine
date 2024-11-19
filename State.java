@@ -66,7 +66,7 @@ class State {
 	int getScore() { return playerScores.get(playerIndex); }
 
 	// Return what number player you are this round (first to put a card down, second, etc.)
-	int turnNumber() { return currentRound.size() + 1; }
+	int turnNumber() { return currentRound.size(); }
 
 	// Check if that randomly played card is actually in my hand
 	boolean isInMyHand(Card c, ArrayList<Card> playoutHand) {
@@ -177,7 +177,7 @@ class State {
 		// if this is the end of a round:
 		if (turnNumber() > 4) {
 			// Round has ended -- 1) update what points have gone where and 2) determine who goes next (use playerScores)
-			int firstPlayer = (playerIndex - currentRound.size() + 1 + playerScores.size()) % playerScores.size();
+			int firstPlayer = (playerIndex - currentRound.size() + 1 + playerScores.size()) % playerScores.size(); // 0-3
 			System.out.println("First Player Number: " + firstPlayer);
 			int points = calculatePoints();
 			int taker = findTaker(firstPlayer);
@@ -190,11 +190,13 @@ class State {
 			// Clear the cards on the table (don't worry, pointers to them are tracked in the cardsPlayed deck)
 			currentRound.clear();
 
-			playerIndex = taker + 1; // !!! TODO: Change so that player index is always in terms of 0-3, not 1-4
+			playerIndex = taker; // 0-3
+			System.out.println("Taker " + taker);
 		}
 		else {
 			// if this is the middle of a round, the next player is just in order
-			playerIndex = (playerIndex % 4) + 1;
+			playerIndex = (playerIndex + 1) % 4; // 0-3
+			System.out.println("playerindex " + playerIndex);
 		}
 		
 		return playerIndex;
