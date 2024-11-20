@@ -2,7 +2,6 @@
 // multiple State objects -- that is, keep a master State and just
 // copy it (using the copy constructor) for every game playout
 
-import java.util.ArrayList;
 import java.util.*;
 
 // This is what's passed in for each player
@@ -173,9 +172,10 @@ class State {
 
 		// Move card between decks and put card onto the table
 		playCard(c);
+		System.out.println("round size: " + currentRound.size());
 
 		// if this is the end of a round:
-		if (turnNumber() > 4) {
+		if (!validRound()) {
 			// Round has ended -- 1) update what points have gone where and 2) determine who goes next (use playerScores)
 			int firstPlayer = (playerIndex - currentRound.size() + 1 + playerScores.size()) % playerScores.size(); // 0-3
 			System.out.println("First Player Number: " + firstPlayer);
@@ -191,12 +191,18 @@ class State {
 			currentRound.clear();
 
 			playerIndex = taker; // 0-3
-			System.out.println("Taker " + taker);
+			System.out.println();
+			System.out.println("Taker: " + taker);
+			System.out.println();
+			System.out.println();
+			System.out.println("----------------------------------");
+			System.out.println("NEW ROUND:");
+			System.out.println("----------------------------------");
 		}
 		else {
 			// if this is the middle of a round, the next player is just in order
 			playerIndex = (playerIndex + 1) % 4; // 0-3
-			System.out.println("playerindex " + playerIndex);
+			System.out.println("Next Player: " + playerIndex);
 		}
 		
 		return playerIndex;
