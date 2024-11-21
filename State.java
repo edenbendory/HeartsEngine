@@ -172,13 +172,13 @@ class State {
 
 		// Move card between decks and put card onto the table
 		playCard(c);
-		System.out.println("round size: " + currentRound.size());
+		// System.out.println("round size: " + currentRound.size());
 
 		// if this is the end of a round:
 		if (!validRound()) {
 			// Round has ended -- 1) update what points have gone where and 2) determine who goes next (use playerScores)
 			int firstPlayer = (playerIndex - currentRound.size() + 1 + playerScores.size()) % playerScores.size(); // 0-3
-			System.out.println("First Player Number: " + firstPlayer);
+			// System.out.println("First Player Number: " + firstPlayer);
 			int points = calculatePoints();
 			int taker = findTaker(firstPlayer);
 			playerScores.set(taker, playerScores.get(taker)+points);
@@ -191,18 +191,18 @@ class State {
 			currentRound.clear();
 
 			playerIndex = taker; // 0-3
-			System.out.println();
-			System.out.println("Taker: " + taker);
-			System.out.println();
-			System.out.println();
-			System.out.println("----------------------------------");
-			System.out.println("NEW ROUND:");
-			System.out.println("----------------------------------");
+			// System.out.println();
+			// System.out.println("Taker: " + taker);
+			// System.out.println();
+			// System.out.println();
+			// System.out.println("----------------------------------");
+			// System.out.println("NEW ROUND:");
+			// System.out.println("----------------------------------");
 		}
 		else {
 			// if this is the middle of a round, the next player is just in order
 			playerIndex = (playerIndex + 1) % 4; // 0-3
-			System.out.println("Next Player: " + playerIndex);
+			// System.out.println("Next Player: " + playerIndex);
 		}
 		
 		return playerIndex;
