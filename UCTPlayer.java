@@ -197,7 +197,7 @@ class UCTPlayer extends Player {
                // If we have no hearts, we can play anything
                if (heartsRange.startIndex == -1) {
                    firstIndex = 0;
-                   lastIndex = curHand.size();
+                   lastIndex = curHand.size() - 1;
                } else {
                    // Otherwise, we need to eliminate the hearts range
                    firstIndex = 0;
@@ -209,7 +209,7 @@ class UCTPlayer extends Player {
        // If we are void in firstSuit (if firstIndex is -1 and firstSuit != null), we can play any card in our hand
        if (firstIndex == -1) {
            firstIndex = 0;
-           lastIndex = curHand.size();
+           lastIndex = curHand.size() - 1;
        }
 
        int[] indexRange = new int[2];
@@ -245,11 +245,11 @@ class UCTPlayer extends Player {
             // System.out.println("Child Hand Size: " + childHand.size());
         }
         else {
-            // otherwise, generate a random hand for the player 
-            // childHand = generateHand(childState, parentNode); // generate a random hand based on the state of the game - !!! CHANGE THIS TO BE MORE THAN ONLY THE NUMBER OF CARDS THEIR PARENT HAS - should be the number of possible cards in their hand (not just the number of cards in their hand) 
+            // otherwise, generate a random "hand" for the player, where a hand consists of all the valid cards this player can play this round (may be more than a standard "hand size")
             ArrayList<Card> cardPile = new ArrayList<>(childState.cardsPlayed.invertDeck);
             Collections.sort(cardPile);
 
+            // remove all the card in My Hand from the deck
             for (Card myCard : myCurHand) {
                 for (int i = 0; i < cardPile.size(); i++) {
                     Card cardLeft = cardPile.get(i);
@@ -257,6 +257,7 @@ class UCTPlayer extends Player {
                 }
             }
 
+            // find the range of valid cards this player can play, and add them all to this player's "hand" 
             int[] indexRange = getValidRange(childState, cardPile);
             int firstIndex = indexRange[0];
             int lastIndex = indexRange[1];
@@ -266,8 +267,9 @@ class UCTPlayer extends Player {
             }
         }
         
-        // System.out.println("Child State Size: " + childState.cardsPlayed.invertDeck.size());
-        // System.out.println("Depth: " + (parentNode.depth+1));
+        System.out.println("Child State Size: " + childState.cardsPlayed.invertDeck.size());
+        System.out.println("Child Hand Size: " + childHand.size());
+        System.out.println("Depth: " + (parentNode.depth+1));
 
         int handIndex = childIndex;
 
@@ -366,8 +368,8 @@ class UCTPlayer extends Player {
         ArrayList<Card> cardPile;
         // !!! make sure this isn't an infinite loop, and that removing a card from cardPile accurately removes it from cardsLeft (that cardPile = cardsLeft makes cardPile point to cardsLeft's memory)
         while (!cardsLeft.isEmpty()) {
-            System.out.println();
-            System.out.println("Cur Player: " + curPlayer);
+            // System.out.println();
+            // System.out.println("Cur Player: " + curPlayer);
             if (curPlayer == myPNumber) {
                 cardPile = mySimulatedHand; // My hand as that node knows it at that point in the tree (not my hand when the tree was created)
             } else {
@@ -378,42 +380,44 @@ class UCTPlayer extends Player {
             int[] indexRange = getValidRange(tempState, cardPile);
             int firstIndex = indexRange[0];
             int lastIndex = indexRange[1];
+            // System.out.println(firstIndex);
+            // System.out.println(lastIndex);
 
             // randomly select a card from the valid range of the "pile"
             int cardNum = firstIndex + rand.nextInt(lastIndex - firstIndex);
             Card cardToPlay = cardPile.get(cardNum);
 
-            System.out.println("Played: " + cardToPlay.printCardShort());
+            // System.out.println("Played: " + cardToPlay.printCardShort());
             curPlayer = tempState.advanceState(cardToPlay, cardPile);
             cardPile.remove(cardToPlay);
 
-            if (curPlayer == myPNumber) {
-                System.out.print("\n My Cards Left ("+mySimulatedHand.size()+" card");
-                if (mySimulatedHand.size() > 1) System.out.print("s");
-                System.out.print("):\n|");
-                for (int i = 0; i < mySimulatedHand.size(); i++) { System.out.format("%3d|", i); }
-                System.out.print("\n|");
-                for (int i = 0; i < mySimulatedHand.size(); i++) { 
-                    // we can either use printCard() or printCardShort()
-                    System.out.format("%3s|", mySimulatedHand.get(i).printCardShort());
-                }
-                System.out.println("");
-            } else {
-                System.out.print("\n Cards Left ("+cardsLeft.size()+" card");
-                if (cardsLeft.size() > 1) System.out.print("s");
-                System.out.print("):\n|");
-                for (int i = 0; i < cardsLeft.size(); i++) { System.out.format("%3d|", i); }
-                System.out.print("\n|");
-                for (int i = 0; i < cardsLeft.size(); i++) { 
-                    // we can either use printCard() or printCardShort()
-                    System.out.format("%3s|", cardsLeft.get(i).printCardShort()); 
-                }
-                System.out.println("");
-            }
+            // if (curPlayer == myPNumber) {
+            //     System.out.print("\n My Cards Left ("+mySimulatedHand.size()+" card");
+            //     if (mySimulatedHand.size() > 1) System.out.print("s");
+            //     System.out.print("):\n|");
+            //     for (int i = 0; i < mySimulatedHand.size(); i++) { System.out.format("%3d|", i); }
+            //     System.out.print("\n|");
+            //     for (int i = 0; i < mySimulatedHand.size(); i++) { 
+            //         // we can either use printCard() or printCardShort()
+            //         System.out.format("%3s|", mySimulatedHand.get(i).printCardShort());
+            //     }
+            //     System.out.println("");
+            // } else {
+            //     System.out.print("\n Cards Left ("+cardsLeft.size()+" card");
+            //     if (cardsLeft.size() > 1) System.out.print("s");
+            //     System.out.print("):\n|");
+            //     for (int i = 0; i < cardsLeft.size(); i++) { System.out.format("%3d|", i); }
+            //     System.out.print("\n|");
+            //     for (int i = 0; i < cardsLeft.size(); i++) { 
+            //         // we can either use printCard() or printCardShort()
+            //         System.out.format("%3s|", cardsLeft.get(i).printCardShort()); 
+            //     }
+            //     System.out.println("");
+            // }
             
         }
 
-        System.out.println("SIMULATION COMPLETE");
+        // System.out.println("SIMULATION COMPLETE");
         return tempState.playerScores;
     }
 
