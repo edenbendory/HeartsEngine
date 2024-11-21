@@ -191,18 +191,18 @@ class State {
 			currentRound.clear();
 
 			playerIndex = taker; // 0-3
-			// System.out.println();
-			// System.out.println("Taker: " + taker);
-			// System.out.println();
-			// System.out.println();
-			// System.out.println("----------------------------------");
-			// System.out.println("NEW ROUND:");
-			// System.out.println("----------------------------------");
+			System.out.println();
+			System.out.println("Taker: " + taker);
+			System.out.println();
+			System.out.println();
+			System.out.println("----------------------------------");
+			System.out.println("NEW ROUND:");
+			System.out.println("----------------------------------");
 		}
 		else {
 			// if this is the middle of a round, the next player is just in order
 			playerIndex = (playerIndex + 1) % 4; // 0-3
-			// System.out.println("Next Player: " + playerIndex);
+			System.out.println("Next Player: " + playerIndex);
 		}
 		
 		return playerIndex;
