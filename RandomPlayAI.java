@@ -27,9 +27,13 @@ class RandomPlayAI extends Player {
 		Suit firstSuit = getFirstSuit(masterCopy.currentRound);
 
 		// If no cards were played this round, play a random card 
-		// (note: this *may* in theory cause a deadlock, if it randomly picks hearts always)
 		if (firstSuit == null) {
-			int index = rng.nextInt(hand.size());
+			int lastIndex = hand.size();
+			if (!masterCopy.hasHeartsBroken && !hasAllHearts()) {
+				SuitRange heartsRange = getSuitRange(Suit.HEARTS, hand);
+				lastIndex = heartsRange.startIndex;
+			}
+			int index = rng.nextInt(lastIndex);
 			return hand.remove(index);
 		}
 

@@ -167,12 +167,15 @@ class State {
 	// then check advance(), then if necessary, add card back to hand
 	
 	// Otherwise, return the next player's index (based on who took the hand, or just based on who is going next)
-	int advanceState(Card c, ArrayList<Card> playoutHand) {
+	int advanceState(Card c, ArrayList<Card> playoutHand, boolean debug) {
 		if (!checkRound(c,playoutHand)) return -1; // check it's a valid play (and updates hasHeartsBroken accordingly)
 
 		// Move card between decks and put card onto the table
 		playCard(c);
-		// System.out.println("round size: " + currentRound.size());
+
+		if (debug) {
+			System.out.println("round size: " + currentRound.size());
+		}
 
 		// if this is the end of a round:
 		if (!validRound()) {
@@ -191,18 +194,22 @@ class State {
 			currentRound.clear();
 
 			playerIndex = taker; // 0-3
-			// System.out.println();
-			// System.out.println("Taker: " + taker);
-			// System.out.println();
-			// System.out.println();
-			// System.out.println("----------------------------------");
-			// System.out.println("NEW ROUND:");
-			// System.out.println("----------------------------------");
+			if (debug) {
+				System.out.println();
+				System.out.println("Taker: " + taker);
+				System.out.println();
+				System.out.println();
+				System.out.println("----------------------------------");
+				System.out.println("NEW ROUND:");
+				System.out.println("----------------------------------");
+			}
 		}
 		else {
 			// if this is the middle of a round, the next player is just in order
 			playerIndex = (playerIndex + 1) % 4; // 0-3
-			// System.out.println("Next Player: " + playerIndex);
+			if (debug) {
+				System.out.println("Next Player: " + playerIndex);
+			}
 		}
 		
 		return playerIndex;
