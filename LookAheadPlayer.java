@@ -1,3 +1,6 @@
+/* This file was taken from another GitHub repo that implements a Hearts
+ game and players system. Linked here: https://github.com/Devking/HeartsAI */
+
 // LookAheadPlayer - play all of the valid cards once
 // do a full playthrough of the game after that card is played
 

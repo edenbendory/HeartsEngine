@@ -1,3 +1,6 @@
+/* This file was taken from another GitHub repo that implements a Hearts
+ game and players system. Linked here: https://github.com/Devking/HeartsAI */
+
 // The ultimate MCTS player
 
 import java.util.*;
@@ -57,9 +60,9 @@ class MCTSPlayer extends Player {
 	int runMCTS (State origState) {
 		root = new Node(origState, playoutHand, null);
 		for (int i = 0; i < noIterations; i++) {
-			Node expanded = treePolicy(root); // expands by one node
-			int valueChange = assignReward(expanded); // plays out game on the one node
-			backProp(expanded, valueChange); // backpropogates
+			Node expanded = treePolicy(root); // @edenbendory: expands by one node
+			int valueChange = assignReward(expanded); // @edenbendory: plays out game on the one node
+			backProp(expanded, valueChange); // @edenbendory: backpropogates
 		}
 		return bestRewardChild(root);
 	}
@@ -117,7 +120,7 @@ class MCTSPlayer extends Player {
 
 	// This method actually creates and adds children to the tree (and runs the first step of advance)
 	Node expandTree (Node roNode, int childNo) {
-		State childState = new State(roNode.thisState); // inherits copy of parent state
+		State childState = new State(roNode.thisState); // @edenbendory: inherits copy of parent state
 		ArrayList<Card> childHand = new ArrayList<Card>(roNode.currentHand);
 		// Remove the card from the hand of the child
 		// Should probably set a debug here
@@ -160,7 +163,7 @@ class MCTSPlayer extends Player {
 			SuitRange range = getSuitRange(firstSuit, finalHand);
 			int firstIndex = range.startIndex;
 			int lastIndex = range.endIndex;
-			// if we're leading
+			// @edenbendory: if we're leading
 			if (firstSuit == null) {
 				int debug = -1;
 				while (debug == -1) { 

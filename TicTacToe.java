@@ -1,3 +1,6 @@
+/* This file was taken from another GitHub repo that implemented a basic
+MCTS for TicTacToe. Linked here: https://github.com/eugenp/tutorials/tree/master/algorithms-modules/algorithms-searching/src/main/java/com/baeldung/algorithms/mcts */
+
 // import java.util.*;
 
 // import javax.swing.text.Position;

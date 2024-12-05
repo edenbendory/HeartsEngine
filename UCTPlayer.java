@@ -1,3 +1,10 @@
+/* The essence and structure of this code was written by @edenbendory.
+
+The code was based on and partially supplemented by:
+* MCTSPlayer.java in the repo at this link https://github.com/Devking/HeartsAI
+* The MCTS structure and code snippets from this tutorial: https://www.baeldung.com/java-monte-carlo-tree-search
+* The functions in the mcts folder in the repo at this link: https://github.com/eugenp/tutorials/tree/master/algorithms-modules/algorithms-searching/src/main/java/com/baeldung/algorithms/mcts */
+
 import java.util.*;
 
 class UCTPlayer extends Player {

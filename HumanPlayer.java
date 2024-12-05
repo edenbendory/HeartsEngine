@@ -1,5 +1,7 @@
+/* This file was taken from another GitHub repo that implements a Hearts
+ game and players system. Linked here: https://github.com/Devking/HeartsAI */
+
 import java.util.Scanner;
-import java.util.ArrayList;
 
 class HumanPlayer extends Player {
 	

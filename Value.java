@@ -1,3 +1,6 @@
+/* This file was taken from another GitHub repo that implements a Hearts
+ game and players system. Linked here: https://github.com/Devking/HeartsAI */
+
 // note that enums naturally implement Comparable! They are comparable in the order given below
 public enum Value { TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING, ACE }
 

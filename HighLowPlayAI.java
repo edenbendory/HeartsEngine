@@ -1,3 +1,5 @@
+/* This file was written by @edenbendory. (Partially) adapted from LowPlayAI.java*/ 
+
 // this AI will look at the hand and look at the cards currently on the board
 // and play the highest VALID card we can play WITHOUT taking the trick
 // (the highest valid card that is lower than the first card played)

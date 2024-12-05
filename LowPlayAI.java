@@ -1,9 +1,10 @@
+/* This file was taken from another GitHub repo that implements a Hearts
+ game and players system. Linked here: https://github.com/Devking/HeartsAI */
+
 // this AI will look at the hand and look at the cards currently on the board
 // and play the lowest VALID card
 // if no cards are on the board, will play the lowest non-hearts (if possible)
 // if no cards are on the board and there are only hearts, play the lowest hearts
-
-import java.util.ArrayList;
 
 class LowPlayAI extends Player {
 	

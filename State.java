@@ -1,3 +1,7 @@
+/* This file was taken from another GitHub repo that implements a Hearts
+ game and players system. Linked here: https://github.com/Devking/HeartsAI 
+ The advanceState() and turnNumber() functions were written by @edenbendory */
+
 // NOTE: If you are doing multiple playouts of the game, please use
 // multiple State objects -- that is, keep a master State and just
 // copy it (using the copy constructor) for every game playout
@@ -65,6 +69,7 @@ class State {
 	int getScore() { return playerScores.get(playerIndex); }
 
 	// Return what number player you are this round (first to put a card down, second, etc.)
+	// This function was written by @edenbendory
 	int turnNumber() { return currentRound.size(); }
 
 	// Check if that randomly played card is actually in my hand
@@ -75,7 +80,7 @@ class State {
 
 	// Given some Card c, find a matching card using "equals"
 	// And move it from cardsPlayed.invertDeck to cardsPlayed.allCards
-	// add it to the cards on the table (currentRound)
+	// @edenbendory: add it to the cards on the table (currentRound)
 	// This may take some time
 	void playCard(Card c) { 
 		for (Card d : cardsPlayed.invertDeck) {
@@ -131,7 +136,7 @@ class State {
 		for (Card c : currentRound) {
 			if (c.getSuit() == Suit.HEARTS) points++;
 			if (c.getValue() == Value.QUEEN && c.getSuit() == Suit.SPADES) points += 13;
-			// !!! add jack of diamonds -10
+			// @edenbendory: !!! add jack of diamonds -10
 		}
 		return points;
 	}
@@ -146,6 +151,7 @@ class State {
 		int taker = firstPlayer;
 
 		// go through all 4 cards that were played this round
+		// @edenbendory changed to start from i=1, rather than i=0
 		for (int i = 1; i < playerScores.size(); i++) {
 			// keep track of the index of who played it
 			int index = (firstPlayer+i) % playerScores.size();
@@ -167,6 +173,7 @@ class State {
 	// then check advance(), then if necessary, add card back to hand
 	
 	// Otherwise, return the next player's index (based on who took the hand, or just based on who is going next)
+	// This function was written by @edenbendory
 	int advanceState(Card c, ArrayList<Card> playoutHand, boolean debug) {
 		if (!checkRound(c,playoutHand)) return -1; // check it's a valid play (and updates hasHeartsBroken accordingly)
 

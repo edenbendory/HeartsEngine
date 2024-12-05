@@ -1,3 +1,8 @@
+/* This file was taken from another GitHub repo that implements a Hearts
+ game and players system. Linked here: https://github.com/Devking/HeartsAI 
+ 
+ Slight modifications made by @edenbendory */
+
 import java.util.Scanner;
 
 public class Hearts {
@@ -34,6 +39,7 @@ public class Hearts {
 		// 	round.playNewGame();
 		// }
 
+		// The rest of this code was written by @edenbendory
 		// Play until someone hits 100 points
 		boolean gameOver = false;
 		Game round = new Game(thing, p1, p2, p3, p4);

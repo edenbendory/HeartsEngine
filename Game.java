@@ -1,3 +1,8 @@
+/* This file was taken from another GitHub repo that implements a Hearts
+ game and players system. Linked here: https://github.com/Devking/HeartsAI 
+ 
+ The function printEndOfGameStats() was written by @edenbendory*/
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -195,6 +200,8 @@ class Game {
 		System.out.println(playerOrder.get(index).getName() + " is in the lead after this round.\n");
 	}
 
+	// Prints the end of game player order
+	// Written by @edenbendory
 	void printEndOfGameStats() {
 		int smallestScore = playerOrder.get(0).getPoints();
 		int largestScore = playerOrder.get(0).getPoints();

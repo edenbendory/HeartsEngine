@@ -1,3 +1,6 @@
+/* This file was taken from another GitHub repo that implements a Hearts
+ game and players system. Linked here: https://github.com/Devking/HeartsAI */
+
 class Card implements Comparable<Card> {
 
 	Suit suit;
