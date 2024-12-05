@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Hearts {
 	public static void main(String[] args) {
 		System.out.println("Welcome to Hearts version 1.1.0.");
@@ -19,9 +21,24 @@ public class Hearts {
 		// thing.printDeck();
 
 		// Play Multiple Games
-		int numberOfGames = 10;
+		// int numberOfGames = 10;
+		// Game round = new Game(thing, p1, p2, p3, p4);
+		// for (int i = 1; i <= numberOfGames; i++) {
+		// 	System.out.println("\n--------------------------------------------");
+		// 	System.out.println("--------------------------------------------");
+		// 	System.out.println("--------------------------------------------");
+		// 	System.out.println("Playing Game #"+i);
+		// 	System.out.println("--------------------------------------------");
+		// 	System.out.println("--------------------------------------------");
+		// 	System.out.println("--------------------------------------------\n");
+		// 	round.playNewGame();
+		// }
+
+		// Play until someone hits 100 points
+		boolean gameOver = false;
 		Game round = new Game(thing, p1, p2, p3, p4);
-		for (int i = 1; i <= numberOfGames; i++) {
+		int i = 1;
+		while (!gameOver) {
 			System.out.println("\n--------------------------------------------");
 			System.out.println("--------------------------------------------");
 			System.out.println("--------------------------------------------");
@@ -30,7 +47,24 @@ public class Hearts {
 			System.out.println("--------------------------------------------");
 			System.out.println("--------------------------------------------\n");
 			round.playNewGame();
+			i++;
+
+			for (Player p : round.playerOrder) {
+				if (p.getPoints() >= 100) {
+					gameOver = true;
+				}
+			}
 		}
 
+		Scanner in = new Scanner(System.in);
+		System.out.println("------------------------------------------");
+		System.out.println("Total Game Summary:");
+		System.out.println("------------------------------------------\n");
+		round.printPoints();
+		round.printTotalPoints();
+		round.printEndOfGameStats();
+		System.out.println("Press ENTER to END all games.");
+	    in.nextLine();
+		in.close();
 	}
 }

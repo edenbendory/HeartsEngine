@@ -159,8 +159,11 @@ class UCTPlayer extends Player {
         // --> if the visitCount = 0, and it's the root, continue to expand
         // --> if the visitCount = 0, an it's not the root, don't expand
         // --> if the visitCount > 0, then expand 
-        // ??? FIX THIS CONDITION
+        // ??? FIX THIS CONDITION - make sure it's accurate
         if (curNode.visitCount == 0 && curNode.parent != null) {
+            return;
+        }
+        if (curNode.depth >= maxDepth) {
             return;
         }
 
@@ -383,7 +386,6 @@ class UCTPlayer extends Player {
 
         int curPlayer = node.playerIndex; // to start off
         ArrayList<Card> cardPile;
-        // !!! make sure this isn't an infinite loop, and that removing a card from cardPile accurately removes it from cardsLeft (that cardPile = cardsLeft makes cardPile point to cardsLeft's memory)
         while (!cardsLeft.isEmpty()) {
             if (debug) {
                 System.out.println();

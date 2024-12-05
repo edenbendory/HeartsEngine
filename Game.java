@@ -18,7 +18,7 @@ class Game {
 	// Note: This WILL NOT shuffle the deck or deal the cards here
 	// We ONLY do that upon playing a new game
 	Game (Deck deck, Player p1, Player p2, Player p3, Player p4) {
-		debug = true;
+		debug = false;
 		playerOrder = new ArrayList<Player>();
 		playerOrder.add(p1);
 		playerOrder.add(p2);
@@ -193,6 +193,46 @@ class Game {
 			}
 		}
 		System.out.println(playerOrder.get(index).getName() + " is in the lead after this round.\n");
+	}
+
+	void printEndOfGameStats() {
+		int smallestScore = playerOrder.get(0).getPoints();
+		int largestScore = playerOrder.get(0).getPoints();
+		int smallIndex = 0;
+		int largeIndex = 0;
+		for (int i = 0; i < playerOrder.size(); i++) {
+			if (smallestScore > playerOrder.get(i).getPoints()) {
+				smallIndex = i;
+				smallestScore = playerOrder.get(i).getPoints();
+			}
+			if (largestScore < playerOrder.get(i).getPoints()) {
+				largeIndex = i;
+				largestScore = playerOrder.get(i).getPoints();
+			}
+		}
+
+		// TODO: Make this secondIndex and thirdIndex assignment more efficient. incorporate it into the loop above?
+		boolean setSecondInd = false;
+		int secondIndex = 0;
+		int thirdIndex = 0;
+		for (int i = 0; i < playerOrder.size(); i++) {
+			if (i != smallIndex && i !=largeIndex && !setSecondInd) {
+				setSecondInd = true;
+				secondIndex = i;
+			}
+			if (i != smallIndex && i !=largeIndex && i != secondIndex && setSecondInd) {
+				thirdIndex = i;
+			}
+		}
+		if (playerOrder.get(secondIndex).getPoints() > playerOrder.get(thirdIndex).getPoints()) {
+			int temp = thirdIndex;
+			thirdIndex = secondIndex;
+			secondIndex = temp;
+		}
+		System.out.println("First Place: " + playerOrder.get(smallIndex).getName());
+		System.out.println("Second Place: " + playerOrder.get(secondIndex).getName());
+		System.out.println("Third Place: " + playerOrder.get(thirdIndex).getName());
+		System.out.println("Last Place: " + playerOrder.get(largeIndex).getName() + "\n");
 	}
 
 	// Print out how many points each player currently has between all games
