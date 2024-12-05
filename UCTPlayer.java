@@ -240,10 +240,6 @@ class UCTPlayer extends Player {
 
         ArrayList<Card> myCurHand = new ArrayList<>(parentNode.myCurHand); // pass my hand along 
         if (parentNode.playerIndex == myPNumber) { // if I just went 
-            // debug statement 
-            if (childIndex == myCurHand.size()) {
-                myCurHand.remove(childIndex);
-            }
             myCurHand.remove(childIndex); // then update my hand 
         }
 
@@ -372,11 +368,6 @@ class UCTPlayer extends Player {
             }
         }
 
-        if (tempState.currentRound.size() == 0 && cardsLeft.size() % 3 != 0) {
-            System.out.println(cardsLeft.size() );
-            System.out.println("bug");
-        }
-
         if (debug) {
             System.out.print("\n Player`s hand ("+node.curHand.size()+" card");
             if (node.curHand.size() > 1) System.out.print("s");
@@ -410,45 +401,8 @@ class UCTPlayer extends Player {
             int firstIndex = indexRange[0];
             int lastIndex = indexRange[1];
 
-            if (firstIndex == -1 || lastIndex == -1) {
-                debug = true;
-                System.out.println(firstIndex);
-                System.out.println(lastIndex);
-            }
-
             // randomly select a card from the valid range of the "pile"
             int cardNum;
-
-            if (firstIndex == -1 || lastIndex == -1) {
-                if (curPlayer == myPNumber) {
-                    System.out.print("\n My Cards Left ("+mySimulatedHand.size()+" card");
-                    if (mySimulatedHand.size() > 1) System.out.print("s");
-                    System.out.print("):\n|");
-                    for (int i = 0; i < mySimulatedHand.size(); i++) { System.out.format("%3d|", i); }
-                    System.out.print("\n|");
-                    for (int i = 0; i < mySimulatedHand.size(); i++) { 
-                        // we can either use printCard() or printCardShort()
-                        System.out.format("%3s|", mySimulatedHand.get(i).printCardShort());
-                    }
-                    System.out.println("");
-                } else {
-                    System.out.print("\n Cards Left ("+cardsLeft.size()+" card");
-                    if (cardsLeft.size() > 1) System.out.print("s");
-                    System.out.print("):\n|");
-                    for (int i = 0; i < cardsLeft.size(); i++) { System.out.format("%3d|", i); }
-                    System.out.print("\n|");
-                    for (int i = 0; i < cardsLeft.size(); i++) { 
-                        // we can either use printCard() or printCardShort()
-                        System.out.format("%3s|", cardsLeft.get(i).printCardShort()); 
-                    }
-                    System.out.println("");
-                }
-                System.out.println("bug");
-
-                int[] range = getValidRange(tempState, cardPile);
-                int first = indexRange[0];
-                int last = indexRange[1];
-            }
 
             if (firstIndex == lastIndex) { cardNum = firstIndex; }
             else { cardNum = firstIndex + rand.nextInt(lastIndex - firstIndex); }

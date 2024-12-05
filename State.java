@@ -78,19 +78,13 @@ class State {
 	// add it to the cards on the table (currentRound)
 	// This may take some time
 	void playCard(Card c) { 
-		boolean success = false;
 		for (Card d : cardsPlayed.invertDeck) {
 			if (c.equals(d)) {
 				cardsPlayed.allCards.add(d);
 				cardsPlayed.invertDeck.remove(d);
 				currentRound.add(d);
-				success = true;
 				break;
 			}
-		}
-
-		if (!success) {
-			System.out.println("HERE");
 		}
 	}
 
