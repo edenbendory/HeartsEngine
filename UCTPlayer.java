@@ -170,12 +170,15 @@ class UCTPlayer extends Player {
         int lastIndex = indexRange[1];
 
         // Create a new Node representing each valid child 
-        for (int i = firstIndex; i <= lastIndex; i++) { // ??? <= ???
+        for (int i = firstIndex; i < lastIndex; i++) { // can you do <= to eliminate the if statement below ???
+            // !!! check that it doesn't need to be <= lastIndex to get all the valid children added. b/c you changed it to be lastIndex -1 in getValidRange (so you're already at 1 less )
             // Notice: This will exclude the invalid children (only valid children are added as children)
             addNewChild(curNode, i);
-            if (i == curNode.curHand.size()) {
-                System.out.println("bug");
-            }
+        }
+
+        // <= above to eliminiate this if statement ???
+        if (firstIndex == lastIndex) {
+            addNewChild(curNode, firstIndex);
         }
     }
 
@@ -237,6 +240,7 @@ class UCTPlayer extends Player {
 
         ArrayList<Card> myCurHand = new ArrayList<>(parentNode.myCurHand); // pass my hand along 
         if (parentNode.playerIndex == myPNumber) { // if I just went 
+            // debug statement 
             if (childIndex == myCurHand.size()) {
                 myCurHand.remove(childIndex);
             }
@@ -248,7 +252,7 @@ class UCTPlayer extends Player {
         if (playerIndex == myPNumber) {
             // System.out.println("Thats me!");
             // if the player we're up to is Me, then we wanna inherit the hand that's been passed down 
-            childHand = new ArrayList<>(parentNode.myCurHand);
+            childHand = new ArrayList<>(myCurHand);
             // System.out.println("Child Hand Size: " + childHand.size());
         }
         else {
@@ -368,6 +372,11 @@ class UCTPlayer extends Player {
             }
         }
 
+        if (tempState.currentRound.size() == 0 && cardsLeft.size() % 3 != 0) {
+            System.out.println(cardsLeft.size() );
+            System.out.println("bug");
+        }
+
         if (debug) {
             System.out.print("\n Player`s hand ("+node.curHand.size()+" card");
             if (node.curHand.size() > 1) System.out.print("s");
@@ -435,13 +444,16 @@ class UCTPlayer extends Player {
                     System.out.println("");
                 }
                 System.out.println("bug");
+
+                int[] range = getValidRange(tempState, cardPile);
+                int first = indexRange[0];
+                int last = indexRange[1];
             }
 
             if (firstIndex == lastIndex) { cardNum = firstIndex; }
             else { cardNum = firstIndex + rand.nextInt(lastIndex - firstIndex); }
             Card cardToPlay = cardPile.get(cardNum);
 
-            // System.out.println("Played: " + cardToPlay.printCardShort());
             curPlayer = tempState.advanceState(cardToPlay, cardPile, debug);
             cardPile.remove(cardToPlay);
 
