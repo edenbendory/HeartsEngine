@@ -1,7 +1,7 @@
 /* This file was taken from another GitHub repo that implements a Hearts
  game and players system. Linked here: https://github.com/Devking/HeartsAI 
  
- Slight modifications made by @edenbendory */
+ Slight modifications of player numbers made by @edenbendory */
 
 import java.util.Scanner;
 

@@ -29,6 +29,7 @@ class RandomPlayAI extends Player {
 		// Get the first suit that was played this round
 		Suit firstSuit = getFirstSuit(masterCopy.currentRound);
 
+		// This code block was written by @edenbendory
 		// If no cards were played this round, play a random card 
 		if (firstSuit == null) {
 			int lastIndex = hand.size();
@@ -42,7 +43,7 @@ class RandomPlayAI extends Player {
 
 		// Remove a random card of the correct suit
 		SuitRange range = getSuitRange(firstSuit, hand);
-		if (range.getRange() == 0) return hand.remove(rng.nextInt(hand.size())); // if we don't have a card in the leading suit
+		if (range.getRange() == 0) return hand.remove(rng.nextInt(hand.size())); // @edenbendory: if we don't have a card in the leading suit
 		int index = rng.nextInt(range.getRange());
 		return hand.remove(range.startIndex+index);
 	}
