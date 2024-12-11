@@ -80,7 +80,7 @@ class UCTPlayer extends Player {
         myHand = new ArrayList<>(hand);
         root = new Node(originalState, myHand, myHand, null, -1);
 
-        assert(root.children == null);
+        assert(root.children.isEmpty());
 
         // run multiple games until we've hit the max number
         for (int i = 0; i < numIterations; i++) {

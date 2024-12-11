@@ -23,7 +23,7 @@ class Game {
 	// Note: This WILL NOT shuffle the deck or deal the cards here
 	// We ONLY do that upon playing a new game
 	Game (Deck deck, Player p1, Player p2, Player p3, Player p4) {
-		debug = false;
+		debug = true;
 		playerOrder = new ArrayList<Player>();
 		playerOrder.add(p1);
 		playerOrder.add(p2);
@@ -285,6 +285,115 @@ class Game {
 		initNewGame();
 		// For all 13 rounds of the game...
 		for (int i = 1; i < 14; i++) {
+			System.out.println("--------------------------------------------");
+			System.out.println("Round #" +i+":");
+			System.out.println("--------------------------------------------");
+			// clear the table for this round
+			currentRound.clear();
+			// go through actions for all four players (ordered based on firstPlayer)
+			for (int j = 0; j < 4; j++) {
+				// use index to determine the index of the player currently playing
+				int index = (j+firstPlayer) % playerOrder.size();
+				if (debug)
+					printRound(firstPlayer); // for debugging: print the cards that were played this round
+				if (j == 0) checkHeartsOnly(index);		// if this is the first player this round, check if only hearts
+				boolean validPlay = false;
+				Card playedCard = null;
+
+				// Create a copy of the current game state, to be passed in to the Player
+				// So that the Player may potentially do playouts of the game
+				// Note that these three parameters are copied in the State constructor
+				State gameCopy = new State(cardsPlayed, currentRound, playerScores, hasHeartsBroken, index);
+
+				// Loop: Allow player to pick a play, but reject if invalid selection
+				while (!validPlay) {
+					// Allow the Player to pick a move to play next
+					playedCard = playerOrder.get(index).performAction(gameCopy);
+					// Check if the playedCard is valid, given this currentRound
+					validPlay = checkRound(playedCard, index);
+					// If the card was not valid, put it back in the hand and sort the hand (this might be SLOW)
+					if (!validPlay) {
+						System.out.println("This was an invalid play. Please pick a valid card.");
+						playerOrder.get(index).addToHand(playedCard);
+						playerOrder.get(index).sortHand();
+					}
+				}
+
+				// Standard output message to notify what card was officially played
+				System.out.println(playerOrder.get(index).getName() + " played " + playedCard.printCard() + ".");
+				// Add the played card to the currentRound (put the card on the table for all to see)
+				// BE CAREFUL! We will be adding a direct pointer to the card here!
+				currentRound.add(playedCard);
+				// Take the card that is played and add it back to the deck as well
+				cardsPlayed.restockDeck(playedCard);
+				// Flush the screen (this is just for convenience for human players)
+				final String ANSI_CLS = "\u001b[2J";
+        		final String ANSI_HOME = "\u001b[H";
+        		System.out.println();
+        		System.out.print(ANSI_CLS + ANSI_HOME);
+        		System.out.println();
+        		System.out.flush();
+        		
+			}
+
+			if (debug) {
+				System.out.println("--------------------------------------------");
+				System.out.println("Round " + i + " Summary:");
+				System.out.println("--------------------------------------------");
+				for (Player p : playerOrder) { p.printHand(); }	
+				printRound(firstPlayer); 	// for debugging: use this method to see what cards were played this round
+			}
+
+			// 1. findTaker() will update who took the cards this round
+			// 2. calculatePoints() will calculate how many points this round consisted of
+			// 3. addPoints() will add those points to the correct player
+			firstPlayer = findTaker(firstPlayer);
+			int points = calculatePoints();
+			playerScores.set(firstPlayer,playerScores.get(firstPlayer)+points);
+			playerOrder.get(firstPlayer).addPoints(points);
+			
+			if (debug) {
+				System.out.println("\n" + playerOrder.get(firstPlayer).getName() + " played the highest card "
+					+ "and took " + points + " points this round.\n");
+				printPoints();
+			}
+
+			// FOR HUMAN PLAYERS AND DEBUG ONLY: Get round statistics and then flush
+			if (debug) {
+				if (i < 13) System.out.println("Press ENTER to continue to the next round.");
+				else System.out.println("PRESS ENTER TO END THIS GAME.");
+			    s = in.nextLine();
+				final String ANSI_CLS = "\u001b[2J";
+	        	final String ANSI_HOME = "\u001b[H";
+	        	System.out.println();
+	        	System.out.print(ANSI_CLS + ANSI_HOME);
+	        	System.out.println();
+	        	System.out.flush();
+        	}
+		}
+
+		// Check if someone shot the moon
+		shotTheMoon();
+		System.out.println("------------------------------------------");
+		System.out.println("Game Summary:");
+		System.out.println("------------------------------------------\n");
+		printPoints();
+		printWinner();
+		printTotalPoints();
+		System.out.println("Press ENTER to start the next game.");
+	    s = in.nextLine();
+		final String ANSI_CLS = "\u001b[2J";
+        final String ANSI_HOME = "\u001b[H";
+        System.out.print(ANSI_CLS + ANSI_HOME);
+        System.out.println();
+        System.out.flush();
+		//cardsPlayed.printDeck(); 		// debugging to make sure that all cards have returned to the deck
+
+	}
+
+	void playExistingGame() {
+		// For all 7 rounds of the game...
+		for (int i = 1; i < 7; i++) {
 			System.out.println("--------------------------------------------");
 			System.out.println("Round #" +i+":");
 			System.out.println("--------------------------------------------");
