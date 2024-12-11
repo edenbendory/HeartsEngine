@@ -80,6 +80,8 @@ class UCTPlayer extends Player {
         myHand = new ArrayList<>(hand);
         root = new Node(originalState, myHand, myHand, null, -1);
 
+        assert(root.children == null);
+
         // run multiple games until we've hit the max number
         for (int i = 0; i < numIterations; i++) {
 
@@ -173,27 +175,30 @@ class UCTPlayer extends Player {
         if (curNode.depth >= maxDepth) {
             return;
         }
+        if (curNode.curHand.isEmpty()) {
+            return;
+        }
 
         // Find out which children are valid 
         int[] indexRange = getValidRange(curNode.state, curNode.curHand);
+    
         int firstIndex = indexRange[0];
         int lastIndex = indexRange[1];
 
         // Create a new Node representing each valid child 
-        for (int i = firstIndex; i < lastIndex; i++) { // can you do <= to eliminate the if statement below ???
-            // !!! check that it doesn't need to be <= lastIndex to get all the valid children added. b/c you changed it to be lastIndex -1 in getValidRange (so you're already at 1 less )
+        for (int i = firstIndex; i <= lastIndex; i++) { 
             // Notice: This will exclude the invalid children (only valid children are added as children)
             addNewChild(curNode, i);
         }
 
-        // <= above to eliminiate this if statement ???
-        if (firstIndex == lastIndex) {
-            addNewChild(curNode, firstIndex);
-        }
+        assert((lastIndex - firstIndex + 1) == curNode.children.size());
     }
 
     // Returns the range of valid "children" cards that curNode can play this round
+    // Index 0 contains the firstIndex in the range, and index 1 contains the lastIndex in the range (both inclusive)
     private int[] getValidRange(State curState, ArrayList<Card> curHand) {
+        assert(!curHand.isEmpty());
+
         // Get the first suit that was played this round
        Suit firstSuit = getFirstSuit(curState.currentRound);
 
@@ -218,7 +223,7 @@ class UCTPlayer extends Player {
                } else {
                    // Otherwise, we need to eliminate the hearts range
                    firstIndex = 0;
-                   lastIndex = heartsRange.startIndex;
+                   lastIndex = heartsRange.startIndex - 1;
                }
            }
        } 
@@ -232,6 +237,9 @@ class UCTPlayer extends Player {
        int[] indexRange = new int[2];
        indexRange[0] = firstIndex;
        indexRange[1] = lastIndex;
+
+       assert(firstIndex >= 0 && lastIndex >= 0);
+       
        return indexRange;
    }
 
@@ -280,7 +288,7 @@ class UCTPlayer extends Player {
             int lastIndex = indexRange[1];
 
             childHand = new ArrayList<>();
-            for (int i = firstIndex; i <=lastIndex; i++) {
+            for (int i = firstIndex; i <lastIndex; i++) {
                 childHand.add(cardPile.get(i));
             }
         }
