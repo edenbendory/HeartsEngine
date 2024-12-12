@@ -398,8 +398,8 @@ class Game {
 	}
 
 	void playExistingGame() {
-		// For all 7 rounds of the game...
-		for (int i = 1; i < 7; i++) {
+		// For all 4 last rounds of the game...
+		for (int i = 10; i < 14; i++) {
 			System.out.println("--------------------------------------------");
 			System.out.println("Round #" +i+":");
 			System.out.println("--------------------------------------------");
