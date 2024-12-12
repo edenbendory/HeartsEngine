@@ -77,6 +77,7 @@ class UCTPlayer extends Player {
     boolean setDebug() { return false; }
 
     int runMCTS (State originalState) {
+        // !!! continue debugging by running through each step of the rounds of a game from here !!!
         myHand = new ArrayList<>(hand);
         root = new Node(originalState, myHand, myHand, null, -1);
 
