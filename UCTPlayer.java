@@ -278,7 +278,10 @@ class UCTPlayer extends Player {
             for (Card myCard : myCurHand) {
                 for (int i = 0; i < cardPile.size(); i++) {
                     Card cardLeft = cardPile.get(i);
-                    if (cardLeft.equals(myCard)) { cardPile.remove(i); }
+                    if (cardLeft.equals(myCard)) { 
+                        cardPile.remove(i); 
+                        break;
+                    }
                 }
             }
 
@@ -288,7 +291,7 @@ class UCTPlayer extends Player {
             int lastIndex = indexRange[1];
 
             childHand = new ArrayList<>();
-            for (int i = firstIndex; i <lastIndex; i++) {
+            for (int i = firstIndex; i <= lastIndex; i++) {
                 childHand.add(cardPile.get(i));
             }
         }
