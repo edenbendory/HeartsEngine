@@ -47,23 +47,22 @@ public class ConstantGameGenerator {
         p4.addToHand ( new Card(Suit.HEARTS, Value.NINE));
         p4.addToHand ( new Card(Suit.HEARTS, Value.JACK));
 
-        // !!! fix this so that it sets up the deck to be valid based on above
-        for (Player p : playerOrder) { 
-            p.printHand(); 
-            for (Card card : thing.allCards) {
-                for (Player p : playerOrder) {
-                    for (Card c : p.hand) {
-                        if (card != p.hand) {
-                            thing.allCards.remove(card);
-                            thing.invertDeck.add(card);
-                        }
-                    }
-                }
+        Deck deck = new Deck(thing);
+
+        while (!deck.allCards.isEmpty()) {
+            deck.drawTop();
+        }
+        for (Player p : playerOrder) {
+            for (Card c : p.hand) {
+                deck.allCards.add(c);
+                deck.invertDeck.remove(c);
             }
         }
 
+
         boolean gameOver = false;
-		Game round = new Game(thing, p1, p2, p3, p4);
+		Game round = new Game(deck, p1, p2, p3, p4);
+        round.allowForMidGamePlaying();
 		int i = 1;
 		while (!gameOver) {
 			System.out.println("\n--------------------------------------------");

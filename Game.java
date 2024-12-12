@@ -39,6 +39,12 @@ class Game {
 		in = new Scanner(System.in);
 	}
 
+	// beware of this method! it can mess with the game unless you intend to start in the middle
+	void allowForMidGamePlaying () {
+		twoClubsPlayed = true;
+		hasHeartsBroken = true;
+	}
+
 	// Call this every time a new game is played to shuffle the deck and clear player hands
 	void initNewGame () {
 		cardsPlayed.shuffleDeck();
