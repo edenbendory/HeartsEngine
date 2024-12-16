@@ -15,8 +15,8 @@ class UCTPlayer extends Player {
     boolean         debug = false;
     // ArrayList<ArrayList<Card>>	playerHands; // To keep track of each player's hand
 
-	final int 		numIterations = 26; 		// How many times we go through MCTS before making a decision
-	final int 		maxDepth = 3; 	// How many nodes to expand to before doing random playouts
+	final int 		numIterations = 100; 		// How many times we go through MCTS before making a decision
+	final int 		maxDepth = 9; 	// How many nodes to expand to before doing random playouts
 	Node 			root;
 
     public class Node {
@@ -169,7 +169,6 @@ class UCTPlayer extends Player {
         // --> if the visitCount = 0, and it's the root, continue to expand
         // --> if the visitCount = 0, an it's not the root, don't expand
         // --> if the visitCount > 0, then expand 
-        // ??? FIX THIS CONDITION - make sure it's accurate
         if (curNode.visitCount == 0 && curNode.parent != null) {
             return;
         }
@@ -190,6 +189,18 @@ class UCTPlayer extends Player {
         for (int i = firstIndex; i <= lastIndex; i++) { 
             // Notice: This will exclude the invalid children (only valid children are added as children)
             addNewChild(curNode, i);
+        }
+
+        // sanity check:
+        Node prevChild = curNode.children.get(0);
+        for (Node child : curNode.children) {
+            assert(child.state.cardsPlayed.allCards.size() == prevChild.state.cardsPlayed.allCards.size());
+            assert(child.state.cardsPlayed.invertDeck.size() == prevChild.state.cardsPlayed.invertDeck.size());
+            assert(child.state.currentRound.size() == prevChild.state.currentRound.size());
+            assert(child.depth == prevChild.depth);
+            assert(child.myCurHand.size() == prevChild.myCurHand.size());
+
+            prevChild = child;
         }
 
         assert((lastIndex - firstIndex + 1) == curNode.children.size());
@@ -307,37 +318,6 @@ class UCTPlayer extends Player {
 
 		// Create a new child node that corresponds to the card we have just successfully played
 		parentNode.children.add(new Node(childState, childHand, myCurHand, parentNode, handIndex));
-
-        if (debug) {
-            System.out.println("Player Number: " + playerIndex);
-            System.out.println();
-
-            System.out.print("\n Parent State ("+parentNode.state.cardsPlayed.invertDeck.size()+" card");
-            if (parentNode.state.cardsPlayed.invertDeck.size() > 1) System.out.print("s");
-            System.out.print("):\n|");
-            for (int i = 0; i < parentNode.state.cardsPlayed.invertDeck.size(); i++) { System.out.format("%3d|", i); }
-            System.out.print("\n|");
-            for (int i = 0; i < parentNode.state.cardsPlayed.invertDeck.size(); i++) { 
-                // we can either use printCard() or printCardShort()
-                System.out.format("%3s|", parentNode.state.cardsPlayed.invertDeck.get(i).printCardShort());
-            }
-            System.out.println("");
-            System.out.println("Parent depth: " + parentNode.depth);
-
-            ArrayList<Card> cardsLeft = new ArrayList<>(childState.cardsPlayed.invertDeck); // essentially every other player's hand
-            Collections.sort(cardsLeft);
-            System.out.print("\n Child State ("+cardsLeft.size()+" card");
-            if (cardsLeft.size() > 1) System.out.print("s");
-            System.out.print("):\n|");
-            for (int i = 0; i < cardsLeft.size(); i++) { System.out.format("%3d|", i); }
-            System.out.print("\n|");
-            for (int i = 0; i < cardsLeft.size(); i++) { 
-                // we can either use printCard() or printCardShort()
-                System.out.format("%3s|", cardsLeft.get(i).printCardShort());
-            }
-            System.out.println("");
-            System.out.println("Child depth: " + (parentNode.depth+1));
-        }
     }
 
     private ArrayList<Card> generateHand(State state, Node node) {
@@ -377,10 +357,6 @@ class UCTPlayer extends Player {
         ArrayList<Card> mySimulatedHand = new ArrayList<>(node.myCurHand); // my hand
         ArrayList<Card> cardsLeft = new ArrayList<>(tempState.cardsPlayed.invertDeck); // essentially every other player's hand
         Collections.sort(cardsLeft);
-        if (debug) {
-            System.out.println("Depth: " + node.depth);
-            System.out.println("PlayerNum: " + node.playerIndex);
-        }
 
         // remove each card in my hand from the potential cards that other players can play 
         for (Card myCard : mySimulatedHand) {
@@ -390,27 +366,9 @@ class UCTPlayer extends Player {
             }
         }
 
-        if (debug) {
-            System.out.print("\n Player`s hand ("+node.curHand.size()+" card");
-            if (node.curHand.size() > 1) System.out.print("s");
-            System.out.print("):\n|");
-            for (int i = 0; i < node.curHand.size(); i++) { System.out.format("%3d|", i); }
-            System.out.print("\n|");
-            for (int i = 0; i < node.curHand.size(); i++) { 
-                // we can either use printCard() or printCardShort()
-                System.out.format("%3s|", node.curHand.get(i).printCardShort()); 
-            }
-            System.out.println("");
-        }
-
         int curPlayer = node.playerIndex; // to start off
         ArrayList<Card> cardPile;
         while (!cardsLeft.isEmpty()) {
-            if (debug) {
-                System.out.println();
-                System.out.println("Cur Player: " + curPlayer);
-            }
-
             if (curPlayer == myPNumber) {
                 cardPile = mySimulatedHand; // My hand as that node knows it at that point in the tree (not my hand when the tree was created)
             } else {
@@ -426,43 +384,13 @@ class UCTPlayer extends Player {
             int cardNum;
 
             if (firstIndex == lastIndex) { cardNum = firstIndex; }
-            else { cardNum = firstIndex + rand.nextInt(lastIndex - firstIndex); }
+            else { cardNum = firstIndex + rand.nextInt(lastIndex - firstIndex); } // ToDo: Change so that it isn't random (optimization)
             Card cardToPlay = cardPile.get(cardNum);
 
             curPlayer = tempState.advanceState(cardToPlay, cardPile, debug);
             cardPile.remove(cardToPlay);
-
-            if (debug) {
-                if (curPlayer == myPNumber) {
-                    System.out.print("\n My Cards Left ("+mySimulatedHand.size()+" card");
-                    if (mySimulatedHand.size() > 1) System.out.print("s");
-                    System.out.print("):\n|");
-                    for (int i = 0; i < mySimulatedHand.size(); i++) { System.out.format("%3d|", i); }
-                    System.out.print("\n|");
-                    for (int i = 0; i < mySimulatedHand.size(); i++) { 
-                        // we can either use printCard() or printCardShort()
-                        System.out.format("%3s|", mySimulatedHand.get(i).printCardShort());
-                    }
-                    System.out.println("");
-                } else {
-                    System.out.print("\n Cards Left ("+cardsLeft.size()+" card");
-                    if (cardsLeft.size() > 1) System.out.print("s");
-                    System.out.print("):\n|");
-                    for (int i = 0; i < cardsLeft.size(); i++) { System.out.format("%3d|", i); }
-                    System.out.print("\n|");
-                    for (int i = 0; i < cardsLeft.size(); i++) { 
-                        // we can either use printCard() or printCardShort()
-                        System.out.format("%3s|", cardsLeft.get(i).printCardShort()); 
-                    }
-                    System.out.println("");
-                }
-            }
-            
         }
 
-        if (debug) {
-            System.out.println("SIMULATION COMPLETE");
-        }
         return tempState.playerScores;
     }
 

@@ -82,15 +82,16 @@ class State {
 	// And move it from cardsPlayed.invertDeck to cardsPlayed.allCards
 	// @edenbendory: add it to the cards on the table (currentRound)
 	// This may take some time
-	void playCard(Card c) { 
+	int playCard(Card c) { 
 		for (Card d : cardsPlayed.invertDeck) {
 			if (c.equals(d)) {
 				cardsPlayed.allCards.add(d);
 				cardsPlayed.invertDeck.remove(d);
 				currentRound.add(d);
-				break;
+				return 0;
 			}
 		}
+		return -1;
 	}
 
 	// Used to check if all the cards in this hand is hearts
@@ -178,7 +179,8 @@ class State {
 		if (!checkRound(c,playoutHand)) return -1; // check it's a valid play (and updates hasHeartsBroken accordingly)
 
 		// Move card between decks and put card onto the table
-		playCard(c);
+		int playedCard = playCard(c);
+		assert(playedCard == 0);
 
 		if (debug) {
 			System.out.println("round size: " + currentRound.size());
