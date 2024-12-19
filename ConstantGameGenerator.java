@@ -39,6 +39,18 @@ public class ConstantGameGenerator {
         p4.addToHand ( new Card(Suit.HEARTS, Value.TEN));
         p4.addToHand ( new Card(Suit.HEARTS, Value.JACK));
 
+        // p1.addToHand ( new Card(Suit.CLUBS, Value.ACE));
+        // p1.addToHand ( new Card(Suit.HEARTS, Value.ACE));
+
+        // p2.addToHand ( new Card(Suit.HEARTS, Value.THREE));
+        // p2.addToHand ( new Card(Suit.HEARTS, Value.NINE));
+
+        // p3.addToHand ( new Card(Suit.SPADES, Value.TEN));
+        // p3.addToHand ( new Card(Suit.HEARTS, Value.JACK));
+
+        // p4.addToHand ( new Card(Suit.SPADES, Value.FIVE));
+        // p4.addToHand ( new Card(Suit.HEARTS, Value.TEN));
+
         Deck deck = new Deck(thing);
 
         while (!deck.invertDeck.isEmpty()) {

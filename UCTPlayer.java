@@ -297,21 +297,22 @@ class UCTPlayer extends Player {
                 }
             }
 
-            // find the range of valid cards this player can play, and add them all to this player's "hand" 
-            int[] indexRange = getValidRange(childState, cardPile);
-            int firstIndex = indexRange[0];
-            int lastIndex = indexRange[1];
-
-            childHand = new ArrayList<>();
-            for (int i = firstIndex; i <= lastIndex; i++) {
-                childHand.add(cardPile.get(i));
+            // corner case where there are no children left to add / no cards in the child's hand b/c the deck is empty
+            if (childState.cardsPlayed.invertDeck.isEmpty()) {
+                childHand = new ArrayList<>(); // childHand is just an empty list
             }
-        }
-        
-        if (debug) {
-            System.out.println("Child State Size: " + childState.cardsPlayed.invertDeck.size());
-            System.out.println("Child Hand Size: " + childHand.size());
-            System.out.println("Depth: " + (parentNode.depth+1));
+            // usual case - there are children to add / cards in the child's hand
+            else {
+                // find the range of valid cards this player can play, and add them all to this player's "hand" 
+                int[] indexRange = getValidRange(childState, cardPile);
+                int firstIndex = indexRange[0];
+                int lastIndex = indexRange[1];
+
+                childHand = new ArrayList<>();
+                for (int i = firstIndex; i <= lastIndex; i++) {
+                    childHand.add(cardPile.get(i));
+                }
+            }
         }
 
         int handIndex = childIndex;
