@@ -77,7 +77,6 @@ class UCTPlayer extends Player {
     boolean setDebug() { return false; }
 
     int runMCTS (State originalState) {
-        // !!! continue debugging by running through each step of the rounds of a game from here !!!
         myHand = new ArrayList<>(hand);
         root = new Node(originalState, myHand, myHand, null, -1);
 
@@ -212,47 +211,47 @@ class UCTPlayer extends Player {
         assert(!curHand.isEmpty());
 
         // Get the first suit that was played this round
-       Suit firstSuit = getFirstSuit(curState.currentRound);
+        Suit firstSuit = getFirstSuit(curState.currentRound);
 
-       SuitRange range = getSuitRange(firstSuit, curHand);
-       // If we have firstSuit, get the range of cards we can play rn
-       int firstIndex = range.startIndex;
-       int lastIndex = range.endIndex - 1;
+        SuitRange range = getSuitRange(firstSuit, curHand);
+        // If we have firstSuit, get the range of cards we can play rn
+        int firstIndex = range.startIndex;
+        int lastIndex = range.endIndex - 1;
 
-       // If this is the first move in the round
-       if (firstSuit == null) {
-           // If hearts has broken or we only have hearts left, we can play any card in our hand
-           if (curState.hasHeartsBroken || hasAllHearts(curHand)) {
-               firstIndex = 0;
-               lastIndex = curHand.size() - 1;
-           } else {
-               // If hearts has not broken, and we have at least one non-hearts card we can play
-               SuitRange heartsRange = getSuitRange(Suit.HEARTS, curHand);
-               // If we have no hearts, we can play anything
-               if (heartsRange.startIndex == -1) {
-                   firstIndex = 0;
-                   lastIndex = curHand.size() - 1;
-               } else {
-                   // Otherwise, we need to eliminate the hearts range
-                   firstIndex = 0;
-                   lastIndex = heartsRange.startIndex - 1;
-               }
-           }
-       } 
+        // If this is the first move in the round
+        if (firstSuit == null) {
+            // If hearts has broken or we only have hearts left, we can play any card in our hand
+            if (curState.hasHeartsBroken || hasAllHearts(curHand)) {
+                firstIndex = 0;
+                lastIndex = curHand.size() - 1;
+            } else {
+                // If hearts has not broken, and we have at least one non-hearts card we can play
+                SuitRange heartsRange = getSuitRange(Suit.HEARTS, curHand);
+                // If we have no hearts, we can play anything
+                if (heartsRange.startIndex == -1) {
+                    firstIndex = 0;
+                    lastIndex = curHand.size() - 1;
+                } else {
+                    // Otherwise, we need to eliminate the hearts range
+                    firstIndex = 0;
+                    lastIndex = heartsRange.startIndex - 1;
+                }
+            }
+        } 
        
-       // If we are void in firstSuit (if firstIndex is -1 and firstSuit != null), we can play any card in our hand
-       if (firstIndex == -1) {
-           firstIndex = 0;
-           lastIndex = curHand.size() - 1;
-       }
+        // If we are void in firstSuit (if firstIndex is -1 and firstSuit != null), we can play any card in our hand
+        if (firstIndex == -1) {
+            firstIndex = 0;
+            lastIndex = curHand.size() - 1;
+        }
 
-       int[] indexRange = new int[2];
-       indexRange[0] = firstIndex;
-       indexRange[1] = lastIndex;
+        int[] indexRange = new int[2];
+        indexRange[0] = firstIndex;
+        indexRange[1] = lastIndex;
 
-       assert(firstIndex >= 0 && lastIndex >= 0);
-       
-       return indexRange;
+        assert(firstIndex >= 0 && lastIndex >= 0);
+        
+        return indexRange;
    }
 
     // Used to check if all the cards in the given hand is hearts 
@@ -276,10 +275,8 @@ class UCTPlayer extends Player {
         ArrayList<Card> childHand;
         int playerIndex = nextPlayer;
         if (playerIndex == myPNumber) {
-            // System.out.println("Thats me!");
             // if the player we're up to is Me, then we wanna inherit the hand that's been passed down 
             childHand = new ArrayList<>(myCurHand);
-            // System.out.println("Child Hand Size: " + childHand.size());
         }
         else {
             // otherwise, generate a random "hand" for the player, where a hand consists of all the valid cards this player can play this round (may be more than a standard "hand size")
@@ -417,14 +414,14 @@ class UCTPlayer extends Player {
             Node curNode = root.children.get(i);
             if (curNode.visitCount == 0) { continue; }
 
-            double totalWinScore = curNode.winScore / curNode.visitCount;
+            double totalWinScore = (double) curNode.winScore / curNode.visitCount;
             if (totalWinScore > bestWinScore) {
                 bestWinScore = totalWinScore;
                 bestChildIndex = i;
             }
         }
 
-        return root.children.get(bestChildIndex).handIndex;
+        return root.children.get(bestChildIndex).handIndex; // handIndex is not necessarily = bestChildIndex
 	}
 
     @Override
@@ -434,7 +431,7 @@ class UCTPlayer extends Player {
 			return hand.remove(0);
         }
 
-        // ??? what's the purpose of this code block
+        // populate a copy of my card hand 
 		myHand.clear();
 		for (Card c : hand) myHand.add(c.copy());
 		// For human debugging: print the hand
