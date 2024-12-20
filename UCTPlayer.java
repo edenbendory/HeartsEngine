@@ -264,8 +264,6 @@ class UCTPlayer extends Player {
     private void addNewChild(Node parentNode, int childIndex) {
         State childState = new State(parentNode.state); // inherits copy of parent state
         int nextPlayer = childState.advanceState(parentNode.curHand.get(childIndex), parentNode.curHand, debug);
-        // if (nextPlayer == -1) {System.out.println("Error, we've made a mistake.");}
-        // System.out.println("Child Card: " + parentNode.curHand.get(childIndex).printCardShort());
 
         ArrayList<Card> myCurHand = new ArrayList<>(parentNode.myCurHand); // pass my hand along 
         if (parentNode.playerIndex == myPNumber) { // if I just went 
@@ -333,12 +331,6 @@ class UCTPlayer extends Player {
         int handSize = node.curHand.size(); 
         // unless a new round just started, in which case everyone has put a card down, and so I have one less card than my parent b/c I am first
         if (state.firstInRound()) {handSize--;} 
-
-        // System.out.println("Hand Size: " + handSize);
-        // System.out.println("Turn Number: " + state.turnNumber()); // DONE
-        // System.out.println("Current Player Number: " + state.playerIndex); // DONE
-        // System.out.println("Current Tree Depth: " + node.depth);
-        // System.out.println("Current Node Number: " + node.playerIndex);
 
         // right now this is random, but later we will change this to update based on player tables 
         for (int i = 0; i < handSize; i++) { 
