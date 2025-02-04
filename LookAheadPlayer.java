@@ -8,7 +8,6 @@
 // must test all 12 cards, for 12 rounds each -- 144 turns to make 1 decision
 
 import java.util.*;
-import java.util.ArrayList;
 
 class LookAheadPlayer extends Player {
 

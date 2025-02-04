@@ -3,9 +3,10 @@
 // this AI will look at the hand and look at the cards currently on the board
 // and play the highest VALID card we can play WITHOUT taking the trick
 // (the highest valid card that is lower than the first card played)
-// if no cards are on the board, will play the lowest non-hearts (if possible)
-// if no cards are on the board and there are only hearts in the player's hand, play the lowest hearts
+// if no cards are on the board, and Hearts has not been broken, and the player has cards other than Hearts in its hand, it will play the lowest non-Hearts card it can play
+// if no cards are on the board and Hearts has been broken, or if there are only Hearts cards in the player's hand, it will play the lowest overall card in its hand (including Hearts)
 // if the player doesn't have the leading suit, play the highest card in the player's hand, prioritizing Hearts
+// If the player is not void in the leading suit, it will determine the maximum card that has been played this trick that's of the leading suit. It will then play the highest card of the leading suit in the player’s hand that is still lower than that maximum card. If none of the player’s cards are lower than the suit that was played, it will play the lowest card in the suit. 
 
 class HighLowPlayAI extends Player {
 
@@ -17,7 +18,7 @@ class HighLowPlayAI extends Player {
     @Override
 	Card performAction (State masterCopy) {
         // For human debugging: print the hand
-		printHand();
+        printHand();
 
 		// If this is the first move in the game, then we must play the two of clubs - DONE
 		if (masterCopy.firstMove())

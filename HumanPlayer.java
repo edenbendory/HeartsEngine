@@ -13,7 +13,7 @@ class HumanPlayer extends Player {
 		System.out.println("Human player ("+name+") initialized."); 
 	}
 
-	boolean setDebug() { return true; }
+	boolean setDebug() { return false; }
 
 	Card performAction (State masterCopy) {
 
@@ -23,6 +23,7 @@ class HumanPlayer extends Player {
 		while (flag) {
 			// print hand is only needed for debugging / human players
 			printHand();
+			
 			flag = false;
 
 			System.out.print("\nInput the index of the card you ("+name+") wish to play:\n> ");

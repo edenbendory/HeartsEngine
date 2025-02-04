@@ -248,6 +248,21 @@ class Game {
 		System.out.println("Last Place: " + playerOrder.get(largeIndex).getName() + "\n");
 	}
 
+	// Returns the winner of playerOrder
+	// Written by @edenbendory
+	int getWinner() {
+		int smallestScore = playerOrder.get(0).getPoints();
+		int smallIndex = 0;
+		for (int i = 0; i < playerOrder.size(); i++) {
+			if (smallestScore > playerOrder.get(i).getPoints()) {
+				smallIndex = i;
+				smallestScore = playerOrder.get(i).getPoints();
+			}
+		}
+
+		return smallIndex;
+	}
+
 	// Print out how many points each player currently has between all games
 	void printTotalPoints() {
 		System.out.println("Total cumulative points between all games:");
@@ -286,7 +301,7 @@ class Game {
 	}
 
 	// Call this whenever you want to start a completely new game and play through it
-	void playNewGame() {
+	void playNewGame(boolean thousandGames) {
 		// We must call this to shuffle the deck and deal cards to all the players
 		initNewGame();
 		// For all 13 rounds of the game...
@@ -294,6 +309,7 @@ class Game {
 			System.out.println("--------------------------------------------");
 			System.out.println("Round #" +i+":");
 			System.out.println("--------------------------------------------");
+			
 			// clear the table for this round
 			currentRound.clear();
 			// go through actions for all four players (ordered based on firstPlayer)
@@ -386,8 +402,11 @@ class Game {
 		printPoints();
 		printWinner();
 		printTotalPoints();
-		System.out.println("Press ENTER to start the next game.");
-	    s = in.nextLine();
+		
+		if (!thousandGames) {
+			System.out.println("Press ENTER to start the next game.");
+			s = in.nextLine();
+		}
 		final String ANSI_CLS = "\u001b[2J";
         final String ANSI_HOME = "\u001b[H";
         System.out.print(ANSI_CLS + ANSI_HOME);

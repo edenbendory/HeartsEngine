@@ -36,7 +36,7 @@ public class Hearts {
 		// 	System.out.println("--------------------------------------------");
 		// 	System.out.println("--------------------------------------------");
 		// 	System.out.println("--------------------------------------------\n");
-		// 	round.playNewGame();
+		// 	round.playNewGame(false);
 		// }
 
 		// The rest of this code was written by @edenbendory
@@ -52,7 +52,7 @@ public class Hearts {
 			System.out.println("--------------------------------------------");
 			System.out.println("--------------------------------------------");
 			System.out.println("--------------------------------------------\n");
-			round.playNewGame();
+			round.playNewGame(false);
 			i++;
 
 			for (Player p : round.playerOrder) {
