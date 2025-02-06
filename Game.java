@@ -1,7 +1,7 @@
 /* This file was taken from another GitHub repo that implements a Hearts
  game and players system. Linked here: https://github.com/Devking/HeartsAI 
- 
- The function printEndOfGameStats() was written by @edenbendory*/
+ * The function initNonRandomGame() was a modification of initNewGame by @edenbendory
+ * The function printEndOfGameStats() was written by @edenbendory*/
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -43,6 +43,43 @@ class Game {
 	void allowForMidGamePlaying () {
 		twoClubsPlayed = true;
 		hasHeartsBroken = true;
+	}
+
+	// written by @edenbendory - modification of initNewGame
+	// Call this every time a new game is played to clear player hands based on a previously-shuffled deck 
+	void initNonRandomGame (Deck cardsPlayed) {
+		// cardsPlayed.printDeck(); // debugging to make sure the deck is correct
+		// cardsPlayed.checkDeck(); // we need a way to check that all 52 cards are here correctly
+		// clear the hands of all the players (to make sure they're not holding anything already!)
+		for (Player p : playerOrder) { p.clearHand(); }
+		// pass out all cards to the 4 players
+		for (int i = 0; i < 13; i++) { for (Player p : playerOrder) { p.addToHand ( cardsPlayed.drawTop() ); } }
+		// sort all hands
+		for (Player p : playerOrder) { p.sortHand(); }
+		// for (Player p : playerOrder) { p.printHand(); }		// for debugging to check all the hands are valid
+		// cardsPlayed.printDeck();								// for debugging to check all cards have been dealt
+		// pick first player (the one who holds the two of clubs)
+		for (int i = 0; i < 4; i++) { if (playerOrder.get(i).hasTwoOfClubs() ) { firstPlayer = i; break; } }
+		// print message to say who plays first
+		System.out.println(playerOrder.get(firstPlayer).getName() + " has the two of clubs and will play first.\n");
+		// just to be safe, clear the arraylist of cards on the table
+		currentRound.clear();
+		// clear scores for this game
+		playerScores.clear();
+		playerScores.add(0);
+		playerScores.add(0);
+		playerScores.add(0);
+		playerScores.add(0);
+		// passing cards at start of game -- for now, no passing, but we would add it here
+		// passCards();
+
+		// flush the screen -- only for human players to debug
+		final String ANSI_CLS = "\u001b[2J";
+        final String ANSI_HOME = "\u001b[H";
+        System.out.println();
+       	System.out.print(ANSI_CLS + ANSI_HOME);
+       	System.out.println();
+        System.out.flush();
 	}
 
 	// Call this every time a new game is played to shuffle the deck and clear player hands
@@ -301,9 +338,16 @@ class Game {
 	}
 
 	// Call this whenever you want to start a completely new game and play through it
-	void playNewGame(boolean thousandGames) {
-		// We must call this to shuffle the deck and deal cards to all the players
-		initNewGame();
+	void playNewGame(boolean thousandGames, Deck cardsPlayed) {
+		if (cardsPlayed == null) {
+			// We must call this to shuffle the deck and deal cards to all the players
+			initNewGame();
+		}
+		else {
+			// we call this if we want to use a previously shuffled deck 
+			initNonRandomGame(cardsPlayed);
+		}
+		
 		// For all 13 rounds of the game...
 		for (int i = 1; i < 14; i++) {
 			System.out.println("--------------------------------------------");
