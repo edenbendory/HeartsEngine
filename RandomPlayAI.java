@@ -33,9 +33,10 @@ class RandomPlayAI extends Player {
 		// If no cards were played this round, play a random card 
 		if (firstSuit == null) {
 			int lastIndex = hand.size();
+			// if Hearts aren't legal, eliminiate them from the range of cards we can play
 			if (!masterCopy.hasHeartsBroken && !hasAllHearts()) {
 				SuitRange heartsRange = getSuitRange(Suit.HEARTS, hand);
-				lastIndex = heartsRange.startIndex;
+				if (heartsRange.getRange() > 0) { lastIndex = heartsRange.startIndex; }
 			}
 			int index = rng.nextInt(lastIndex);
 			return hand.remove(index);
