@@ -3,7 +3,6 @@
 
 // Dependencies on Card, Suit, and Value files
 
-import java.util.ArrayList;
 import java.util.*;
 
 abstract class Player {
@@ -13,6 +12,11 @@ abstract class Player {
 	ArrayList<Card> hand = new ArrayList<Card>();
 
 	Player (String id) { name = id; points = 0; }
+	Player (Player toCopy) {
+		name = toCopy.name;
+		points = 0;
+		hand = new ArrayList<Card>();
+	}
 
 	// use this class to keep track of suit ranges
 	// [startIndex, endIndex) or startIndex = -1 if no suit
