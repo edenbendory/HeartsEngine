@@ -74,6 +74,9 @@ class UCTPlayer extends Player {
 	}
 
     @Override
+    Player resetPlayer() { return new UCTPlayer(name); }
+
+    @Override
     boolean setDebug() { return false; }
 
     int runMCTS (State originalState) {

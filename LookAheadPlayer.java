@@ -24,6 +24,9 @@ class LookAheadPlayer extends Player {
 		rng = new Random();
 	}
 
+	@Override
+    Player resetPlayer() { return new LookAheadPlayer(name); }
+
 	boolean setDebug() { return false; }
 
 	// Used to check if all the cards in this hand is hearts

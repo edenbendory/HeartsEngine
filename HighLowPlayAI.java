@@ -13,6 +13,9 @@ class HighLowPlayAI extends Player {
     HighLowPlayAI(String name) { super(name); System.out.println("High Low Play AI ("+name+") initialized.");  }
 
     @Override
+    Player resetPlayer() { return new HighLowPlayAI(name); }
+
+    @Override
     boolean setDebug() { return false; }
 
     @Override

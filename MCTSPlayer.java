@@ -4,7 +4,6 @@
 // The ultimate MCTS player
 
 import java.util.*;
-import java.util.ArrayList;
 
 class MCTSPlayer extends Player {
 
@@ -45,6 +44,9 @@ class MCTSPlayer extends Player {
 		playoutHand = new ArrayList<Card>(hand);	// Need to call this every performAction()
 		rng = new Random();
 	}
+
+	@Override
+    Player resetPlayer() { return new MCTSPlayer(name); }
 
 	boolean setDebug() { return false; }
 

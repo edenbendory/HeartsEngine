@@ -1,6 +1,7 @@
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Run1000Games {
     public static ArrayList<Integer> getGameTally() {
@@ -70,106 +71,22 @@ public class Run1000Games {
     }
 
     private ArrayList<ArrayList<Player>> getAllCombos(Player p1, Player p2) {
-        // !!!!! need to make deep copy of each player - can't just add them to array !!!
         ArrayList<ArrayList<Player>> playerCombos = new ArrayList<>();
 
-        ArrayList<Player> combo0 = new ArrayList<>();
-        combo0.add(new Player(p1));
-        combo0.add(p1);
-        combo0.add(p1);
-        combo0.add(p2);
-        playerCombos.add(combo0);
-
-        ArrayList<Player> combo1 = new ArrayList<>();
-        combo1.add(p1);
-        combo1.add(p1);
-        combo1.add(p2);
-        combo1.add(p1);
-        playerCombos.add(combo1);
-
-        ArrayList<Player> combo2 = new ArrayList<>();
-        combo2.add(p1);
-        combo2.add(p1);
-        combo2.add(p2);
-        combo2.add(p2);
-        playerCombos.add(combo2);
-
-        ArrayList<Player> combo3 = new ArrayList<>();
-        combo3.add(p1);
-        combo3.add(p2);
-        combo3.add(p1);
-        combo3.add(p1);
-        playerCombos.add(combo3);
-
-        ArrayList<Player> combo4 = new ArrayList<>();
-        combo4.add(p1);
-        combo4.add(p2);
-        combo4.add(p1);
-        combo4.add(p2);
-        playerCombos.add(combo4);
-
-        ArrayList<Player> combo5 = new ArrayList<>();
-        combo5.add(p1);
-        combo5.add(p2);
-        combo5.add(p2);
-        combo5.add(p1);
-        playerCombos.add(combo5);
-
-        ArrayList<Player> combo6 = new ArrayList<>();
-        combo6.add(p1);
-        combo6.add(p2);
-        combo6.add(p2);
-        combo6.add(p2);
-        playerCombos.add(combo6);
-
-        ArrayList<Player> combo7 = new ArrayList<>();
-        combo7.add(p2);
-        combo7.add(p1);
-        combo7.add(p1);
-        combo7.add(p1);
-        playerCombos.add(combo7);
-
-        ArrayList<Player> combo8 = new ArrayList<>();
-        combo8.add(p2);
-        combo8.add(p1);
-        combo8.add(p1);
-        combo8.add(p2);
-        playerCombos.add(combo8);
-
-        ArrayList<Player> combo9 = new ArrayList<>();
-        combo9.add(p2);
-        combo9.add(p1);
-        combo9.add(p2);
-        combo9.add(p1);
-        playerCombos.add(combo9);
-
-        ArrayList<Player> combo10 = new ArrayList<>();
-        combo10.add(p2);
-        combo10.add(p1);
-        combo10.add(p2);
-        combo10.add(p2);
-        playerCombos.add(combo10);
-
-        ArrayList<Player> combo11 = new ArrayList<>();
-        combo11.add(p2);
-        combo11.add(p2);
-        combo11.add(p1);
-        combo11.add(p1);
-        playerCombos.add(combo11);
-
-        ArrayList<Player> combo12 = new ArrayList<>();
-        combo12.add(p2);
-        combo12.add(p2);
-        combo12.add(p1);
-        combo12.add(p2);
-        playerCombos.add(combo12);
-
-        ArrayList<Player> combo13 = new ArrayList<>();
-        combo13.add(p2);
-        combo13.add(p2);
-        combo13.add(p2);
-        combo13.add(p1);
-        playerCombos.add(combo13);
+        playerCombos.add(new ArrayList<>(List.of(p1.resetPlayer(), p1.resetPlayer(), p1.resetPlayer(), p2.resetPlayer())));
+        playerCombos.add(new ArrayList<>(List.of(p1.resetPlayer(), p1.resetPlayer(), p2.resetPlayer(), p1.resetPlayer())));
+        playerCombos.add(new ArrayList<>(List.of(p1.resetPlayer(), p1.resetPlayer(), p2.resetPlayer(), p2.resetPlayer())));
+        playerCombos.add(new ArrayList<>(List.of(p1.resetPlayer(), p2.resetPlayer(), p1.resetPlayer(), p1.resetPlayer())));
+        playerCombos.add(new ArrayList<>(List.of(p1.resetPlayer(), p2.resetPlayer(), p1.resetPlayer(), p2.resetPlayer())));
+        playerCombos.add(new ArrayList<>(List.of(p1.resetPlayer(), p2.resetPlayer(), p2.resetPlayer(), p1.resetPlayer())));
+        playerCombos.add(new ArrayList<>(List.of(p1.resetPlayer(), p2.resetPlayer(), p2.resetPlayer(), p2.resetPlayer())));
+        playerCombos.add(new ArrayList<>(List.of(p2.resetPlayer(), p1.resetPlayer(), p1.resetPlayer(), p1.resetPlayer())));
+        playerCombos.add(new ArrayList<>(List.of(p2.resetPlayer(), p1.resetPlayer(), p1.resetPlayer(), p2.resetPlayer())));
+        playerCombos.add(new ArrayList<>(List.of(p2.resetPlayer(), p1.resetPlayer(), p2.resetPlayer(), p1.resetPlayer())));
+        playerCombos.add(new ArrayList<>(List.of(p2.resetPlayer(), p1.resetPlayer(), p2.resetPlayer(), p2.resetPlayer())));
+        playerCombos.add(new ArrayList<>(List.of(p2.resetPlayer(), p2.resetPlayer(), p1.resetPlayer(), p1.resetPlayer())));
+        playerCombos.add(new ArrayList<>(List.of(p2.resetPlayer(), p2.resetPlayer(), p1.resetPlayer(), p2.resetPlayer())));
+        playerCombos.add(new ArrayList<>(List.of(p2.resetPlayer(), p2.resetPlayer(), p2.resetPlayer(), p1.resetPlayer())));
 
         return playerCombos;
     }
@@ -178,6 +95,9 @@ public class Run1000Games {
         ArrayList<Double> totalAvgScore = new ArrayList<Double>();
         totalAvgScore.add(0.0);
         totalAvgScore.add(0.0);
+        ArrayList<Integer> totalAvgScoreCount = new ArrayList<Integer>();
+        totalAvgScoreCount.add(0);
+        totalAvgScoreCount.add(0);
 
         // Play Multiple Games
         int numberOfGames = 100;
@@ -189,6 +109,9 @@ public class Run1000Games {
             ArrayList<Double> thisAvgScore = new ArrayList<Double>();
             thisAvgScore.add(0.0);
             thisAvgScore.add(0.0);
+            ArrayList<Integer> thisAvgScoreCount = new ArrayList<Integer>();
+            thisAvgScoreCount.add(0);
+            thisAvgScoreCount.add(0);
 
             for (int j = 0; j < 14; j++) {
                 // for the purposes of this experimental setup, one round = one game ???
@@ -215,16 +138,33 @@ public class Run1000Games {
                 round.playNewGame(true, round.cardsPlayed);
 
                 // !!! COME BACK TO THIS - have to make sure accounting for scores of each correct player, even when player 1 is playing multiple players in a round 
-                double avgScoreOne = (thisAvgScore.get(0) * (j) + first.points) / (j+1);
-                thisAvgScore.set(0, avgScoreOne);
-                double avgScoreTwo = (thisAvgScore.get(1) * (j) + second.points) / (j+1);
-                thisAvgScore.set(1, avgScoreTwo);
+                for (Player p : playerCombos.get(j)) {
+                    if (p.name.equals("HighLowPlayer")) {
+                        int avgScoreCount = thisAvgScoreCount.get(0);
+                        double avgScoreOne = (thisAvgScore.get(0) * avgScoreCount + p.points) / (avgScoreCount + 1);
+                        thisAvgScore.set(0, avgScoreOne);
+                        thisAvgScoreCount.set(0, avgScoreCount + 1);
+                    }
+                    else {
+                        int avgScoreCount = thisAvgScoreCount.get(1);
+                        double avgScoreTwo = (thisAvgScore.get(1) * avgScoreCount + p.points) / (avgScoreCount + 1);
+                        thisAvgScore.set(1, avgScoreTwo);
+                        thisAvgScoreCount.set(1, avgScoreCount + 1);
+                    }
+                }
+                
+                
             }
 
-            double totalAvgScoreOne = (totalAvgScore.get(0) * (i) + thisAvgScore.get(0)*14) / (i + 14);
+            int totalScoreCount1 = totalAvgScoreCount.get(0);
+            double totalAvgScoreOne = (totalAvgScore.get(0) * totalScoreCount1 + thisAvgScore.get(0) *thisAvgScoreCount.get(0)) / (totalScoreCount1 + thisAvgScore.get(0));
             totalAvgScore.set(0, totalAvgScoreOne);
-            double totalAvgScoreTwo = (totalAvgScore.get(1) * (i) + thisAvgScore.get(1)*14) / (i + 14);
+            totalAvgScoreCount.set(0, totalScoreCount1 + 14);
+
+            int totalScoreCount2 = totalAvgScoreCount.get(1);
+            double totalAvgScoreTwo = (totalAvgScore.get(1) * totalScoreCount2 + thisAvgScore.get(1) *thisAvgScoreCount.get(1)) / (totalScoreCount2 + thisAvgScore.get(1));
             totalAvgScore.set(1, totalAvgScoreTwo);
+            totalAvgScoreCount.set(1, totalScoreCount2 + 14);
         }
 
         return totalAvgScore;

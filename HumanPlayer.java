@@ -13,6 +13,9 @@ class HumanPlayer extends Player {
 		System.out.println("Human player ("+name+") initialized."); 
 	}
 
+	@Override
+    Player resetPlayer() { return new HumanPlayer(name); }
+
 	boolean setDebug() { return false; }
 
 	Card performAction (State masterCopy) {
