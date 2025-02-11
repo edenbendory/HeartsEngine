@@ -338,14 +338,14 @@ class Game {
 	}
 
 	// Call this whenever you want to start a completely new game and play through it
-	void playNewGame(boolean thousandGames, Deck cardsPlayed) {
-		if (cardsPlayed == null) {
+	void playNewGame(boolean thousandGames, Deck existingDeck) {
+		if (existingDeck == null) {
 			// We must call this to shuffle the deck and deal cards to all the players
 			initNewGame();
 		}
 		else {
 			// we call this if we want to use a previously shuffled deck 
-			initNonRandomGame(cardsPlayed);
+			initNonRandomGame(existingDeck);
 		}
 		
 		// For all 13 rounds of the game...

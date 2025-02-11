@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Run1000Games {
     public static ArrayList<Integer> getGameTally() {
-        ArrayList<Integer> gamesWon = new ArrayList<Integer>();
+        ArrayList<Integer> gamesWon = new ArrayList<>();
         gamesWon.add(0);
         gamesWon.add(0);
         gamesWon.add(0);
@@ -91,11 +91,13 @@ public class Run1000Games {
         return playerCombos;
     }
 
+    // Returns the average scores when comparing 2 players.
+    // A total of 1400 games are played, 14 variations for each deal, 100 times
     public ArrayList<Double> getTwoPlayerStats(Player p1, Player p2) {
-        ArrayList<Double> totalAvgScore = new ArrayList<Double>();
+        ArrayList<Double> totalAvgScore = new ArrayList<>();
         totalAvgScore.add(0.0);
         totalAvgScore.add(0.0);
-        ArrayList<Integer> totalScoreCount = new ArrayList<Integer>();
+        ArrayList<Integer> totalScoreCount = new ArrayList<>();
         totalScoreCount.add(0);
         totalScoreCount.add(0);
 
@@ -106,10 +108,10 @@ public class Run1000Games {
             Deck thing = new Deck();
             thing.shuffleDeck();
 
-            ArrayList<Double> thisAvgScore = new ArrayList<Double>();
+            ArrayList<Double> thisAvgScore = new ArrayList<>();
             thisAvgScore.add(0.0);
             thisAvgScore.add(0.0);
-            ArrayList<Integer> thisAvgScoreCount = new ArrayList<Integer>();
+            ArrayList<Integer> thisAvgScoreCount = new ArrayList<>();
             thisAvgScoreCount.add(0);
             thisAvgScoreCount.add(0);
 
@@ -169,8 +171,13 @@ public class Run1000Games {
         return totalAvgScore;
     }
 
-    public static void main(String[] args) {
-        Run1000Games tester = new Run1000Games();
+    public static void run1000Games() {
+        PrintStream originalOut = System.out;
+        
+        // Redirect output to null to suppress print statements
+        System.setOut(new PrintStream(new OutputStream() {
+            public void write(int b) {}
+        }));
 
         ArrayList<String> playerNames = new ArrayList<>();
         playerNames.add("EdHighLowPlay");
@@ -178,14 +185,25 @@ public class Run1000Games {
         playerNames.add("UCTPlayer");
         playerNames.add("JulianMCTS");
 
+        ArrayList<Integer> gamesWon = getGameTally();
+
+        // Restore original output stream
+        System.setOut(originalOut);
+
+        for (int i = 0; i < 4; i++){
+            System.out.println(playerNames.get(i) + ": " + gamesWon.get(i));
+        }
+    }
+
+    public static void runTwoPlayerGame() {
+        Run1000Games tester = new Run1000Games();
+
         PrintStream originalOut = System.out;
 
         // Redirect output to null to suppress print statements
         System.setOut(new PrintStream(new OutputStream() {
             public void write(int b) {}
         }));
-
-        // ArrayList<Integer> gamesWon = getGameTally();
 
         // Player p1 = new HighLowPlayAI("HighLowPlayer");
         // Player p1 = new RandomPlayAI("RandomPlayer");
@@ -198,14 +216,12 @@ public class Run1000Games {
         // Restore original output stream
         System.setOut(originalOut);
 
-        // !!! BUG - players not HighLowPlayer average at score 0.0
-
         System.out.println(String.format("%s: %.2f", p1.name, twoPlayerStats.get(0)));
         System.out.println(String.format("%s: %.2f", p2.name, twoPlayerStats.get(1)));
-        
+    }
 
-        // for (int i = 0; i < 4; i++){
-        //     System.out.println(playerNames.get(i) + ": " + gamesWon.get(i));
-        // }
+    public static void main(String[] args) {
+        // run1000Games();
+        runTwoPlayerGame();
     }
 }
