@@ -95,9 +95,9 @@ public class Run1000Games {
         ArrayList<Double> totalAvgScore = new ArrayList<Double>();
         totalAvgScore.add(0.0);
         totalAvgScore.add(0.0);
-        ArrayList<Integer> totalAvgScoreCount = new ArrayList<Integer>();
-        totalAvgScoreCount.add(0);
-        totalAvgScoreCount.add(0);
+        ArrayList<Integer> totalScoreCount = new ArrayList<Integer>();
+        totalScoreCount.add(0);
+        totalScoreCount.add(0);
 
         // Play Multiple Games
         int numberOfGames = 100;
@@ -140,31 +140,31 @@ public class Run1000Games {
                 // !!! COME BACK TO THIS - have to make sure accounting for scores of each correct player, even when player 1 is playing multiple players in a round 
                 for (Player p : playerCombos.get(j)) {
                     if (p.name.equals("HighLowPlayer")) {
-                        int avgScoreCount = thisAvgScoreCount.get(0);
-                        double avgScoreOne = (thisAvgScore.get(0) * avgScoreCount + p.points) / (avgScoreCount + 1);
+                        int scoreCount = thisAvgScoreCount.get(0);
+                        double avgScoreOne = (thisAvgScore.get(0) * scoreCount + p.points) / (scoreCount + 1);
                         thisAvgScore.set(0, avgScoreOne);
-                        thisAvgScoreCount.set(0, avgScoreCount + 1);
+                        thisAvgScoreCount.set(0, scoreCount + 1);
                     }
                     else {
-                        int avgScoreCount = thisAvgScoreCount.get(1);
-                        double avgScoreTwo = (thisAvgScore.get(1) * avgScoreCount + p.points) / (avgScoreCount + 1);
+                        int scoreCount = thisAvgScoreCount.get(1);
+                        double avgScoreTwo = (thisAvgScore.get(1) * scoreCount + p.points) / (scoreCount + 1);
                         thisAvgScore.set(1, avgScoreTwo);
-                        thisAvgScoreCount.set(1, avgScoreCount + 1);
+                        thisAvgScoreCount.set(1, scoreCount + 1);
                     }
                 }
                 
                 
             }
 
-            int totalScoreCount1 = totalAvgScoreCount.get(0);
-            double totalAvgScoreOne = (totalAvgScore.get(0) * totalScoreCount1 + thisAvgScore.get(0) *thisAvgScoreCount.get(0)) / (totalScoreCount1 + thisAvgScore.get(0));
+            int totalScoreCount1 = totalScoreCount.get(0);
+            double totalAvgScoreOne = ((totalAvgScore.get(0) * totalScoreCount1) + (thisAvgScore.get(0) * 28)) /    (totalScoreCount1 + 28);
             totalAvgScore.set(0, totalAvgScoreOne);
-            totalAvgScoreCount.set(0, totalScoreCount1 + 14);
+            totalScoreCount.set(0, totalScoreCount1 + 28);
 
-            int totalScoreCount2 = totalAvgScoreCount.get(1);
-            double totalAvgScoreTwo = (totalAvgScore.get(1) * totalScoreCount2 + thisAvgScore.get(1) *thisAvgScoreCount.get(1)) / (totalScoreCount2 + thisAvgScore.get(1));
+            int totalScoreCount2 = totalScoreCount.get(1);
+            double totalAvgScoreTwo = ((totalAvgScore.get(1) * totalScoreCount2) + (thisAvgScore.get(1) * 28)) /    (totalScoreCount2 + 28);
             totalAvgScore.set(1, totalAvgScoreTwo);
-            totalAvgScoreCount.set(1, totalScoreCount2 + 14);
+            totalScoreCount.set(1, totalScoreCount2 + 28);
         }
 
         return totalAvgScore;
@@ -189,14 +189,18 @@ public class Run1000Games {
         // ArrayList<Integer> gamesWon = getGameTally();
 
         Player p1 = new HighLowPlayAI("HighLowPlayer");
+        // Player p1 = new RandomPlayAI("RandomPlayer");
+        // Player p1 = new LowPlayAI("LowPlayer");
         Player p2 = new UCTPlayer("UCTPlayer");
         ArrayList<Double> twoPlayerStats = tester.getTwoPlayerStats(p1, p2);
 
         // Restore original output stream
         System.setOut(originalOut);
 
-        System.out.println(twoPlayerStats.get(0));
-        System.out.println(twoPlayerStats.get(1));
+        System.out.println(String.format("HighLowPlayer: %.2f", twoPlayerStats.get(0)));
+        // System.out.println(String.format("RandomPlayer: %.2f", twoPlayerStats.get(0)));
+        // System.out.println(String.format("LowPlayer: %.2f", twoPlayerStats.get(0)));
+        System.out.println(String.format("UCTPlayer: %.2f", twoPlayerStats.get(1)));
         
 
         // for (int i = 0; i < 4; i++){
