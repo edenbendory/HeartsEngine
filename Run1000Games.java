@@ -138,7 +138,7 @@ public class Run1000Games {
                 round.playNewGame(true, round.cardsPlayed);
 
                 for (Player p : playerCombos.get(j)) {
-                    if (p.name.equals("HighLowPlayer")) {
+                    if (p.name.equals(p1.name)) {
                         int scoreCount = thisAvgScoreCount.get(0);
                         double avgScoreOne = (thisAvgScore.get(0) * scoreCount + p.points) / (scoreCount + 1);
                         thisAvgScore.set(0, avgScoreOne);
@@ -187,9 +187,11 @@ public class Run1000Games {
 
         // ArrayList<Integer> gamesWon = getGameTally();
 
-        Player p1 = new HighLowPlayAI("HighLowPlayer");
+        // Player p1 = new HighLowPlayAI("HighLowPlayer");
         // Player p1 = new RandomPlayAI("RandomPlayer");
         // Player p1 = new LowPlayAI("LowPlayer");
+        // Player p1 = new MCTSPlayer("MCTSPlayer");
+        Player p1 = new LookAheadPlayer("LookAheadPlayer");
         Player p2 = new UCTPlayer("UCTPlayer");
         ArrayList<Double> twoPlayerStats = tester.getTwoPlayerStats(p1, p2);
 
@@ -198,10 +200,8 @@ public class Run1000Games {
 
         // !!! BUG - players not HighLowPlayer average at score 0.0
 
-        System.out.println(String.format("HighLowPlayer: %.2f", twoPlayerStats.get(0)));
-        // System.out.println(String.format("RandomPlayer: %.2f", twoPlayerStats.get(0)));
-        // System.out.println(String.format("LowPlayer: %.2f", twoPlayerStats.get(0)));
-        System.out.println(String.format("UCTPlayer: %.2f", twoPlayerStats.get(1)));
+        System.out.println(String.format("%s: %.2f", p1.name, twoPlayerStats.get(0)));
+        System.out.println(String.format("%s: %.2f", p2.name, twoPlayerStats.get(1)));
         
 
         // for (int i = 0; i < 4; i++){
