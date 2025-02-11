@@ -137,7 +137,6 @@ public class Run1000Games {
                 Game round = new Game(thisRound, first, second, third, fourth);
                 round.playNewGame(true, round.cardsPlayed);
 
-                // !!! COME BACK TO THIS - have to make sure accounting for scores of each correct player, even when player 1 is playing multiple players in a round 
                 for (Player p : playerCombos.get(j)) {
                     if (p.name.equals("HighLowPlayer")) {
                         int scoreCount = thisAvgScoreCount.get(0);
@@ -196,6 +195,8 @@ public class Run1000Games {
 
         // Restore original output stream
         System.setOut(originalOut);
+
+        // !!! BUG - players not HighLowPlayer average at score 0.0
 
         System.out.println(String.format("HighLowPlayer: %.2f", twoPlayerStats.get(0)));
         // System.out.println(String.format("RandomPlayer: %.2f", twoPlayerStats.get(0)));
