@@ -79,6 +79,9 @@ class UCTPlayer extends Player {
     @Override
     boolean setDebug() { return false; }
 
+    public int getNumIterations() { return numIterations; }
+    public int getMaxDepth() { return maxDepth; }
+
     int runMCTS (State originalState) {
         myHand = new ArrayList<>(hand);
         root = new Node(originalState, myHand, myHand, null, -1);

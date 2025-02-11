@@ -205,23 +205,47 @@ public class Run1000Games {
             public void write(int b) {}
         }));
 
-        // Player p1 = new HighLowPlayAI("HighLowPlayer");
-        // Player p1 = new RandomPlayAI("RandomPlayer");
-        // Player p1 = new LowPlayAI("LowPlayer");
-        // Player p1 = new MCTSPlayer("MCTSPlayer");
-        Player p1 = new LookAheadPlayer("LookAheadPlayer");
-        Player p2 = new UCTPlayer("UCTPlayer");
-        ArrayList<Double> twoPlayerStats = tester.getTwoPlayerStats(p1, p2);
+        ArrayList<Player> p1List = new ArrayList<>();
+        p1List.add(new HighLowPlayAI("HighLowPlayer"));
+        p1List.add(new RandomPlayAI("RandomPlayer"));
+        p1List.add(new MCTSPlayer("MCTSPlayer"));
+        // p1List.add(new LowPlayAI("LowPlayer"));
+        // p1List.add(new LookAheadPlayer("LookAheadPlayer"));
+        UCTPlayer p2 = new UCTPlayer("UCTPlayer");
 
-        // Restore original output stream
         System.setOut(originalOut);
+        System.out.println("Number of Iterations: " + p2.getNumIterations());
+        System.out.println("Max Depth: " + p2.getMaxDepth());
+        System.out.println("--------------------------------------------");
 
-        System.out.println(String.format("%s: %.2f", p1.name, twoPlayerStats.get(0)));
-        System.out.println(String.format("%s: %.2f", p2.name, twoPlayerStats.get(1)));
+        for (Player p1 : p1List) {
+            // Redirect output to null to suppress print statements
+            System.setOut(new PrintStream(new OutputStream() {
+                public void write(int b) {}
+            }));
+
+            ArrayList<Double> twoPlayerStats = tester.getTwoPlayerStats(p1, p2);
+
+            // Restore original output stream
+            System.setOut(originalOut);
+    
+            System.out.println(String.format("%s: %.2f", p1.name, twoPlayerStats.get(0)));
+            System.out.println(String.format("%s: %.2f", p2.name, twoPlayerStats.get(1)));
+            System.out.println();
+        }
     }
 
     public static void main(String[] args) {
-        // run1000Games();
+        System.out.println("--------------------------------------------");
+        System.out.println("Running 2 Player Games");
+        System.out.println("--------------------------------------------");
+        System.out.println();
         runTwoPlayerGame();
+
+        System.out.println("--------------------------------------------");
+        System.out.println("Running 1000 Games");
+        System.out.println("--------------------------------------------");
+        System.out.println();
+        run1000Games();
     }
 }
