@@ -11,6 +11,7 @@ class UCTPlayer extends Player {
 
     int             myPNumber; // DONE
     ArrayList<Card> myHand;
+    ArrayList<ArrayList<Card>> playerHands;
     Random          rand;
     boolean         debug = false;
     // ArrayList<ArrayList<Card>>	playerHands; // To keep track of each player's hand
@@ -85,6 +86,7 @@ class UCTPlayer extends Player {
     int runMCTS (State originalState) {
         myHand = new ArrayList<>(hand);
         root = new Node(originalState, myHand, myHand, null, -1);
+        playerHands = generateHands(originalState);
 
         assert(root.children.isEmpty());
 
@@ -112,6 +114,54 @@ class UCTPlayer extends Player {
         }
 
         return bestRewardChild(root);
+    }
+
+    private ArrayList<ArrayList<Card>> generateHands(State state) {
+        ArrayList<Card> cardsLeft = new ArrayList<>(state.cardsPlayed.invertDeck);
+        Collections.shuffle(cardsLeft);
+
+        // remove all the cards that we know are in My hand
+        for (Card myCard : myHand) {
+            for (int i = 0; i < cardsLeft.size(); i++) {
+                Card cardLeft = cardsLeft.get(i);
+                if (cardLeft.equals(myCard)) { cardsLeft.remove(i); }
+            }
+        }
+        // !!! deal with how many cards each player has after !!!
+
+        // !!! reality check: there should be around 39 cardsLeft
+
+        ArrayList<ArrayList<Card>> playerHands = new ArrayList<>();
+        playerHands.add(new ArrayList<>());
+        playerHands.add(new ArrayList<>());
+        playerHands.add(new ArrayList<>());
+        playerHands.add(new ArrayList<>());
+        int p1 = myPNumber + 1 % 4; // 3
+        int p2 = myPNumber + 2 % 4; // 0
+        int p3 = myPNumber + 3 % 4; // 1
+        for (int 0; i < state.currentRound.size(); i++) {
+// !!! continue here - trying to deal with how many cards each player should have based on how many rounds have passed. see notability notes 
+        }
+        for (int i = 0; i < 4; i++) {
+            ArrayList<Card> genHand = new ArrayList<>();
+
+            int firstPlayer = (state.playerIndex - state.currentRound.size() + 1 + state.playerScores.size()) % state.playerScores.size();
+            if (i >= firstPlayer &&)
+
+            int handSize = node.curHand.size(); 
+            // unless a new round just started, in which case everyone has put a card down, and so I have one less card than my parent b/c I am first
+            if (state.firstInRound()) {handSize--;} 
+    
+            // right now this is random, but later we will change this to update based on player tables 
+            for (int j = 0; j < handSize; j++) { 
+                genHand.add(cardsLeft.remove(i)); 
+            }
+
+            playerHands.add(genHand);
+        }
+        
+
+        return playerHands;
     }
 
     // Select which node to expand next using UCT
