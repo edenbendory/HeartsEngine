@@ -39,7 +39,7 @@ public class Run1000Games {
 
             boolean gameOver = false;
             Game round = new Game(thing, p1, p2, p3, p4);
-            int j = 1;
+            // int j = 1;
             while (!gameOver) {
                 // System.out.println("\n--------------------------------------------");
                 // System.out.println("--------------------------------------------");
@@ -49,7 +49,7 @@ public class Run1000Games {
                 // System.out.println("--------------------------------------------");
                 // System.out.println("--------------------------------------------\n");
                 round.playNewGame(true, null);
-                j++;
+                // j++;
 
                 for (Player p : round.playerOrder) {
                     if (p.getPoints() >= 100) {
@@ -93,7 +93,7 @@ public class Run1000Games {
 
     // Returns the average scores when comparing 2 players.
     // A total of 1400 games are played, 14 variations for each deal, 100 times
-    public ArrayList<Double> getTwoPlayerStats(Player p1, Player p2) {
+    private ArrayList<Double> getTwoPlayerStats(Player p1, Player p2) {
         ArrayList<Double> totalAvgScore = new ArrayList<>();
         totalAvgScore.add(0.0);
         totalAvgScore.add(0.0);
@@ -176,6 +176,7 @@ public class Run1000Games {
         
         // Redirect output to null to suppress print statements
         System.setOut(new PrintStream(new OutputStream() {
+            @Override
             public void write(int b) {}
         }));
 
@@ -202,6 +203,7 @@ public class Run1000Games {
 
         // Redirect output to null to suppress print statements
         System.setOut(new PrintStream(new OutputStream() {
+            @Override
             public void write(int b) {}
         }));
 
@@ -221,6 +223,7 @@ public class Run1000Games {
         for (Player p1 : p1List) {
             // Redirect output to null to suppress print statements
             System.setOut(new PrintStream(new OutputStream() {
+                @Override
                 public void write(int b) {}
             }));
 
