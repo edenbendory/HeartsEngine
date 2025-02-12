@@ -11,10 +11,10 @@ public class Deck {
 	// so we do not generate duplicate decks
 	boolean initCounter;
 
-	// these are all of the cards currently in the deck
+	// these are all of the cards currently in the deck - cards played
 	ArrayList<Card> allCards = new ArrayList<Card>();
 
-	// these are all of the cards not in the deck (during gameplay)
+	// these are all of the cards not in the deck (during gameplay) - cards left
 	// keeps pointers to those cards, so be careful
 	ArrayList<Card> invertDeck = new ArrayList<Card>();
 

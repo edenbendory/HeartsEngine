@@ -13,13 +13,13 @@ public class Hearts {
 		Deck thing = new Deck();
 
 		// Assume this order is clockwise
-		Player p1 = new HighLowPlayAI("EdHighLowPlay");
+		Player p1 = new HighLowPlayAI("HighLowPlayer");
 		// Player p3 = new LowPlayAI("WellsLowPlay");
 		//Player p4 = new RandomPlayAI("Wells");
-		Player p2 = new RandomPlayAI("JaiRandomPlay");
+		Player p2 = new RandomPlayAI("RandomPlayer");
 		// Player p3 = new LookAheadPlayer("AntLookAhead");
 		Player p3 = new UCTPlayer("UCTPlayer");
-		Player p4 = new MCTSPlayer("JulianMCTS");
+		Player p4 = new MCTSPlayer("MCTSPlayer");
 		// Player p4 = new HumanPlayer("EdenPlay");
 
 		// at the end of every game, we will have all the cards back in the deck

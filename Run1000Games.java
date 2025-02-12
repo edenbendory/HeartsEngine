@@ -18,10 +18,10 @@ public class Run1000Games {
             Deck thing = new Deck();
 
             // Assume this order is clockwise
-            Player p1 = new HighLowPlayAI("EdHighLowPlay");
-            Player p2 = new RandomPlayAI("JaiRandomPlay");
+            Player p1 = new HighLowPlayAI("HighLowPlayer");
+            Player p2 = new RandomPlayAI("RandomPlayer");
             Player p3 = new UCTPlayer("UCTPlayer");
-            Player p4 = new MCTSPlayer("JulianMCTS");
+            Player p4 = new MCTSPlayer("MCTSPlayer");
 
             // at the end of every game, we will have all the cards back in the deck
             // thing.printDeck();
@@ -181,10 +181,10 @@ public class Run1000Games {
         }));
 
         ArrayList<String> playerNames = new ArrayList<>();
-        playerNames.add("EdHighLowPlay");
-        playerNames.add("JaiRandomPlay");
+        playerNames.add("HighLowPlayer");
+        playerNames.add("RandomPlayer");
         playerNames.add("UCTPlayer");
-        playerNames.add("JulianMCTS");
+        playerNames.add("MCTSPlayer");
 
         ArrayList<Integer> gamesWon = getGameTally();
 

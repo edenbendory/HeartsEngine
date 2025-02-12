@@ -304,14 +304,18 @@ class UCTPlayer extends Player {
             }
             // usual case - there are children to add / cards in the child's hand
             else {
-                // find the range of valid cards this player can play, and add them all to this player's "hand" 
-                int[] indexRange = getValidRange(childState, cardPile);
+                // generate a random hand for this player 
+                ArrayList<Card> genHand = generateHand(childState, parentNode);
+                Collections.sort(genHand);
+                
+                // find the range of valid cards this player can play from their random hand, and add them all to this player's "hand" 
+                int[] indexRange = getValidRange(childState, genHand);
                 int firstIndex = indexRange[0];
                 int lastIndex = indexRange[1];
 
                 childHand = new ArrayList<>();
                 for (int i = firstIndex; i <= lastIndex; i++) {
-                    childHand.add(cardPile.get(i));
+                    childHand.add(genHand.get(i));
                 }
             }
         }
@@ -332,6 +336,14 @@ class UCTPlayer extends Player {
         // for (int i = 0; i < state.currentRound.size(); i++) {
         //     int playerIndex = i + firstPlayer % 4;
         // }
+
+        // remove all the cards that we know are in My hand
+        for (Card myCard : node.myCurHand) {
+            for (int i = 0; i < cardsLeft.size(); i++) {
+                Card cardLeft = cardsLeft.get(i);
+                if (cardLeft.equals(myCard)) { cardsLeft.remove(i); }
+            }
+        }
 
         // everyone has the same amount of cards at the beginning of a round - so I should have the same as my parent
         int handSize = node.curHand.size(); 
