@@ -280,16 +280,7 @@ class UCTPlayer extends Player {
         int playerIndex = nextPlayer;
         if (playerIndex == myPNumber) {
             // if the player we're up to is Me, then we wanna inherit the hand that's been passed down 
-
-            // find the range of valid cards this player can play from their random hand, and add them all to this player's "hand" 
-            int[] indexRange = getValidRange(childState, myCurHand);
-            int firstIndex = indexRange[0];
-            int lastIndex = indexRange[1];
-
-            childHand = new ArrayList<>();
-            for (int i = firstIndex; i <= lastIndex; i++) {
-                childHand.add(myCurHand.get(i));
-            }
+            childHand = new ArrayList<>(myCurHand);
         }
         else {
             // otherwise, generate a random "hand" for the player, where a hand consists of all the valid cards this player can play this round (may be more than a standard "hand size")
@@ -314,18 +305,8 @@ class UCTPlayer extends Player {
             // usual case - there are children to add / cards in the child's hand
             else {
                 // generate a random hand for this player 
-                ArrayList<Card> genHand = generateHand(childState, parentNode);
-                Collections.sort(genHand);
-                
-                // find the range of valid cards this player can play from their random hand, and add them all to this player's "hand" 
-                int[] indexRange = getValidRange(childState, genHand);
-                int firstIndex = indexRange[0];
-                int lastIndex = indexRange[1];
-
-                childHand = new ArrayList<>();
-                for (int i = firstIndex; i <= lastIndex; i++) {
-                    childHand.add(genHand.get(i));
-                }
+                childHand = generateHand(childState, parentNode);
+                Collections.sort(childHand);
             }
         }
 
