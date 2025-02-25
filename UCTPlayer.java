@@ -11,10 +11,9 @@ class UCTPlayer extends Player {
 
     int             myPNumber; // DONE
     ArrayList<Card> myHand;
-    ArrayList<ArrayList<Card>> playerHands;
+    ArrayList<ArrayList<Card>> playerHands; // To keep track of each player's hand
     Random          rand;
     boolean         debug = false;
-    // ArrayList<ArrayList<Card>>	playerHands; // To keep track of each player's hand
 
 	final int 		numIterations = 100; 		// How many times we go through MCTS before making a decision
 	final int 		maxDepth = 9; 	// How many nodes to expand to before doing random playouts
@@ -64,14 +63,6 @@ class UCTPlayer extends Player {
 
 		myHand = new ArrayList<>(hand);
         rand = new Random();
-        // playerHands = new ArrayList<>();
-
-        // represents 4 players (currently) empty hands
-        // playerHands.add(new ArrayList<>());
-        // playerHands.add(new ArrayList<>());
-        // playerHands.add(new ArrayList<>());
-        // playerHands.add(new ArrayList<>());
-        // System.out.println("Num player hands: " + playerHands.size());
 	}
 
     @Override
@@ -117,6 +108,14 @@ class UCTPlayer extends Player {
     }
 
     private ArrayList<ArrayList<Card>> generateHands(State state) {
+        // !!! TEST THIS FUNCTION !!!
+        ArrayList<ArrayList<Card>> playerHands = new ArrayList<>();
+        playerHands.add(new ArrayList<>());
+        playerHands.add(new ArrayList<>());
+        playerHands.add(new ArrayList<>());
+        playerHands.add(new ArrayList<>());
+        playerHands.set(myPNumber, myHand);
+
         ArrayList<Card> cardsLeft = new ArrayList<>(state.cardsPlayed.invertDeck);
         Collections.shuffle(cardsLeft);
 
@@ -131,35 +130,34 @@ class UCTPlayer extends Player {
 
         // !!! reality check: there should be around 39 cardsLeft
 
-        ArrayList<ArrayList<Card>> playerHands = new ArrayList<>();
-        playerHands.add(new ArrayList<>());
-        playerHands.add(new ArrayList<>());
-        playerHands.add(new ArrayList<>());
-        playerHands.add(new ArrayList<>());
-        int p1 = myPNumber + 1 % 4; // 3
-        int p2 = myPNumber + 2 % 4; // 0
-        int p3 = myPNumber + 3 % 4; // 1
-        for (int 0; i < state.currentRound.size(); i++) {
-// !!! continue here - trying to deal with how many cards each player should have based on how many rounds have passed. see notability notes 
-        }
-        for (int i = 0; i < 4; i++) {
+        // int p1 = myPNumber + 1 % 4; // 3
+        // int p2 = myPNumber + 2 % 4; // 0
+        // int p3 = myPNumber + 3 % 4; // 1
+        int playNum = 1;
+
+        for (int i = 0; i < 3 - state.currentRound.size(); i++) {
             ArrayList<Card> genHand = new ArrayList<>();
 
-            int firstPlayer = (state.playerIndex - state.currentRound.size() + 1 + state.playerScores.size()) % state.playerScores.size();
-            if (i >= firstPlayer &&)
-
-            int handSize = node.curHand.size(); 
-            // unless a new round just started, in which case everyone has put a card down, and so I have one less card than my parent b/c I am first
-            if (state.firstInRound()) {handSize--;} 
-    
             // right now this is random, but later we will change this to update based on player tables 
-            for (int j = 0; j < handSize; j++) { 
+            for (int j = 0; j < 13; j++) { 
                 genHand.add(cardsLeft.remove(i)); 
             }
 
-            playerHands.add(genHand);
+            playerHands.set(myPNumber + playNum % 4, genHand);
+            playNum++;
         }
-        
+
+        for (int i = 3 - state.currentRound.size(); i < 3; i++) {
+            ArrayList<Card> genHand = new ArrayList<>();
+
+            // right now this is random, but later we will change this to update based on player tables 
+            for (int j = 0; j < 12; j++) { 
+                genHand.add(cardsLeft.remove(i)); 
+            }
+
+            playerHands.set(myPNumber + playNum % 4, genHand);
+            playNum++;
+        }
 
         return playerHands;
     }
@@ -325,6 +323,9 @@ class UCTPlayer extends Player {
         if (parentNode.playerIndex == myPNumber) { // if I just went 
             myCurHand.remove(childIndex); // then update my hand 
         }
+
+        // update player's hand based on who just went 
+        playerHands.get(parentNode.playerIndex).remove(childIndex); // !!! TEST THIS !!!
 
         ArrayList<Card> childHand;
         int playerIndex = nextPlayer;
