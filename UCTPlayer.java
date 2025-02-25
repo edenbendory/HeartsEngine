@@ -15,8 +15,8 @@ class UCTPlayer extends Player {
     boolean         debug = false;
     // ArrayList<ArrayList<Card>>	playerHands; // To keep track of each player's hand
 
-	final int 		numIterations = 100; 		// How many times we go through MCTS before making a decision
-	final int 		maxDepth = 9; 	// How many nodes to expand to before doing random playouts
+	final int 		numIterations = 10000; 		// How many times we go through MCTS before making a decision
+	final int 		maxDepth = Integer.MAX_VALUE; 	// How many nodes to expand to before doing random playouts
 	Node 			root;
 
     public class Node {
@@ -352,29 +352,12 @@ class UCTPlayer extends Player {
     private ArrayList<Integer> simulateRandomPlayout(Node node) {
         // "global" variables that we want to alter throughout the simulation 
         State tempState = new State(node.state); // state of the game
-        ArrayList<Card> mySimulatedHand = new ArrayList<>(node.myCurHand); // my hand
-        ArrayList<Card> cardsLeft = new ArrayList<>(tempState.cardsPlayed.invertDeck); // essentially every other player's hand
-        Collections.sort(cardsLeft);
-
-        // remove each card in my hand from the potential cards that other players can play 
-        for (Card myCard : mySimulatedHand) {
-            for (int i = 0; i < cardsLeft.size(); i++) {
-                Card cardLeft = cardsLeft.get(i);
-                if (cardLeft.equals(myCard)) { cardsLeft.remove(i); }
-            }
-        }
+        ArrayList<Card> simulatedHand = new ArrayList<>(node.curHand); // hand that will be altered through simulating
 
         int curPlayer = node.playerIndex; // to start off
-        ArrayList<Card> cardPile;
-        while (!cardsLeft.isEmpty()) {
-            if (curPlayer == myPNumber) {
-                cardPile = mySimulatedHand; // My hand as that node knows it at that point in the tree (not my hand when the tree was created)
-            } else {
-                cardPile = cardsLeft; // !!! later change this to be the YM cards in YMN table
-            }
-
-            // given the cards in the "pile" (my hand or cardsLeft) we can draw from, determine the valid range of cards that can be played
-            int[] indexRange = getValidRange(tempState, cardPile);
+        while (!tempState.cardsPlayed.invertDeck.isEmpty()) {
+            // given the cards in the each player's hand, the cards we can draw from, determine the valid range of cards that can be played
+            int[] indexRange = getValidRange(tempState, simulatedHand);
             int firstIndex = indexRange[0];
             int lastIndex = indexRange[1];
 
@@ -383,10 +366,10 @@ class UCTPlayer extends Player {
 
             if (firstIndex == lastIndex) { cardNum = firstIndex; }
             else { cardNum = firstIndex + rand.nextInt(lastIndex - firstIndex); } // ToDo: Change so that it isn't random (optimization)
-            Card cardToPlay = cardPile.get(cardNum);
+            Card cardToPlay = simulatedHand.get(cardNum);
 
-            curPlayer = tempState.advanceState(cardToPlay, cardPile, debug);
-            cardPile.remove(cardToPlay);
+            curPlayer = tempState.advanceState(cardToPlay, simulatedHand, debug);
+            simulatedHand.remove(cardToPlay);
         }
 
         return tempState.playerScores;
