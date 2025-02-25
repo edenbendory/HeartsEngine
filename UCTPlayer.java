@@ -16,7 +16,7 @@ class UCTPlayer extends Player {
     // ArrayList<ArrayList<Card>>	playerHands; // To keep track of each player's hand
 
 	final int 		numIterations = 10000; 		// How many times we go through MCTS before making a decision
-	final int 		maxDepth = Integer.MAX_VALUE; 	// How many nodes to expand to before doing random playouts
+	final int 		maxDepth = Integer.MAX_VALUE; 	// How many nodes to expand to before doing random playouts - no limit
 	Node 			root;
 
     public class Node {
