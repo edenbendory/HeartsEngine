@@ -54,7 +54,6 @@ class UCTPlayer extends Player {
             // root
 			else {
                 depth = 0;
-                myPNumber = s.playerIndex;
             }
 		}
 	}
@@ -77,6 +76,7 @@ class UCTPlayer extends Player {
     public int getMaxDepth() { return maxDepth; }
 
     int runMCTS (State originalState) {
+        myPNumber = originalState.playerIndex;
         myHand = new ArrayList<>(hand);
         playerHands = generateHands(originalState);
         root = new Node(originalState, myHand, myHand, playerHands, null, -1);
@@ -110,7 +110,6 @@ class UCTPlayer extends Player {
     }
 
     private ArrayList<ArrayList<Card>> generateHands(State state) {
-        // !!! TEST THIS FUNCTION !!!
         ArrayList<ArrayList<Card>> playerHands = new ArrayList<>();
         playerHands.add(new ArrayList<>());
         playerHands.add(new ArrayList<>());
@@ -128,7 +127,6 @@ class UCTPlayer extends Player {
                 if (cardLeft.equals(myCard)) { cardsLeft.remove(i); }
             }
         }
-        // !!! deal with how many cards each player has after !!!
 
         // !!! reality check: there should be around 39 cardsLeft
 
@@ -136,17 +134,19 @@ class UCTPlayer extends Player {
         // int p2 = myPNumber + 2 % 4; // 0
         // int p3 = myPNumber + 3 % 4; // 1
         int playNum = 1;
+        int bigHandSize = (cardsLeft.size() + state.currentRound.size()) / 3;
+        int smallHandSize = bigHandSize - 1;
 
         for (int i = 0; i < 3 - state.currentRound.size(); i++) {
             ArrayList<Card> genHand = new ArrayList<>();
 
             // right now this is random, but later we will change this to update based on player tables 
-            for (int j = 0; j < 13; j++) { 
-                genHand.add(cardsLeft.remove(i)); 
+            for (int j = 0; j < bigHandSize; j++) { 
+                genHand.add(cardsLeft.remove(0)); 
             }
             Collections.sort(genHand);
 
-            playerHands.set(myPNumber + playNum % 4, genHand);
+            playerHands.set((myPNumber + playNum) % 4, genHand);
             playNum++;
         }
 
@@ -154,12 +154,12 @@ class UCTPlayer extends Player {
             ArrayList<Card> genHand = new ArrayList<>();
 
             // right now this is random, but later we will change this to update based on player tables 
-            for (int j = 0; j < 12; j++) { 
-                genHand.add(cardsLeft.remove(i)); 
+            for (int j = 0; j < smallHandSize; j++) { 
+                genHand.add(cardsLeft.remove(0)); 
             }
             Collections.sort(genHand);
 
-            playerHands.set(myPNumber + playNum % 4, genHand);
+            playerHands.set((myPNumber + playNum) % 4, genHand);
             playNum++;
         }
 
@@ -324,44 +324,27 @@ class UCTPlayer extends Player {
         int nextPlayer = childState.advanceState(parentNode.curHand.get(childIndex), parentNode.curHand, debug);
 
         ArrayList<Card> myCurHand = new ArrayList<>(parentNode.myCurHand); // pass my hand along 
-        ArrayList<ArrayList<Card>> curPlayerHands = new ArrayList<>(parentNode.curPlayerHands);
+        ArrayList<ArrayList<Card>> playerHandsCopy = new ArrayList<>();
+
+        for (ArrayList<Card> copyHand : parentNode.curPlayerHands) {
+            playerHandsCopy.add(new ArrayList<>(copyHand));
+        }
+
         if (parentNode.playerIndex == myPNumber) { // if I just went 
             myCurHand.remove(childIndex); // then update my hand 
         }
 
         // update player's hand based on who just went 
-        curPlayerHands.get(parentNode.playerIndex).remove(childIndex); // !!! TEST THIS !!!
+        playerHandsCopy.get(parentNode.playerIndex).remove(childIndex); 
 
         ArrayList<Card> childHand;
         int playerIndex = nextPlayer;
-        if (playerIndex == myPNumber) {
-            // if the player we're up to is Me, then we wanna inherit the hand that's been passed down 
-            childHand = new ArrayList<>(myCurHand);
-        }
-        else {
-            // // corner case where there are no children left to add / no cards in the child's hand b/c the deck is empty
-            // if (childState.cardsPlayed.invertDeck.isEmpty()) {
-            //     childHand = new ArrayList<>(); // childHand is just an empty list
-            // }
-            // usual case - there are children to add / cards in the child's hand
-
-            ArrayList<Card> playerHand = curPlayerHands.get(playerIndex);
-            
-            // find the range of valid cards this player can play from their random hand, and add them all to this player's "hand" 
-            int[] indexRange = getValidRange(childState, playerHand);
-            int firstIndex = indexRange[0];
-            int lastIndex = indexRange[1];
-
-            childHand = new ArrayList<>();
-            for (int i = firstIndex; i <= lastIndex; i++) {
-                childHand.add(playerHand.get(i));
-            }
-        }
+        childHand = new ArrayList<>(playerHandsCopy.get(playerIndex)); // ??? needs to be a deep copy ???
 
         int handIndex = childIndex;
 
 		// Create a new child node that corresponds to the card we have just successfully played
-		parentNode.children.add(new Node(childState, childHand, myCurHand, curPlayerHands, parentNode, handIndex));
+		parentNode.children.add(new Node(childState, childHand, myCurHand, playerHandsCopy, parentNode, handIndex));
     }
 
     private ArrayList<Card> generateHand(State state, Node node) {
