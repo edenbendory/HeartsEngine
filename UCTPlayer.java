@@ -75,7 +75,36 @@ class UCTPlayer extends Player {
     public int getNumIterations() { return numIterations; }
     public int getMaxDepth() { return maxDepth; }
 
-    int runMCTS (State originalState) {
+    int runMultipleMCTS(State originalState) {
+        // !!! TEST THIS !!!!
+        int[] handIndexAvgScores = new int[13];
+        int[] handIndexTally = new int[13];
+
+        // run MCTS 1000 times, and determine what the best child is 
+        // averaged over all the games 
+        for (int i = 0; i < 1000; i++) {
+            int[] bestChildStats = runMCTS(originalState);
+            int bestHandIndex = bestChildStats[0];
+            int bestWinScore = bestChildStats[1];
+
+            int tally = handIndexTally[bestHandIndex];
+            handIndexAvgScores[bestHandIndex] = (handIndexAvgScores[bestHandIndex]*tally + bestWinScore) / (tally + 1);
+        }
+
+        int bestScore = -Integer.MAX_VALUE;
+        int bestHandIndex = 0;
+        for (int i = 0; i < 13; i++) {
+            int curScore = handIndexAvgScores[i];
+            if (curScore > bestScore) {
+                bestScore = curScore;
+                bestHandIndex = i;
+            }
+        }
+
+        return bestHandIndex;
+    }
+
+    int[] runMCTS (State originalState) {
         myPNumber = originalState.playerIndex;
         myHand = new ArrayList<>(hand);
         playerHands = generateHands(originalState);
@@ -424,8 +453,10 @@ class UCTPlayer extends Player {
 		}
 	}
 
-    // Pick the child of the root with the highest reward
-	private int bestRewardChild(Node root) {
+    // Pick the child of the root with the highest reward. Returns an 
+    // array of length 2, in which index 0 holds the best child's index,
+    // and index 1 holds the best child's winning score
+	private int[] bestRewardChild(Node root) {
 		double bestWinScore = -Double.MAX_VALUE;
         int bestChildIndex = 0; 
 
@@ -440,7 +471,10 @@ class UCTPlayer extends Player {
             }
         }
 
-        return root.children.get(bestChildIndex).handIndex; // handIndex is not necessarily = bestChildIndex
+        int[] bestStats = new int[2];
+        bestStats[0] = root.children.get(bestChildIndex).handIndex; // handIndex is not necessarily = bestChildIndex
+        bestStats[1] = ((int)bestWinScore);
+        return bestStats; 
 	}
 
     @Override
@@ -461,7 +495,7 @@ class UCTPlayer extends Player {
 			return hand.remove(0);
 
 		// Actually play the card, after doing MCTS
-		return hand.remove(runMCTS(masterCopy));
+		return hand.remove(runMultipleMCTS(masterCopy));
 	}
 }
 
