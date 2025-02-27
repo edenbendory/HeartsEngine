@@ -228,7 +228,7 @@ class UCTPlayer extends Player {
             return Integer.MAX_VALUE;
         }
         return (
-            (0.5 * (double) nodeWinScore / (double) nodeVisitCount) 
+            ((double) nodeWinScore / (double) nodeVisitCount) 
             + (Math.sqrt(2) * Math.sqrt(Math.log(totalVisitCount) / (double) nodeVisitCount)));
     }
 
