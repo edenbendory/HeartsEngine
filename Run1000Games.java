@@ -102,7 +102,7 @@ public class Run1000Games {
         totalScoreCount.add(0);
 
         // Play Multiple Games
-        int numberOfGames = 10;
+        int numberOfGames = 100;
         for (int i = 1; i <= numberOfGames; i++) {
             // Initalize the deck of cards
             Deck thing = new Deck();
