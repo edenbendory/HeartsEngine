@@ -15,7 +15,7 @@ class UCTPlayer extends Player {
     Random          rand;
     boolean         debug = false;
 
-	final int 		numIterations = 100; 		// How many times we go through MCTS before making a decision
+	final int 		numIterations = 10; 		// How many times we go through MCTS before making a decision
 	final int 		maxDepth = 9; 	// How many nodes to expand to before doing random playouts
 	Node 			root;
 
@@ -77,24 +77,25 @@ class UCTPlayer extends Player {
 
     int runMultipleMCTS(State originalState) {
         // !!! TEST THIS !!!!
-        int[] handIndexAvgScores = new int[13];
+        double[] handIndexAvgScores = new double[13];
         int[] handIndexTally = new int[13];
 
         // run MCTS 1000 times, and determine what the best child is 
         // averaged over all the games 
-        for (int i = 0; i < 1000; i++) {
-            int[] bestChildStats = runMCTS(originalState);
-            int bestHandIndex = bestChildStats[0];
-            int bestWinScore = bestChildStats[1];
+        for (int i = 0; i < 10; i++) {
+            double[] bestChildStats = runMCTS(originalState);
+            int bestHandIndex = (int)bestChildStats[0];
+            double bestWinScore = bestChildStats[1];
 
             int tally = handIndexTally[bestHandIndex];
             handIndexAvgScores[bestHandIndex] = (handIndexAvgScores[bestHandIndex]*tally + bestWinScore) / (tally + 1);
+            handIndexTally[bestHandIndex] = tally+1;
         }
 
-        int bestScore = -Integer.MAX_VALUE;
+        double bestScore = -Double.MAX_VALUE;
         int bestHandIndex = 0;
         for (int i = 0; i < 13; i++) {
-            int curScore = handIndexAvgScores[i];
+            double curScore = handIndexAvgScores[i];
             if (curScore > bestScore) {
                 bestScore = curScore;
                 bestHandIndex = i;
@@ -104,7 +105,7 @@ class UCTPlayer extends Player {
         return bestHandIndex;
     }
 
-    int[] runMCTS (State originalState) {
+    double[] runMCTS (State originalState) {
         myPNumber = originalState.playerIndex;
         myHand = new ArrayList<>(hand);
         playerHands = generateHands(originalState);
@@ -227,8 +228,8 @@ class UCTPlayer extends Player {
             return Integer.MAX_VALUE;
         }
         return (
-            ((double) nodeWinScore / (double) nodeVisitCount) 
-            + Math.sqrt(2) * Math.sqrt(Math.log(totalVisitCount) / (double) nodeVisitCount));
+            (0.5 * (double) nodeWinScore / (double) nodeVisitCount) 
+            + (Math.sqrt(2) * Math.sqrt(Math.log(totalVisitCount) / (double) nodeVisitCount)));
     }
 
     private static Node bestUCTChild(Node node) {
@@ -456,7 +457,7 @@ class UCTPlayer extends Player {
     // Pick the child of the root with the highest reward. Returns an 
     // array of length 2, in which index 0 holds the best child's index,
     // and index 1 holds the best child's winning score
-	private int[] bestRewardChild(Node root) {
+	private double[] bestRewardChild(Node root) {
 		double bestWinScore = -Double.MAX_VALUE;
         int bestChildIndex = 0; 
 
@@ -471,9 +472,9 @@ class UCTPlayer extends Player {
             }
         }
 
-        int[] bestStats = new int[2];
+        double[] bestStats = new double[2];
         bestStats[0] = root.children.get(bestChildIndex).handIndex; // handIndex is not necessarily = bestChildIndex
-        bestStats[1] = ((int)bestWinScore);
+        bestStats[1] = bestWinScore;
         return bestStats; 
 	}
 
