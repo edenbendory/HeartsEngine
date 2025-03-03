@@ -16,7 +16,7 @@ class UCTPlayer extends Player {
     boolean         debug = false;
 
 	final int 		numIterations = 100; 		// How many times we go through MCTS before making a decision
-	final int 		maxDepth = 9; 	// How many nodes to expand to before doing random playouts
+	final int 		maxDepth = Integer.MAX_VALUE; 	// How many nodes to expand to before doing random playouts
 	Node 			root;
 
     public class Node {
@@ -82,7 +82,7 @@ class UCTPlayer extends Player {
 
         // run MCTS 1000 times, and determine what the best child is 
         // averaged over all the games 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100; i++) {
             double[] bestChildStats = runMCTS(originalState);
             int bestHandIndex = (int)bestChildStats[0];
             double bestWinScore = bestChildStats[1];

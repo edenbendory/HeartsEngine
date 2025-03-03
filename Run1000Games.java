@@ -102,71 +102,68 @@ public class Run1000Games {
         totalScoreCount.add(0);
 
         // Play Multiple Games
-        int numberOfGames = 100;
-        for (int i = 1; i <= numberOfGames; i++) {
-            // Initalize the deck of cards
-            Deck thing = new Deck();
-            thing.shuffleDeck();
+        // Initalize the deck of cards
+        Deck thing = new Deck();
+        thing.shuffleDeck();
 
-            ArrayList<Double> thisAvgScore = new ArrayList<>();
-            thisAvgScore.add(0.0);
-            thisAvgScore.add(0.0);
-            ArrayList<Integer> thisAvgScoreCount = new ArrayList<>();
-            thisAvgScoreCount.add(0);
-            thisAvgScoreCount.add(0);
+        ArrayList<Double> thisAvgScore = new ArrayList<>();
+        thisAvgScore.add(0.0);
+        thisAvgScore.add(0.0);
+        ArrayList<Integer> thisAvgScoreCount = new ArrayList<>();
+        thisAvgScoreCount.add(0);
+        thisAvgScoreCount.add(0);
 
-            for (int j = 0; j < 14; j++) {
-                // for the purposes of this experimental setup, one round = one game ???
-                Deck thisRound = new Deck(thing);
+        for (int j = 0; j < 14; j++) {
+            // for the purposes of this experimental setup, one round = one game ???
+            Deck thisRound = new Deck(thing);
 
-                // determine which arrangement of hands we want for this game
-                ArrayList<ArrayList<Player>> playerCombos = getAllCombos(p1, p2);
-                Player first = playerCombos.get(j).get(0);
-                Player second = playerCombos.get(j).get(1);
-                Player third = playerCombos.get(j).get(2);
-                Player fourth = playerCombos.get(j).get(3);
+            // determine which arrangement of hands we want for this game
+            ArrayList<ArrayList<Player>> playerCombos = getAllCombos(p1, p2);
+            Player first = playerCombos.get(j).get(0);
+            Player second = playerCombos.get(j).get(1);
+            Player third = playerCombos.get(j).get(2);
+            Player fourth = playerCombos.get(j).get(3);
 
-                // re-initialize each player
-                first.points = 0;
-                first.hand = new ArrayList<>();
-                second.points = 0;
-                second.hand = new ArrayList<>();
-                third.points = 0;
-                third.hand = new ArrayList<>();
-                fourth.points = 0;
-                fourth.hand = new ArrayList<>();
+            // re-initialize each player
+            first.points = 0;
+            first.hand = new ArrayList<>();
+            second.points = 0;
+            second.hand = new ArrayList<>();
+            third.points = 0;
+            third.hand = new ArrayList<>();
+            fourth.points = 0;
+            fourth.hand = new ArrayList<>();
 
-                Game round = new Game(thisRound, first, second, third, fourth);
-                round.playNewGame(true, round.cardsPlayed);
+            Game round = new Game(thisRound, first, second, third, fourth);
+            round.playNewGame(true, round.cardsPlayed);
 
-                for (Player p : playerCombos.get(j)) {
-                    if (p.name.equals(p1.name)) {
-                        int scoreCount = thisAvgScoreCount.get(0);
-                        double avgScoreOne = (thisAvgScore.get(0) * scoreCount + p.points) / (scoreCount + 1);
-                        thisAvgScore.set(0, avgScoreOne);
-                        thisAvgScoreCount.set(0, scoreCount + 1);
-                    }
-                    else {
-                        int scoreCount = thisAvgScoreCount.get(1);
-                        double avgScoreTwo = (thisAvgScore.get(1) * scoreCount + p.points) / (scoreCount + 1);
-                        thisAvgScore.set(1, avgScoreTwo);
-                        thisAvgScoreCount.set(1, scoreCount + 1);
-                    }
+            for (Player p : playerCombos.get(j)) {
+                if (p.name.equals(p1.name)) {
+                    int scoreCount = thisAvgScoreCount.get(0);
+                    double avgScoreOne = (thisAvgScore.get(0) * scoreCount + p.points) / (scoreCount + 1);
+                    thisAvgScore.set(0, avgScoreOne);
+                    thisAvgScoreCount.set(0, scoreCount + 1);
                 }
-                
-                
+                else {
+                    int scoreCount = thisAvgScoreCount.get(1);
+                    double avgScoreTwo = (thisAvgScore.get(1) * scoreCount + p.points) / (scoreCount + 1);
+                    thisAvgScore.set(1, avgScoreTwo);
+                    thisAvgScoreCount.set(1, scoreCount + 1);
+                }
             }
-
-            int totalScoreCount1 = totalScoreCount.get(0);
-            double totalAvgScoreOne = ((totalAvgScore.get(0) * totalScoreCount1) + (thisAvgScore.get(0) * 28)) /    (totalScoreCount1 + 28);
-            totalAvgScore.set(0, totalAvgScoreOne);
-            totalScoreCount.set(0, totalScoreCount1 + 28);
-
-            int totalScoreCount2 = totalScoreCount.get(1);
-            double totalAvgScoreTwo = ((totalAvgScore.get(1) * totalScoreCount2) + (thisAvgScore.get(1) * 28)) /    (totalScoreCount2 + 28);
-            totalAvgScore.set(1, totalAvgScoreTwo);
-            totalScoreCount.set(1, totalScoreCount2 + 28);
+            
+            
         }
+
+        int totalScoreCount1 = totalScoreCount.get(0);
+        double totalAvgScoreOne = ((totalAvgScore.get(0) * totalScoreCount1) + (thisAvgScore.get(0) * 28)) /    (totalScoreCount1 + 28);
+        totalAvgScore.set(0, totalAvgScoreOne);
+        totalScoreCount.set(0, totalScoreCount1 + 28);
+
+        int totalScoreCount2 = totalScoreCount.get(1);
+        double totalAvgScoreTwo = ((totalAvgScore.get(1) * totalScoreCount2) + (thisAvgScore.get(1) * 28)) /    (totalScoreCount2 + 28);
+        totalAvgScore.set(1, totalAvgScoreTwo);
+        totalScoreCount.set(1, totalScoreCount2 + 28);
 
         return totalAvgScore;
     }
@@ -233,22 +230,22 @@ public class Run1000Games {
             System.setOut(originalOut);
     
             System.out.println(String.format("%s: %.2f", p1.name, twoPlayerStats.get(0)));
-            System.out.println(String.format("%s: %.2f", p2.name, twoPlayerStats.get(1)));
+            System.out.println(String.format("%s_%s: %.2f", p2.name, p1.name, twoPlayerStats.get(1)));
             System.out.println();
         }
     }
 
     public static void main(String[] args) {
-        System.out.println("--------------------------------------------");
-        System.out.println("Running 2 Player Games");
-        System.out.println("--------------------------------------------");
-        System.out.println();
+        // System.out.println("--------------------------------------------");
+        // System.out.println("Running 2 Player Games");
+        // System.out.println("--------------------------------------------");
+        // System.out.println();
         runTwoPlayerGame();
 
-        System.out.println("--------------------------------------------");
-        System.out.println("Running 1000 Games");
-        System.out.println("--------------------------------------------");
-        System.out.println();
-        run1000Games();
+        // System.out.println("--------------------------------------------");
+        // System.out.println("Running 1000 Games");
+        // System.out.println("--------------------------------------------");
+        // System.out.println();
+        // run1000Games();
     }
 }
