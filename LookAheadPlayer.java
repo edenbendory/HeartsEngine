@@ -60,7 +60,7 @@ class LookAheadPlayer extends Player {
 		return totalpoints;
 	}
 
-	Card performAction (State masterCopy) {
+	Card performAction (State masterCopy, ArrayList<Player> playerOrder) {
 
 		playoutHand.clear();
 		for (Card c : hand) playoutHand.add(c.copy());

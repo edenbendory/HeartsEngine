@@ -1,6 +1,7 @@
 /* This file was taken from another GitHub repo that implements a Hearts
  game and players system. Linked here: https://github.com/Devking/HeartsAI */
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 class HumanPlayer extends Player {
@@ -18,7 +19,7 @@ class HumanPlayer extends Player {
 
 	boolean setDebug() { return false; }
 
-	Card performAction (State masterCopy) {
+	Card performAction (State masterCopy, ArrayList<Player> playerOrder) {
 
 		boolean flag = true;
 		int i = 0;

@@ -15,7 +15,7 @@ class UCTPlayer extends Player {
     Random          rand;
     boolean         debug = false;
 
-	final int 		numIterations = 1000; 		// How many times we go through MCTS before making a decision
+	final int 		numIterations = 10000; 		// How many times we go through MCTS before making a decision
 	final int 		maxDepth = Integer.MAX_VALUE; 	// How many nodes to expand to before doing random playouts
 	Node 			root;
 
@@ -75,40 +75,10 @@ class UCTPlayer extends Player {
     public int getNumIterations() { return numIterations; }
     public int getMaxDepth() { return maxDepth; }
 
-    int runMultipleMCTS(State originalState) {
-        // !!! TEST THIS !!!!
-        double[] handIndexAvgScores = new double[13];
-        int[] handIndexTally = new int[13];
-
-        // run MCTS 100 times, and determine what the best child is 
-        // averaged over all the games 
-        for (int i = 0; i < 100; i++) {
-            double[] bestChildStats = runMCTS(originalState);
-            int bestHandIndex = (int)bestChildStats[0];
-            double bestWinScore = bestChildStats[1];
-
-            int tally = handIndexTally[bestHandIndex];
-            handIndexAvgScores[bestHandIndex] = (handIndexAvgScores[bestHandIndex]*tally + bestWinScore) / (tally + 1);
-            handIndexTally[bestHandIndex] = tally+1;
-        }
-
-        double bestScore = -Double.MAX_VALUE;
-        int bestHandIndex = 0;
-        for (int i = 0; i < 13; i++) {
-            double curScore = handIndexAvgScores[i];
-            if (curScore > bestScore) {
-                bestScore = curScore;
-                bestHandIndex = i;
-            }
-        }
-
-        return bestHandIndex;
-    }
-
-    double[] runMCTS (State originalState) {
+    int runMCTS (State originalState, ArrayList<Player> playerOrder) {
         myPNumber = originalState.playerIndex;
         myHand = new ArrayList<>(hand);
-        playerHands = generateHands(originalState);
+        playerHands = generateHands(originalState, playerOrder);
         root = new Node(originalState, myHand, myHand, playerHands, null, -1);
 
         assert(root.children.isEmpty());
@@ -139,58 +109,14 @@ class UCTPlayer extends Player {
         return bestRewardChild(root);
     }
 
-    private ArrayList<ArrayList<Card>> generateHands(State state) {
+    private ArrayList<ArrayList<Card>> generateHands(State state, ArrayList<Player> playerOrder) {
         ArrayList<ArrayList<Card>> playerHands = new ArrayList<>();
         playerHands.add(new ArrayList<>());
         playerHands.add(new ArrayList<>());
         playerHands.add(new ArrayList<>());
         playerHands.add(new ArrayList<>());
-        playerHands.set(myPNumber, myHand);
-
-        ArrayList<Card> cardsLeft = new ArrayList<>(state.cardsPlayed.invertDeck);
-        Collections.shuffle(cardsLeft);
-
-        // remove all the cards that we know are in My hand
-        for (Card myCard : myHand) {
-            for (int i = 0; i < cardsLeft.size(); i++) {
-                Card cardLeft = cardsLeft.get(i);
-                if (cardLeft.equals(myCard)) { cardsLeft.remove(i); }
-            }
-        }
-
-        // !!! reality check: there should be around 39 cardsLeft
-
-        // int p1 = myPNumber + 1 % 4; // 3
-        // int p2 = myPNumber + 2 % 4; // 0
-        // int p3 = myPNumber + 3 % 4; // 1
-        int playNum = 1;
-        int bigHandSize = (cardsLeft.size() + state.currentRound.size()) / 3;
-        int smallHandSize = bigHandSize - 1;
-
-        for (int i = 0; i < 3 - state.currentRound.size(); i++) {
-            ArrayList<Card> genHand = new ArrayList<>();
-
-            // right now this is random, but later we will change this to update based on player tables 
-            for (int j = 0; j < bigHandSize; j++) { 
-                genHand.add(cardsLeft.remove(0)); 
-            }
-            Collections.sort(genHand);
-
-            playerHands.set((myPNumber + playNum) % 4, genHand);
-            playNum++;
-        }
-
-        for (int i = 3 - state.currentRound.size(); i < 3; i++) {
-            ArrayList<Card> genHand = new ArrayList<>();
-
-            // right now this is random, but later we will change this to update based on player tables 
-            for (int j = 0; j < smallHandSize; j++) { 
-                genHand.add(cardsLeft.remove(0)); 
-            }
-            Collections.sort(genHand);
-
-            playerHands.set((myPNumber + playNum) % 4, genHand);
-            playNum++;
+        for (int i = 0; i < 4; i++) {
+            playerHands.set(i, playerOrder.get(i).hand);
         }
 
         return playerHands;
@@ -457,7 +383,7 @@ class UCTPlayer extends Player {
     // Pick the child of the root with the highest reward. Returns an 
     // array of length 2, in which index 0 holds the best child's index,
     // and index 1 holds the best child's winning score
-	private double[] bestRewardChild(Node root) {
+	private int bestRewardChild(Node root) {
 		double bestWinScore = -Double.MAX_VALUE;
         int bestChildIndex = 0; 
 
@@ -472,14 +398,11 @@ class UCTPlayer extends Player {
             }
         }
 
-        double[] bestStats = new double[2];
-        bestStats[0] = root.children.get(bestChildIndex).handIndex; // handIndex is not necessarily = bestChildIndex
-        bestStats[1] = bestWinScore;
-        return bestStats; 
+        return root.children.get(bestChildIndex).handIndex; // handIndex is not necessarily = bestChildIndex
 	}
 
     @Override
-    Card performAction (State masterCopy) {
+    Card performAction (State masterCopy, ArrayList<Player> playerOrder) {
 		// If very first move, play the two of clubs (will be first card in hand)
 		if (masterCopy.firstMove()) {
 			return hand.remove(0);
@@ -496,7 +419,7 @@ class UCTPlayer extends Player {
 			return hand.remove(0);
 
 		// Actually play the card, after doing MCTS
-		return hand.remove(runMultipleMCTS(masterCopy));
+		return hand.remove(runMCTS(masterCopy, playerOrder));
 	}
 }
 

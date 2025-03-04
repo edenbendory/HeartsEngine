@@ -20,7 +20,7 @@ class RandomPlayAI extends Player {
 
 	// NOTE: performAction() must REMOVE the card from the hand
 	// we would not want this to be the case in the future
-	Card performAction (State masterCopy) {
+	Card performAction (State masterCopy, ArrayList<Player> playerOrder) {
 
 		// If this is the first move, then we must play the two of spades regardless
 		if (masterCopy.firstMove())

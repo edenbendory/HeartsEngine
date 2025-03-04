@@ -8,6 +8,8 @@
 // if the player doesn't have the leading suit, play the highest card in the player's hand, prioritizing Hearts
 // If the player is not void in the leading suit, it will determine the maximum card that has been played this trick that's of the leading suit. It will then play the highest card of the leading suit in the player’s hand that is still lower than that maximum card. If none of the player’s cards are lower than the suit that was played, it will play the lowest card in the suit. 
 
+import java.util.ArrayList;
+
 class HighLowPlayAI extends Player {
 
     HighLowPlayAI(String name) { super(name); System.out.println("High Low Play AI ("+name+") initialized.");  }
@@ -19,7 +21,7 @@ class HighLowPlayAI extends Player {
     boolean setDebug() { return false; }
 
     @Override
-	Card performAction (State masterCopy) {
+	Card performAction (State masterCopy, ArrayList<Player> playerOrder) {
         // For human debugging: print the hand
         printHand();
 

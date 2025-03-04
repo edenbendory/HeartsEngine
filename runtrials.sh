@@ -6,7 +6,7 @@ javac *.java
 
 for i in {1..10}; do
     echo "Starting Trial $i" 
-    java RunTwoPlayerGames >> "output.log" &
+    java RunTwoPlayerGames >> "perfectInfoOutput.log" &
 done
 
 wait 

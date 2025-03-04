@@ -118,7 +118,7 @@ abstract class Player {
 
 	// Given any sort of player, make a decision to play a card
 	// Pass in a copy of the game state for full playout functionality
-	abstract Card performAction (State masterCopy);
+	abstract Card performAction (State masterCopy, ArrayList<Player> playerOrder);
 
 	// added by @edenbendory
 	// allows any player to return a version of itself initialized from scratch

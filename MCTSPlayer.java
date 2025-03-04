@@ -225,7 +225,7 @@ class MCTSPlayer extends Player {
 	// You can check gameCopy.getScore() to get the total score from this game
 
 	// Remember to copy masterCopy
-	Card performAction (State masterCopy) {
+	Card performAction (State masterCopy, ArrayList<Player> playerOrder) {
 		// If very first move, play the two of clubs (will be first card in hand)
 		if (masterCopy.firstMove()) 
 			return hand.remove(0);

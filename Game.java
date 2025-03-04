@@ -374,7 +374,7 @@ class Game {
 				// Loop: Allow player to pick a play, but reject if invalid selection
 				while (!validPlay) {
 					// Allow the Player to pick a move to play next
-					playedCard = playerOrder.get(index).performAction(gameCopy);
+					playedCard = playerOrder.get(index).performAction(gameCopy, playerOrder);
 					// Check if the playedCard is valid, given this currentRound
 					validPlay = checkRound(playedCard, index);
 					// If the card was not valid, put it back in the hand and sort the hand (this might be SLOW)
@@ -486,7 +486,7 @@ class Game {
 				// Loop: Allow player to pick a play, but reject if invalid selection
 				while (!validPlay) {
 					// Allow the Player to pick a move to play next
-					playedCard = playerOrder.get(index).performAction(gameCopy);
+					playedCard = playerOrder.get(index).performAction(gameCopy, playerOrder);
 					// Check if the playedCard is valid, given this currentRound
 					validPlay = checkRound(playedCard, index);
 					// If the card was not valid, put it back in the hand and sort the hand (this might be SLOW)
