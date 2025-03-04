@@ -1,0 +1,120 @@
+Number of Iterations: 1000
+Max Depth: 2147483647
+--------------------------------------------
+Number of Iterations: 1000
+Max Depth: 2147483647
+--------------------------------------------
+Number of Iterations: 1000
+Max Depth: 2147483647
+--------------------------------------------
+Number of Iterations: 1000
+Max Depth: 2147483647
+--------------------------------------------
+Number of Iterations: 1000
+Max Depth: 2147483647
+--------------------------------------------
+Number of Iterations: 1000
+Max Depth: 2147483647
+--------------------------------------------
+Number of Iterations: 1000
+Max Depth: 2147483647
+--------------------------------------------
+Number of Iterations: 1000
+Max Depth: 2147483647
+--------------------------------------------
+Number of Iterations: 1000
+Max Depth: 2147483647
+--------------------------------------------
+Number of Iterations: 1000
+Max Depth: 2147483647
+--------------------------------------------
+HighLowPlayer: 5.25
+UCTPlayer_HighLowPlayer: 7.75
+
+HighLowPlayer: 7.79
+UCTPlayer_HighLowPlayer: 5.21
+
+HighLowPlayer: 5.25
+UCTPlayer_HighLowPlayer: 7.75
+
+HighLowPlayer: 9.29
+UCTPlayer_HighLowPlayer: 7.43
+
+HighLowPlayer: 10.39
+UCTPlayer_HighLowPlayer: 8.18
+
+HighLowPlayer: 2.75
+UCTPlayer_HighLowPlayer: 10.25
+
+HighLowPlayer: 4.64
+UCTPlayer_HighLowPlayer: 8.36
+
+HighLowPlayer: 3.79
+UCTPlayer_HighLowPlayer: 9.21
+
+HighLowPlayer: 3.18
+UCTPlayer_HighLowPlayer: 9.82
+
+HighLowPlayer: 3.82
+UCTPlayer_HighLowPlayer: 9.18
+
+RandomPlayer: 8.14
+UCTPlayer_RandomPlayer: 4.86
+
+RandomPlayer: 5.50
+UCTPlayer_RandomPlayer: 9.36
+
+RandomPlayer: 6.61
+UCTPlayer_RandomPlayer: 6.39
+
+RandomPlayer: 7.00
+UCTPlayer_RandomPlayer: 6.00
+
+RandomPlayer: 7.64
+UCTPlayer_RandomPlayer: 5.36
+
+RandomPlayer: 6.96
+UCTPlayer_RandomPlayer: 6.04
+
+RandomPlayer: 6.68
+UCTPlayer_RandomPlayer: 6.32
+
+RandomPlayer: 8.07
+UCTPlayer_RandomPlayer: 4.93
+
+RandomPlayer: 7.54
+UCTPlayer_RandomPlayer: 5.46
+
+RandomPlayer: 7.68
+UCTPlayer_RandomPlayer: 7.18
+
+MCTSPlayer: 6.21
+UCTPlayer_MCTSPlayer: 6.79
+
+MCTSPlayer: 4.46
+UCTPlayer_MCTSPlayer: 8.54
+
+MCTSPlayer: 6.32
+UCTPlayer_MCTSPlayer: 6.68
+
+MCTSPlayer: 5.46
+UCTPlayer_MCTSPlayer: 7.54
+
+MCTSPlayer: 5.93
+UCTPlayer_MCTSPlayer: 7.07
+
+MCTSPlayer: 5.54
+UCTPlayer_MCTSPlayer: 7.46
+
+MCTSPlayer: 4.89
+UCTPlayer_MCTSPlayer: 8.11
+
+MCTSPlayer: 4.36
+UCTPlayer_MCTSPlayer: 8.64
+
+MCTSPlayer: 4.54
+UCTPlayer_MCTSPlayer: 8.46
+
+MCTSPlayer: 5.50
+UCTPlayer_MCTSPlayer: 9.36
+
