@@ -92,7 +92,8 @@ public class Run1000Games {
     }
 
     // Returns the average scores when comparing 2 players.
-    // A total of 1400 games are played, 14 variations for each deal, 100 times
+    // A total of 14 games are played, 14 variations for each deal 
+    // (the number of times this function is called is the number of games x14 that will be played )
     private ArrayList<Double> getTwoPlayerStats(Player p1, Player p2) {
         ArrayList<Double> totalAvgScore = new ArrayList<>();
         totalAvgScore.add(0.0);

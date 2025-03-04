@@ -14,7 +14,7 @@ echo "All Trials Complete"
 
 output_file="output.log"
 
-# Use awk to process and compute averages
+# To process and compute averages
 awk '
 /HighLowPlayer:/ { highlow_sum += $2; highlow_count++ }
 /UCTPlayer_HighLowPlayer:/     { uct_highlow_sum += $2; uct_highlow_count++ }
