@@ -80,7 +80,7 @@ class UCTPlayer extends Player {
         double[] handIndexAvgScores = new double[13];
         int[] handIndexTally = new int[13];
 
-        // run MCTS 1000 times, and determine what the best child is 
+        // run MCTS 100 times, and determine what the best child is 
         // averaged over all the games 
         for (int i = 0; i < 100; i++) {
             double[] bestChildStats = runMCTS(originalState);

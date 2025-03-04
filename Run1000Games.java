@@ -1,4 +1,5 @@
-import java.io.OutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
@@ -69,14 +70,11 @@ public class Run1000Games {
         return gamesWon;
     }
 
-    public static void run1000Games() {
+    public static void run1000Games() throws FileNotFoundException {
         PrintStream originalOut = System.out;
         
         // Redirect output to null to suppress print statements
-        System.setOut(new PrintStream(new OutputStream() {
-            @Override
-            public void write(int b) {}
-        }));
+        System.setOut(new PrintStream(new File("./run1000games.log")));
 
         ArrayList<String> playerNames = new ArrayList<>();
         playerNames.add("HighLowPlayer");
@@ -94,7 +92,7 @@ public class Run1000Games {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         // System.out.println("--------------------------------------------");
         // System.out.println("Running 1000 Games");
         // System.out.println("--------------------------------------------");

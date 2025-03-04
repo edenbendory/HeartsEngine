@@ -1,0 +1,90 @@
+The deck has been initialized.
+High Low Play AI (HighLowPlayer) initialized.
+Random Play AI (RandomPlayer) initialized.
+UCTPlayer AI (UCTPlayer) initialized.
+MCTSPlayer AI (MCTSPlayer) initialized.
+
+--------------------------------------------
+--------------------------------------------
+--------------------------------------------
+Playing Game #1
+--------------------------------------------
+--------------------------------------------
+--------------------------------------------
+
+RandomPlayer has the two of clubs and will play first.
+
+
+[2J[H
+--------------------------------------------
+Round #1:
+--------------------------------------------
+RandomPlayer played TWO of CLUBS.
+
+[2J[H
+
+UCTPlayer`s hand (13 cards):
+|  0|  1|  2|  3|  4|  5|  6|  7|  8|  9| 10| 11| 12|
+| 4♣| 5♣| 6♣| A♣| 3♢| 8♢| 8♠| 2♡| 8♡|10♡| J♡| K♡| A♡|
+UCTPlayer played ACE of CLUBS.
+
+[2J[H
+
+MCTSPlayer`s hand (13 cards):
+|  0|  1|  2|  3|  4|  5|  6|  7|  8|  9| 10| 11| 12|
+| 7♣| 9♣|10♣| K♣| 5♢| 7♢| 9♢| Q♢|10♠| Q♠| K♠| 4♡| 5♡|
+MCTSPlayer played SEVEN of CLUBS.
+
+[2J[H
+
+HighLowPlayer`s hand (13 cards):
+|  0|  1|  2|  3|  4|  5|  6|  7|  8|  9| 10| 11| 12|
+| 3♣| 8♣| Q♣| 2♢| J♢| 2♠| 3♠| 6♠| A♠| 3♡| 6♡| 7♡| 9♡|
+HighLowPlayer played QUEEN of CLUBS.
+
+[2J[H
+--------------------------------------------
+Round #2:
+--------------------------------------------
+
+UCTPlayer`s hand (12 cards):
+|  0|  1|  2|  3|  4|  5|  6|  7|  8|  9| 10| 11|
+| 4♣| 5♣| 6♣| 3♢| 8♢| 8♠| 2♡| 8♡|10♡| J♡| K♡| A♡|
+UCTPlayer played THREE of DIAMONDS.
+
+[2J[H
+
+MCTSPlayer`s hand (12 cards):
+|  0|  1|  2|  3|  4|  5|  6|  7|  8|  9| 10| 11|
+| 9♣|10♣| K♣| 5♢| 7♢| 9♢| Q♢|10♠| Q♠| K♠| 4♡| 5♡|
+MCTSPlayer played NINE of DIAMONDS.
+
+[2J[H
+
+HighLowPlayer`s hand (12 cards):
+|  0|  1|  2|  3|  4|  5|  6|  7|  8|  9| 10| 11|
+| 3♣| 8♣| 2♢| J♢| 2♠| 3♠| 6♠| A♠| 3♡| 6♡| 7♡| 9♡|
+HighLowPlayer played TWO of DIAMONDS.
+
+[2J[H
+
+RandomPlayer`s hand (12 cards):
+|  0|  1|  2|  3|  4|  5|  6|  7|  8|  9| 10| 11|
+| J♣| 4♢| 6♢|10♢| K♢| A♢| 4♠| 5♠| 7♠| 9♠| J♠| Q♡|
+RandomPlayer played ACE of DIAMONDS.
+
+[2J[H
+--------------------------------------------
+Round #3:
+--------------------------------------------
+
+RandomPlayer`s hand (11 cards):
+|  0|  1|  2|  3|  4|  5|  6|  7|  8|  9| 10|
+| J♣| 4♢| 6♢|10♢| K♢| 4♠| 5♠| 7♠| 9♠| J♠| Q♡|
+RandomPlayer played KING of DIAMONDS.
+
+[2J[H
+
+UCTPlayer`s hand (11 cards):
+|  0|  1|  2|  3|  4|  5|  6|  7|  8|  9| 10|
+| 4♣| 5♣| 6♣| 8♢| 8♠| 2♡| 8♡|10♡| J♡| K♡| A♡|
