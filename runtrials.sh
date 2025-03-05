@@ -2,7 +2,7 @@
 
 javac *.java
 
-> "output.log"
+> "perfectInfoOutput.log"
 
 for i in {1..10}; do
     echo "Starting Trial $i" 
@@ -12,7 +12,7 @@ done
 wait 
 echo "All Trials Complete"
 
-output_file="output.log"
+output_file="perfectInfoOutput.log"
 
 # To process and compute averages
 awk '
