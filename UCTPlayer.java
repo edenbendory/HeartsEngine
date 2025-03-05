@@ -15,7 +15,7 @@ class UCTPlayer extends Player {
     Random          rand;
     boolean         debug = false;
 
-	final int 		numIterations = 10000; 		// How many times we go through MCTS before making a decision
+	final int 		numIterations = 100; 		// How many times we go through MCTS before making a decision
 	final int 		maxDepth = Integer.MAX_VALUE; 	// How many nodes to expand to before doing random playouts
 	Node 			root;
 
