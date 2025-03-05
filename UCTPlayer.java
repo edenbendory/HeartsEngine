@@ -5,8 +5,11 @@ The code was based on and partially supplemented by:
 * The MCTS structure and code snippets from this tutorial: https://www.baeldung.com/java-monte-carlo-tree-search
 * The functions in the mcts folder in the repo at this link: https://github.com/eugenp/tutorials/tree/master/algorithms-modules/algorithms-searching/src/main/java/com/baeldung/algorithms/mcts */
 
-import java.util.*;
-
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 class UCTPlayer extends Player {
 
     int             myPNumber; // DONE
@@ -15,7 +18,7 @@ class UCTPlayer extends Player {
     Random          rand;
     boolean         debug = false;
 
-	final int 		numIterations = 1000; 		// How many times we go through MCTS before making a decision
+	final int 		numIterations = 10; 		// How many times we go through MCTS before making a decision
 	final int 		maxDepth = Integer.MAX_VALUE; 	// How many nodes to expand to before doing random playouts
 	Node 			root;
 
@@ -82,7 +85,7 @@ class UCTPlayer extends Player {
 
         // run MCTS 100 times, and determine what the best child is 
         // averaged over all the games 
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
             double[] bestChildStats = runMCTS(originalState);
             int bestHandIndex = (int)bestChildStats[0];
             double bestWinScore = bestChildStats[1];
@@ -130,7 +133,7 @@ class UCTPlayer extends Player {
                 int randomNode = (int) (Math.random() * bestNode.children.size());
                 nodeToExplore = bestNode.children.get(randomNode); // select which random child to simulate (attach a winScore to)
             }
-            ArrayList<Integer> sampleScores = simulateRandomPlayout(nodeToExplore); // Simulate
+            ArrayList<Integer> sampleScores = simulateHighLowPlayout(nodeToExplore); // Simulate
 
             // backpropogation
             backPropogate(nodeToExplore, sampleScores); 
@@ -437,6 +440,41 @@ class UCTPlayer extends Player {
             curPlayer = tempState.advanceState(cardToPlay, simulatedHand, debug);
             simulatedHand.remove(cardToPlay);
         }
+
+        return tempState.playerScores;
+    }
+
+    // simulate out the rest of the game, assuming each player uses highLow strategy
+    private ArrayList<Integer> simulateHighLowPlayout(Node node) {
+        // "global" variables that we want to alter throughout the simulation 
+        State tempState = new State(node.state); // state of the game
+        ArrayList<ArrayList<Card>> simulatedHands = new ArrayList<>(); // hands that will be altered through simulating
+        for (ArrayList<Card> copyPlayerHand : node.curPlayerHands) {
+            simulatedHands.add(new ArrayList<>(copyPlayerHand));
+        }
+
+        PrintStream originalOut = System.out;
+
+        // Redirect output to null to suppress print statements
+        System.setOut(new PrintStream(new OutputStream() {
+            @Override
+            public void write(int b) {}
+        }));
+        
+        int curPlayer = node.playerIndex; // to start off
+        while (!tempState.cardsPlayed.invertDeck.isEmpty()) {
+            ArrayList<Card> simulatedHand = simulatedHands.get(curPlayer);
+            
+            Player highLow = new HighLowPlayAI("HighLowPlayer");
+            highLow.hand = simulatedHand;
+
+            Card cardToPlay = highLow.performAction(tempState); 
+
+            curPlayer = tempState.advanceState(cardToPlay, simulatedHand, debug);
+            // simulatedHand.remove(cardToPlay);
+        }
+
+        System.setOut(originalOut);
 
         return tempState.playerScores;
     }
