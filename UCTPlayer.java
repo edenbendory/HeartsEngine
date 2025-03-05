@@ -18,7 +18,7 @@ class UCTPlayer extends Player {
     Random          rand;
     boolean         debug = false;
 
-	final int 		numIterations = 10; 		// How many times we go through MCTS before making a decision
+	final int 		numIterations = 100; 		// How many times we go through MCTS before making a decision
 	final int 		maxDepth = Integer.MAX_VALUE; 	// How many nodes to expand to before doing random playouts
 	Node 			root;
 
@@ -133,7 +133,7 @@ class UCTPlayer extends Player {
                 int randomNode = (int) (Math.random() * bestNode.children.size());
                 nodeToExplore = bestNode.children.get(randomNode); // select which random child to simulate (attach a winScore to)
             }
-            ArrayList<Integer> sampleScores = simulateHighLowPlayout(nodeToExplore); // Simulate
+            ArrayList<Integer> sampleScores = simulateRandomPlayout(nodeToExplore); // Simulate
 
             // backpropogation
             backPropogate(nodeToExplore, sampleScores); 
@@ -481,8 +481,8 @@ class UCTPlayer extends Player {
 
     private void backPropogate (Node baseNode, ArrayList<Integer> scores) {
 		Node no = baseNode;
-		while (no != null) {
-            int playerIndex = no.playerIndex; 
+		while (no.parent != null) {
+            int playerIndex = no.parent.playerIndex; 
             int playerScore = scores.get(playerIndex); // this player's score this game
             int playerWinScore = 26 - playerScore; // do (26 - score) so that more points are good rather thana bad
 			no.winScore += playerWinScore;
