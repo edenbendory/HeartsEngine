@@ -5,6 +5,8 @@ The code was based on and partially supplemented by:
 * The MCTS structure and code snippets from this tutorial: https://www.baeldung.com/java-monte-carlo-tree-search
 * The functions in the mcts folder in the repo at this link: https://github.com/eugenp/tutorials/tree/master/algorithms-modules/algorithms-searching/src/main/java/com/baeldung/algorithms/mcts */
 
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.*;
 
 class UCTPlayer extends Player {
@@ -363,6 +365,41 @@ class UCTPlayer extends Player {
             curPlayer = tempState.advanceState(cardToPlay, simulatedHand, debug);
             simulatedHand.remove(cardToPlay);
         }
+
+        return tempState.playerScores;
+    }
+
+    // simulate out the rest of the game, assuming each player uses highLow strategy
+    private ArrayList<Integer> simulateHighLowPlayout(Node node) {
+        // "global" variables that we want to alter throughout the simulation 
+        State tempState = new State(node.state); // state of the game
+        ArrayList<ArrayList<Card>> simulatedHands = new ArrayList<>(); // hands that will be altered through simulating
+        for (ArrayList<Card> copyPlayerHand : node.curPlayerHands) {
+            simulatedHands.add(new ArrayList<>(copyPlayerHand));
+        }
+
+        PrintStream originalOut = System.out;
+
+        // Redirect output to null to suppress print statements
+        System.setOut(new PrintStream(new OutputStream() {
+            @Override
+            public void write(int b) {}
+        }));
+        
+        int curPlayer = node.playerIndex; // to start off
+        while (!tempState.cardsPlayed.invertDeck.isEmpty()) {
+            ArrayList<Card> simulatedHand = simulatedHands.get(curPlayer);
+            
+            Player highLow = new HighLowPlayAI("HighLowPlayer");
+            highLow.hand = simulatedHand;
+
+            Card cardToPlay = highLow.performAction(tempState, null); 
+
+            curPlayer = tempState.advanceState(cardToPlay, simulatedHand, debug);
+            // simulatedHand.remove(cardToPlay);
+        }
+
+        System.setOut(originalOut);
 
         return tempState.playerScores;
     }
