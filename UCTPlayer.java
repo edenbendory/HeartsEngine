@@ -18,7 +18,7 @@ class UCTPlayer extends Player {
     Random          rand;
     boolean         debug = false;
 
-	final int 		numIterations = 100; 		// How many times we go through MCTS before making a decision
+	final int 		numIterations = 10; 		// How many times we go through MCTS before making a decision
 	final int 		maxDepth = Integer.MAX_VALUE; 	// How many nodes to expand to before doing random playouts
 	Node 			root;
 
@@ -86,16 +86,19 @@ class UCTPlayer extends Player {
         // run MCTS 100 times, and determine what the best child is 
         // averaged over all the games 
         for (int i = 0; i < 10; i++) {
-            double[] bestChildStats = runMCTS(originalState);
-            int bestHandIndex = (int)bestChildStats[0];
-            double bestWinScore = bestChildStats[1];
+            double[] childStats = runMCTS(originalState);
 
-            int tally = handIndexTally[bestHandIndex];
-            handIndexAvgScores[bestHandIndex] = (handIndexAvgScores[bestHandIndex]*tally + bestWinScore) / (tally + 1);
-            handIndexTally[bestHandIndex] = tally+1;
+            // update average reward based on this game
+            for (int j = 0; j < 13; j++) {
+                double childScore = childStats[j];
+                // ??? replace tally with i ???
+                int tally = handIndexTally[j];
+                handIndexAvgScores[j] = (handIndexAvgScores[j] * tally + childScore) / (tally + 1);
+                handIndexTally[j] = tally + 1;
+            }
         }
 
-        // go through children options, and select the child with the best score
+        // go through children options, and select the child with the maximum average reward
         double bestScore = -Double.MAX_VALUE;
         int bestHandIndex = 0;
         for (int i = 0; i < 13; i++) {
@@ -134,13 +137,13 @@ class UCTPlayer extends Player {
                 int randomNode = (int) (Math.random() * bestNode.children.size());
                 nodeToExplore = bestNode.children.get(randomNode); // select which random child to simulate (attach a winScore to)
             }
-            ArrayList<Integer> sampleScores = simulateRandomPlayout(nodeToExplore); // Simulate
+            ArrayList<Integer> sampleScores = simulateHighLowPlayout(nodeToExplore); // Simulate
 
             // backpropogation
             backPropogate(nodeToExplore, sampleScores); 
         }
 
-        return bestRewardChild(root);
+        return getChildStats(root);
     }
 
     private ArrayList<ArrayList<Card>> generateHands(State state) {
@@ -492,6 +495,23 @@ class UCTPlayer extends Player {
 			no = no.parent;
 		}
 	}
+
+    // returns an array containing the winScores of all the root's hand indices
+    private double[] getChildStats(Node root) {
+        double[] childStats = new double[13];
+
+        for (int i = 0; i < root.children.size(); i++) {
+            Node curNode = root.children.get(i);
+            if (curNode.visitCount == 0) { continue; }
+
+            double totalWinScore = (double) curNode.winScore / curNode.visitCount;
+            int handIndex = root.children.get(i).handIndex; // i = childIndex, but handIndex might be different
+
+            childStats[handIndex] = totalWinScore; 
+        }
+
+        return childStats;
+    }
 
     // Pick the child of the root with the highest reward. Returns an 
     // array of length 2, in which index 0 holds the best child's index,
