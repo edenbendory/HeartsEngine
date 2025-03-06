@@ -95,6 +95,7 @@ class UCTPlayer extends Player {
             handIndexTally[bestHandIndex] = tally+1;
         }
 
+        // go through children options, and select the child with the best score
         double bestScore = -Double.MAX_VALUE;
         int bestHandIndex = 0;
         for (int i = 0; i < 13; i++) {
