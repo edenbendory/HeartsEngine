@@ -384,38 +384,6 @@ class UCTPlayer extends Player {
 		parentNode.children.add(new Node(childState, childHand, myCurHand, playerHandsCopy, parentNode, handIndex));
     }
 
-    private ArrayList<Card> generateHand(State state, Node node) {
-        ArrayList<Card> cardsLeft = new ArrayList<>(state.cardsPlayed.invertDeck);
-        Collections.shuffle(cardsLeft);
-        ArrayList<Card> genHand = new ArrayList<>();
-
-        // currentRound.size() = number player this round (ex- 2 cards have been put down, this is the third player of the round)
-        // (# cards played this round) + (index of first player to go - say it's player 1) % 4 = index of current player 
-        // for (int i = 0; i < state.currentRound.size(); i++) {
-        //     int playerIndex = i + firstPlayer % 4;
-        // }
-
-        // remove all the cards that we know are in My hand
-        for (Card myCard : node.myCurHand) {
-            for (int i = 0; i < cardsLeft.size(); i++) {
-                Card cardLeft = cardsLeft.get(i);
-                if (cardLeft.equals(myCard)) { cardsLeft.remove(i); }
-            }
-        }
-
-        // everyone has the same amount of cards at the beginning of a round - so I should have the same as my parent
-        int handSize = node.curHand.size(); 
-        // unless a new round just started, in which case everyone has put a card down, and so I have one less card than my parent b/c I am first
-        if (state.firstInRound()) {handSize--;} 
-
-        // right now this is random, but later we will change this to update based on player tables 
-        for (int i = 0; i < handSize; i++) { 
-            genHand.add(cardsLeft.remove(i)); 
-        }
-
-        return genHand;
-    }
-
     // pick a random node to simulate
     private ArrayList<Integer> simulateRandomPlayout(Node node) {
         // "global" variables that we want to alter throughout the simulation 

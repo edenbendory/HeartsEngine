@@ -120,7 +120,7 @@ public class RunTwoPlayerGames {
         p1List.add(new RandomPlayAI("RandomPlayer"));
         p1List.add(new MCTSPlayer("MCTSPlayer"));
         // p1List.add(new LowPlayAI("LowPlayer"));
-        // p1List.add(new LookAheadPlayer("LookAheadPlayer"));
+        p1List.add(new LookAheadPlayer("LookAheadPlayer"));
         UCTPlayer p2 = new UCTPlayer("UCTPlayer");
 
         System.setOut(originalOut);
