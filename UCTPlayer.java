@@ -402,8 +402,8 @@ class UCTPlayer extends Player {
 
     private void backPropogate (Node baseNode, ArrayList<Integer> scores) {
 		Node no = baseNode;
-		while (no != null) {
-            int playerIndex = no.playerIndex; 
+		while (no.parent != null) {
+            int playerIndex = no.parent.playerIndex; 
             int playerScore = scores.get(playerIndex); // this player's score this game
             int playerWinScore = 26 - playerScore; // do (26 - score) so that more points are good rather thana bad
 			no.winScore += playerWinScore;
