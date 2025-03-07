@@ -1,117 +1,30 @@
-Number of Iterations: 10
-Max Depth: 2147483647
-Number of Iterations: 10
+Number of Iterations: 100
 Max Depth: 2147483647
 --------------------------------------------
---------------------------------------------
-Number of Iterations: 10
+Number of Iterations: 100
 Max Depth: 2147483647
 --------------------------------------------
-Number of Iterations: 10
+Number of Iterations: 100
 Max Depth: 2147483647
 --------------------------------------------
-Number of Iterations: 10
+Number of Iterations: 100
 Max Depth: 2147483647
 --------------------------------------------
-Number of Iterations: 10
+Number of Iterations: 100
+Number of Iterations: 100
 Max Depth: 2147483647
 --------------------------------------------
-Number of Iterations: 10
 Max Depth: 2147483647
 --------------------------------------------
-Number of Iterations: 10
+Number of Iterations: 100
 Max Depth: 2147483647
 --------------------------------------------
-Number of Iterations: 10
+Number of Iterations: 100
 Max Depth: 2147483647
 --------------------------------------------
-Number of Iterations: 10
+Number of Iterations: 100
 Max Depth: 2147483647
 --------------------------------------------
-HighLowPlayer: 8.29
-UCTPlayer_HighLowPlayer: 4.71
-
-HighLowPlayer: 7.21
-UCTPlayer_HighLowPlayer: 5.79
-
-HighLowPlayer: 7.46
-UCTPlayer_HighLowPlayer: 5.54
-
-HighLowPlayer: 7.04
-UCTPlayer_HighLowPlayer: 5.96
-
-HighLowPlayer: 12.29
-UCTPlayer_HighLowPlayer: 8.14
-
-HighLowPlayer: 9.57
-UCTPlayer_HighLowPlayer: 3.43
-
-HighLowPlayer: 11.11
-UCTPlayer_HighLowPlayer: 7.46
-
-HighLowPlayer: 8.04
-UCTPlayer_HighLowPlayer: 4.96
-
-HighLowPlayer: 8.04
-UCTPlayer_HighLowPlayer: 6.82
-
-HighLowPlayer: 9.00
-UCTPlayer_HighLowPlayer: 4.00
-
-RandomPlayer: 9.50
-UCTPlayer_RandomPlayer: 3.50
-
-RandomPlayer: 10.29
-UCTPlayer_RandomPlayer: 2.71
-
-RandomPlayer: 8.68
-UCTPlayer_RandomPlayer: 4.32
-
-RandomPlayer: 9.71
-UCTPlayer_RandomPlayer: 3.29
-
-RandomPlayer: 9.14
-UCTPlayer_RandomPlayer: 5.71
-
-RandomPlayer: 10.04
-UCTPlayer_RandomPlayer: 2.96
-
-RandomPlayer: 9.86
-RandomPlayer: 9.75
-UCTPlayer_RandomPlayer: 3.14
-
-UCTPlayer_RandomPlayer: 3.25
-
-RandomPlayer: 8.57
-UCTPlayer_RandomPlayer: 8.14
-
-RandomPlayer: 9.71
-UCTPlayer_RandomPlayer: 5.14
-
-MCTSPlayer: 8.79
-UCTPlayer_MCTSPlayer: 4.21
-
-MCTSPlayer: 11.25
-UCTPlayer_MCTSPlayer: 5.46
-
-MCTSPlayer: 7.07
-UCTPlayer_MCTSPlayer: 5.93
-
-MCTSPlayer: 8.14
-UCTPlayer_MCTSPlayer: 4.86
-
-MCTSPlayer: 7.86
-UCTPlayer_MCTSPlayer: 5.14
-
-MCTSPlayer: 8.50
-UCTPlayer_MCTSPlayer: 4.50
-
-MCTSPlayer: 8.39
-UCTPlayer_MCTSPlayer: 4.61
-
-MCTSPlayer: 8.36
-UCTPlayer_MCTSPlayer: 4.64
-
-MCTSPlayer: 7.29
-UCTPlayer_MCTSPlayer: 5.71
-
+Number of Iterations: 100
+Max Depth: 2147483647
+--------------------------------------------
