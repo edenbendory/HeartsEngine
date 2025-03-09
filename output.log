@@ -11,9 +11,6 @@ Number of Iterations: 100
 Max Depth: 2147483647
 --------------------------------------------
 Number of Iterations: 100
-Number of Iterations: 100
-Max Depth: 2147483647
---------------------------------------------
 Max Depth: 2147483647
 --------------------------------------------
 Number of Iterations: 100
@@ -28,3 +25,93 @@ Max Depth: 2147483647
 Number of Iterations: 100
 Max Depth: 2147483647
 --------------------------------------------
+Number of Iterations: 100
+Max Depth: 2147483647
+--------------------------------------------
+HighLowPlayer: 11.50
+UCTPlayer_HighLowPlayer: 3.36
+
+HighLowPlayer: 8.36
+UCTPlayer_HighLowPlayer: 4.64
+
+HighLowPlayer: 9.29
+UCTPlayer_HighLowPlayer: 3.71
+
+HighLowPlayer: 6.61
+UCTPlayer_HighLowPlayer: 6.39
+
+HighLowPlayer: 6.75
+UCTPlayer_HighLowPlayer: 6.25
+
+HighLowPlayer: 9.00
+UCTPlayer_HighLowPlayer: 4.00
+
+HighLowPlayer: 9.57
+UCTPlayer_HighLowPlayer: 3.43
+
+HighLowPlayer: 7.89
+UCTPlayer_HighLowPlayer: 5.11
+
+HighLowPlayer: 8.64
+UCTPlayer_HighLowPlayer: 4.36
+
+HighLowPlayer: 7.71
+UCTPlayer_HighLowPlayer: 5.29
+
+ RandomPlayer: 8.89
+UCTPlayer_RandomPlayer: 4.11
+
+RandomPlayer: 10.04
+UCTPlayer_RandomPlayer: 2.96
+
+RandomPlayer: 10.36
+UCTPlayer_RandomPlayer: 4.50
+
+RandomPlayer: 9.86
+UCTPlayer_RandomPlayer: 6.86
+
+RandomPlayer: 10.32
+UCTPlayer_RandomPlayer: 2.68
+
+RandomPlayer: 8.18
+UCTPlayer_RandomPlayer: 4.82
+
+RandomPlayer: 10.21
+UCTPlayer_RandomPlayer: 2.79
+
+RandomPlayer: 12.61
+UCTPlayer_RandomPlayer: 2.25
+
+RandomPlayer: 10.57
+UCTPlayer_RandomPlayer: 2.43
+
+RandomPlayer: 10.39
+UCTPlayer_RandomPlayer: 4.46
+
+MCTSPlayer: 10.29
+UCTPlayer_MCTSPlayer: 4.57
+
+MCTSPlayer: 10.39
+UCTPlayer_MCTSPlayer: 2.61
+
+MCTSPlayer: 8.50
+UCTPlayer_MCTSPlayer: 4.50
+
+MCTSPlayer: 8.93
+UCTPlayer_MCTSPlayer: 4.07
+
+MCTSPlayer: 6.00
+UCTPlayer_MCTSPlayer: 7.00
+
+MCTSPlayer: 8.32
+UCTPlayer_MCTSPlayer: 8.39
+
+MCTSPlayer: 9.29
+UCTPlayer_MCTSPlayer: 5.57
+
+MCTSPlayer: 8.21
+UCTPlayer_MCTSPlayer: 4.79
+
+MCTSPlayer: 8.93
+UCTPlayer_MCTSPlayer: 5.93
+
