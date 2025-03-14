@@ -115,3 +115,30 @@ UCTPlayer_MCTSPlayer: 4.79
 MCTSPlayer: 8.93
 UCTPlayer_MCTSPlayer: 5.93
 
+LookAheadPlayer: 8.46
+UCTPlayer_LookAheadPlayer: 4.54
+
+LookAheadPlayer: 9.93
+UCTPlayer_LookAheadPlayer: 3.07
+
+LookAheadPlayer: 10.14
+UCTPlayer_LookAheadPlayer: 6.57
+
+LookAheadPlayer: 7.64
+UCTPlayer_LookAheadPlayer: 5.36
+
+LookAheadPlayer: 8.86
+UCTPlayer_LookAheadPlayer: 4.14
+
+LookAheadPlayer: 10.43
+UCTPlayer_LookAheadPlayer: 6.29
+
+LookAheadPlayer: 9.93
+UCTPlayer_LookAheadPlayer: 4.93
+
+LookAheadPlayer: 10.57
+UCTPlayer_LookAheadPlayer: 4.29
+
+LookAheadPlayer: 8.71
+UCTPlayer_LookAheadPlayer: 6.14
+
