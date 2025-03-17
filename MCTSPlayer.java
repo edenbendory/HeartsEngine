@@ -232,7 +232,7 @@ class MCTSPlayer extends Player {
 		playoutHand.clear();
 		for (Card c : hand) playoutHand.add(c.copy());
 		// For human debugging: print the hand
-		printHand();
+		// printHand();
 		// If very last move, you must play that card
 		if (hand.size() == 1)
 			return hand.remove(0);

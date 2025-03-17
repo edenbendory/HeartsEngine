@@ -21,7 +21,7 @@ class HighLowPlayAI extends Player {
     @Override
 	Card performAction (State masterCopy) {
         // For human debugging: print the hand
-        printHand();
+        // printHand();
 
 		// If this is the first move in the game, then we must play the two of clubs - DONE
 		if (masterCopy.firstMove())

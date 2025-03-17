@@ -19,8 +19,8 @@ public class Hearts {
 		Player p2 = new RandomPlayAI("RandomPlayer");
 		// Player p3 = new LookAheadPlayer("AntLookAhead");
 		Player p3 = new UCTPlayer("UCTPlayer");
-		Player p4 = new MCTSPlayer("MCTSPlayer");
-		// Player p4 = new HumanPlayer("EdenPlay");
+		// Player p4 = new MCTSPlayer("MCTSPlayer");
+		Player p4 = new HumanPlayer("HumanPlayer");
 
 		// at the end of every game, we will have all the cards back in the deck
 		// thing.printDeck();

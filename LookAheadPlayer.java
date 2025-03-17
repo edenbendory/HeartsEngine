@@ -71,7 +71,7 @@ class LookAheadPlayer extends Player {
 			return hand.remove(0);
 
 		// For human debugging: print the hand
-		printHand();
+		// printHand();
 
 		// Get the first suit that was played this round
 		Suit firstSuit = getFirstSuit(masterCopy.currentRound);

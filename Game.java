@@ -23,7 +23,7 @@ class Game {
 	// Note: This WILL NOT shuffle the deck or deal the cards here
 	// We ONLY do that upon playing a new game
 	Game (Deck deck, Player p1, Player p2, Player p3, Player p4) {
-		debug = false;
+		debug = true;
 		playerOrder = new ArrayList<Player>();
 		playerOrder.add(p1);
 		playerOrder.add(p2);
@@ -406,7 +406,7 @@ class Game {
 				System.out.println("--------------------------------------------");
 				System.out.println("Round " + i + " Summary:");
 				System.out.println("--------------------------------------------");
-				for (Player p : playerOrder) { p.printHand(); }	
+				// for (Player p : playerOrder) { p.printHand(); }	
 				printRound(firstPlayer); 	// for debugging: use this method to see what cards were played this round
 			}
 

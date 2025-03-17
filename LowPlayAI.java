@@ -19,7 +19,7 @@ class LowPlayAI extends Player {
 	// we would not want this to be the case in the future
 	Card performAction (State masterCopy) {
 		// For human debugging: print the hand
-		printHand();
+		// printHand();
 		// Get the first suit that was played this round
 		Suit firstSuit = getFirstSuit(masterCopy.currentRound);
 		// If no cards were played this round, just play the smallest card in the hand
