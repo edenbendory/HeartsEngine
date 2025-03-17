@@ -4,7 +4,7 @@
 
 **Using Command Line:**
 
-1. Compile all of the source files by running `javac *.java` or `ant`
+1. Compile all of the source files by running `javac *.java` 
 2. Run the Hearts program by running `java Hearts`
 
 **Using an IDE**
