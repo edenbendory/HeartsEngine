@@ -5,6 +5,8 @@ The code was based on and partially supplemented by:
 * The MCTS structure and code snippets from this tutorial: https://www.baeldung.com/java-monte-carlo-tree-search
 * The functions in the mcts folder in the repo at this link: https://github.com/eugenp/tutorials/tree/master/algorithms-modules/algorithms-searching/src/main/java/com/baeldung/algorithms/mcts */
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.*;
@@ -17,56 +19,56 @@ class UCTPlayer extends Player {
     Random          rand;
     boolean         debug = false;
 
-	final int 		numIterations = 1000; 		// How many times we go through MCTS before making a decision
-	final int 		maxDepth = Integer.MAX_VALUE; 	// How many nodes to expand to before doing random playouts
-	Node 			root;
+    final int 		numIterations = 1000; 		// How many times we go through MCTS before making a decision
+    final int 		maxDepth = Integer.MAX_VALUE; 	// How many nodes to expand to before doing random playouts
+    Node 			root;
 
     public class Node {
-		State 			state; // the current state of the game
-		ArrayList<Card> curHand; // the card hand of that node
+        State 			state; // the current state of the game
+        ArrayList<Card> curHand; // the card hand of that node
         ArrayList<ArrayList<Card>> curPlayerHands; // Player hands at that point in the game
         ArrayList<Card> myCurHand; // My card hand at the point of the game of that node
         int             playerIndex; // which player is this node
-		int 			winScore;	// the win score of this node		
-		int 			visitCount; // the visit count of this node
-		Node 			parent; // the parent of this node 
+        int 			winScore;	// the win score of this node		
+        int 			visitCount; // the visit count of this node
+        Node 			parent; // the parent of this node 
         // the children of this node (in other words, the next state of the game if this node plays each potential card in their hand) 
-		ArrayList<Node> children; 
+        ArrayList<Node> children; 
         // ^^ TODO: optimize storage, maybe by changing this back to a reg array with null entries, or explore representing cards with bit-vector
         int             handIndex; // which number card this node is in their parent's hand
-		int 			depth; // the depth of this node 
+        int 			depth; // the depth of this node 
 
-		Node (State s, ArrayList<Card> hand, ArrayList<Card> myCurHand, ArrayList<ArrayList<Card>> curPlayerHands, Node p, int index) {
-			state = s;
-			curHand = new ArrayList<>(hand);
+        Node (State s, ArrayList<Card> hand, ArrayList<Card> myCurHand, ArrayList<ArrayList<Card>> curPlayerHands, Node p, int index) {
+            state = s;
+            curHand = new ArrayList<>(hand);
             this.myCurHand = new ArrayList<>(myCurHand);
             this.curPlayerHands = new ArrayList<>(curPlayerHands);
             playerIndex = state.playerIndex;
             // playerHands.set(playerIndex, hand); // replace whatever hand was there before with the hand being passed in 
             // System.out.println("Num player hands now: " + playerHands.size());
-			winScore = 0;
-			visitCount = 0;
-			parent = p;
-			children = new ArrayList<>(); 		// largest amount of children is # of cards in the hand
+            winScore = 0;
+            visitCount = 0;
+            parent = p;
+            children = new ArrayList<>(); 		// largest amount of children is # of cards in the hand
             handIndex = index;
 
             if (p != null) {
                 depth = p.depth + 1;
             }
             // root
-			else {
+            else {
                 depth = 0;
             }
-		}
-	}
+        }
+    }
 
     UCTPlayer(String name) { 
-		super(name); 
-		System.out.println("UCTPlayer AI ("+name+") initialized."); 
+        super(name); 
+        System.out.println("UCTPlayer AI ("+name+") initialized."); 
 
-		myHand = new ArrayList<>(hand);
+        myHand = new ArrayList<>(hand);
         rand = new Random();
-	}
+    }
 
     @Override
     Player resetPlayer() { return new UCTPlayer(name); }
@@ -77,7 +79,7 @@ class UCTPlayer extends Player {
     public int getNumIterations() { return numIterations; }
     public int getMaxDepth() { return maxDepth; }
 
-    int runMCTS (State originalState, ArrayList<Player> playerOrder) {
+    int runMCTS (State originalState, ArrayList<Player> playerOrder) throws FileNotFoundException {
         myPNumber = originalState.playerIndex;
         myHand = new ArrayList<>(hand);
         playerHands = generateHands(originalState, playerOrder);
@@ -85,6 +87,8 @@ class UCTPlayer extends Player {
 
         assert(root.children.isEmpty());
 
+        // new PrintWriter("./bestScore.log").close();
+        // new PrintWriter("./bestChild.log").close();
         // run multiple games until we've hit the max number
         for (int i = 0; i < numIterations; i++) {
 
@@ -106,6 +110,14 @@ class UCTPlayer extends Player {
 
             // backpropogation
             backPropogate(nodeToExplore, sampleScores); 
+
+            PrintStream originalOut = System.out;
+            System.setOut(new PrintStream(new FileOutputStream("./bestScore.log", true)));
+            System.out.print(i + " ");
+            System.setOut(new PrintStream(new FileOutputStream("./bestChild.log", true)));
+            System.out.print(i + " ");
+            System.setOut(originalOut);
+            bestRewardChild(root);
         }
 
         return bestRewardChild(root);
@@ -125,11 +137,11 @@ class UCTPlayer extends Player {
     }
 
     // Select which node to expand next using UCT
-	Node selectBestNode(Node rootNode) {
-		Node curNode = rootNode;
+    Node selectBestNode(Node rootNode) {
+        Node curNode = rootNode;
 
-		// Go through this node
-		while (curNode.state.isGameValid() && maxDepth > curNode.depth) {
+        // Go through this node
+        while (curNode.state.isGameValid() && maxDepth > curNode.depth) {
             // if this node has no children
             if (curNode.children.isEmpty()) {
                 return curNode; // we need to expand on that node
@@ -147,9 +159,9 @@ class UCTPlayer extends Player {
                 // choose which Node is the best of the valid child nodes
                 curNode = bestUCTChild(curNode);
             }
-		}
-		return curNode;
-	}
+        }
+        return curNode;
+    }
 
     public static double uctValue(int totalVisitCount, double nodeWinScore, int nodeVisitCount) {
         if (nodeVisitCount == 0) {
@@ -301,8 +313,8 @@ class UCTPlayer extends Player {
 
         int handIndex = childIndex;
 
-		// Create a new child node that corresponds to the card we have just successfully played
-		parentNode.children.add(new Node(childState, childHand, myCurHand, playerHandsCopy, parentNode, handIndex));
+        // Create a new child node that corresponds to the card we have just successfully played
+        parentNode.children.add(new Node(childState, childHand, myCurHand, playerHandsCopy, parentNode, handIndex));
     }
 
     private ArrayList<Card> generateHand(State state, Node node) {
@@ -370,7 +382,7 @@ class UCTPlayer extends Player {
     }
 
     // simulate out the rest of the game, assuming each player uses highLow strategy
-    private ArrayList<Integer> simulateHighLowPlayout(Node node) {
+    private ArrayList<Integer> simulateHighLowPlayout(Node node) throws FileNotFoundException {
         // "global" variables that we want to alter throughout the simulation 
         State tempState = new State(node.state); // state of the game
         ArrayList<ArrayList<Card>> simulatedHands = new ArrayList<>(); // hands that will be altered through simulating
@@ -405,22 +417,22 @@ class UCTPlayer extends Player {
     }
 
     private void backPropogate (Node baseNode, ArrayList<Integer> scores) {
-		Node no = baseNode;
-		while (no.parent != null) {
+        Node no = baseNode;
+        while (no.parent != null) {
             int playerIndex = no.parent.playerIndex; 
             int playerScore = scores.get(playerIndex); // this player's score this game
             int playerWinScore = 26 - playerScore; // do (26 - score) so that more points are good rather thana bad
-			no.winScore += playerWinScore;
+            no.winScore += playerWinScore;
             
             no.visitCount++;
-			no = no.parent;
-		}
-	}
+            no = no.parent;
+        }
+    }
 
     // Pick the child of the root with the highest reward. Returns an 
     // array of length 2, in which index 0 holds the best child's index,
     // and index 1 holds the best child's winning score
-	private int bestRewardChild(Node root) {
+    private int bestRewardChild(Node root) throws FileNotFoundException {
 		double bestWinScore = -Double.MAX_VALUE;
         int bestChildIndex = 0; 
 
@@ -435,11 +447,18 @@ class UCTPlayer extends Player {
             }
         }
 
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(new FileOutputStream("./bestScore.log", true)));
+        System.out.println(bestWinScore); // !!! STILL NEED TO MAKE SURE IT PREDICTED THE RIGHT CHILD, NOT JUST THE RIGHT SCORE!!!
+        System.setOut(new PrintStream(new FileOutputStream("./bestChild.log", true)));
+        System.out.println(root.children.get(bestChildIndex).handIndex);
+        System.setOut(originalOut);
+
         return root.children.get(bestChildIndex).handIndex; // handIndex is not necessarily = bestChildIndex
 	}
 
     @Override
-    Card performAction (State masterCopy, ArrayList<Player> playerOrder) {
+    Card performAction (State masterCopy, ArrayList<Player> playerOrder) throws FileNotFoundException {
 		// If very first move, play the two of clubs (will be first card in hand)
 		if (masterCopy.firstMove()) {
 			return hand.remove(0);

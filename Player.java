@@ -5,6 +5,7 @@
 
 // Dependencies on Card, Suit, and Value files
 
+import java.io.FileNotFoundException;
 import java.util.*;
 
 abstract class Player {
@@ -118,7 +119,7 @@ abstract class Player {
 
 	// Given any sort of player, make a decision to play a card
 	// Pass in a copy of the game state for full playout functionality
-	abstract Card performAction (State masterCopy, ArrayList<Player> playerOrder);
+	abstract Card performAction (State masterCopy, ArrayList<Player> playerOrder) throws FileNotFoundException;
 
 	// added by @edenbendory
 	// allows any player to return a version of itself initialized from scratch

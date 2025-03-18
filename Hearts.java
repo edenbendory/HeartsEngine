@@ -3,10 +3,11 @@
  
  Slight modifications of player numbers made by @edenbendory */
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Hearts {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 		System.out.println("Welcome to Hearts version 1.1.0.");
 
 		// Initalize the deck of cards

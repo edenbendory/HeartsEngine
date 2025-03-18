@@ -3,6 +3,7 @@
  * The function initNonRandomGame() was a modification of initNewGame by @edenbendory
  * The function printEndOfGameStats() was written by @edenbendory*/
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -75,11 +76,11 @@ class Game {
 
 		// flush the screen -- only for human players to debug
 		final String ANSI_CLS = "\u001b[2J";
-        final String ANSI_HOME = "\u001b[H";
-        System.out.println();
-       	System.out.print(ANSI_CLS + ANSI_HOME);
-       	System.out.println();
-        System.out.flush();
+		final String ANSI_HOME = "\u001b[H";
+		System.out.println();
+		System.out.print(ANSI_CLS + ANSI_HOME);
+		System.out.println();
+		System.out.flush();
 	}
 
 	// Call this every time a new game is played to shuffle the deck and clear player hands
@@ -112,11 +113,11 @@ class Game {
 
 		// flush the screen -- only for human players to debug
 		final String ANSI_CLS = "\u001b[2J";
-        final String ANSI_HOME = "\u001b[H";
-        System.out.println();
-       	System.out.print(ANSI_CLS + ANSI_HOME);
-       	System.out.println();
-        System.out.flush();
+		final String ANSI_HOME = "\u001b[H";
+		System.out.println();
+		System.out.print(ANSI_CLS + ANSI_HOME);
+		System.out.println();
+		System.out.flush();
 	}
 
 	// Given the index of the player, check if that player only has hearts left
@@ -338,7 +339,7 @@ class Game {
 	}
 
 	// Call this whenever you want to start a completely new game and play through it
-	void playNewGame(boolean thousandGames, Deck existingDeck) {
+	void playNewGame(boolean thousandGames, Deck existingDeck) throws FileNotFoundException {
 		if (existingDeck == null) {
 			// We must call this to shuffle the deck and deal cards to all the players
 			initNewGame();
@@ -460,7 +461,7 @@ class Game {
 
 	}
 
-	void playExistingGame() {
+	void playExistingGame() throws FileNotFoundException {
 		// For all 4 last rounds of the game...
 		for (int i = 10; i < 14; i++) {
 			System.out.println("--------------------------------------------");

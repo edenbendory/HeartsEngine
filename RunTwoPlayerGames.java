@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class RunTwoPlayerGames {
     // Returns the average scores when comparing 2 players.
     // A total of 14 games are played, 14 variations for each deal 
     // (the number of times this function is called is the number of games x14 that will be played )
-    private ArrayList<Double> getTwoPlayerStats(Player p1, Player p2) {
+    private ArrayList<Double> getTwoPlayerStats(Player p1, Player p2) throws FileNotFoundException {
         ArrayList<Double> totalAvgScore = new ArrayList<>();
         totalAvgScore.add(0.0);
         totalAvgScore.add(0.0);
@@ -104,7 +105,7 @@ public class RunTwoPlayerGames {
         return totalAvgScore;
     }
 
-    public static void runTwoPlayerGame() {
+    public static void runTwoPlayerGame() throws FileNotFoundException {
         RunTwoPlayerGames tester = new RunTwoPlayerGames();
 
         PrintStream originalOut = System.out;
@@ -146,7 +147,7 @@ public class RunTwoPlayerGames {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         // System.out.println("--------------------------------------------");
         // System.out.println("Running 2 Player Games");
         // System.out.println("--------------------------------------------");

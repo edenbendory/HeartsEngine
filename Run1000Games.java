@@ -4,7 +4,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 
 public class Run1000Games {
-    public static ArrayList<Integer> getGameTally() {
+    public static ArrayList<Integer> getGameTally() throws FileNotFoundException {
         ArrayList<Integer> gamesWon = new ArrayList<>();
         gamesWon.add(0);
         gamesWon.add(0);
