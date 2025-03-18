@@ -164,12 +164,13 @@ class UCTPlayer extends Player {
     }
 
     public static double uctValue(int totalVisitCount, double nodeWinScore, int nodeVisitCount) {
+        double c = Math.sqrt(2);
         if (nodeVisitCount == 0) {
             return Integer.MAX_VALUE;
         }
         return (
             ((double) nodeWinScore / (double) nodeVisitCount) 
-            + (Math.sqrt(2) * Math.sqrt(Math.log(totalVisitCount) / (double) nodeVisitCount)));
+            + (c * Math.sqrt(Math.log(totalVisitCount) / (double) nodeVisitCount)));
     }
 
     private static Node bestUCTChild(Node node) {

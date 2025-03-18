@@ -38,9 +38,8 @@
 # Multiple curves
 import matplotlib.pyplot as plt
 
-
 def read_data(filename):
-    """Reads simulation data from a file and returns a list of rounds."""
+    """ Reads simulation data from a file and returns a list of rounds. """
     rounds = []  # List to store multiple (x, y) rounds
     current_x, current_y = [], []
 
@@ -59,7 +58,7 @@ def read_data(filename):
                     if x_val == 0 and current_x:
                         rounds.append((current_x, current_y))  # Save previous round
                         current_x, current_y = [], []  # Reset for new round
-
+                    
                     current_x.append(x_val)
                     current_y.append(y_val)
 
@@ -69,26 +68,17 @@ def read_data(filename):
         # Don't forget to save the last round
         if current_x:
             rounds.append((current_x, current_y))
-
+    
     except FileNotFoundError:
         print(f"Error: File '{filename}' not found.")
-
+    
     return rounds
 
-
 def plot_data(rounds, title, y_label):
-    """Plots multiple rounds from a data file."""
+    """ Plots multiple rounds from a data file. """
     plt.figure(figsize=(8, 6))  # Create a new figure for each file
     for i, (x, y) in enumerate(rounds):
-        plt.plot(
-            x,
-            y,
-            marker="o",
-            linestyle="-",
-            linewidth=1.5,
-            markersize=2,
-            label=f"Round {i+1}",
-        )
+        plt.plot(x, y, marker='o', linestyle='-', linewidth=1.5, markersize=2, label=f"Round {i+1}")
 
     # Set labels and title
     plt.xlabel("Simulation Number")
@@ -101,7 +91,6 @@ def plot_data(rounds, title, y_label):
 
     # Show the plot
     plt.show()
-
 
 # Read data from both files
 best_child_rounds = read_data("bestChild.log")
