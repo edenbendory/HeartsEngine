@@ -26,7 +26,6 @@ class UCTPlayer extends Player {
     public class Node {
 		State 			state; // the current state of the game
         ArrayList<ArrayList<Card>> curPlayerHands; // Player hands at that point in the game
-        ArrayList<Card> myCurHand; // My card hand at the point of the game of that node
         int             playerIndex; // which player is this node
 		int 			winScore;	// the win score of this node		
 		int 			visitCount; // the visit count of this node
@@ -37,9 +36,8 @@ class UCTPlayer extends Player {
         int             handIndex; // which number card this node is in their parent's hand
 		int 			depth; // the depth of this node 
 
-		Node (State s, ArrayList<Card> hand, ArrayList<Card> myCurHand, ArrayList<ArrayList<Card>> curPlayerHands, Node p, int index) {
+		Node (State s, ArrayList<Card> hand, ArrayList<ArrayList<Card>> curPlayerHands, Node p, int index) {
 			state = s;
-            this.myCurHand = new ArrayList<>(myCurHand);
             this.curPlayerHands = new ArrayList<>(curPlayerHands);
             playerIndex = state.playerIndex;
             // playerHands.set(playerIndex, hand); // replace whatever hand was there before with the hand being passed in 
@@ -115,7 +113,7 @@ class UCTPlayer extends Player {
         myPNumber = originalState.playerIndex;
         myHand = new ArrayList<>(hand);
         playerHands = generateHands(originalState);
-        root = new Node(originalState, myHand, myHand, playerHands, null, -1);
+        root = new Node(originalState, myHand, playerHands, null, -1);
 
         assert(root.children.isEmpty());
 
@@ -269,7 +267,7 @@ class UCTPlayer extends Player {
             return;
         }
 
-        ArrayList<Card> curHand = curNode.curPlayerHands.get(curNode.playerIndex); // !!! CHECK
+        ArrayList<Card> curHand = curNode.curPlayerHands.get(curNode.playerIndex); 
 
         if (curHand.isEmpty()) {
             return;
@@ -294,7 +292,7 @@ class UCTPlayer extends Player {
             assert(child.state.cardsPlayed.invertDeck.size() == prevChild.state.cardsPlayed.invertDeck.size());
             assert(child.state.currentRound.size() == prevChild.state.currentRound.size());
             assert(child.depth == prevChild.depth);
-            assert(child.myCurHand.size() == prevChild.myCurHand.size());
+            assert(child.curPlayerHands.get(myPNumber).size() == prevChild.curPlayerHands.get(myPNumber).size());
 
             prevChild = child;
         }
@@ -364,15 +362,10 @@ class UCTPlayer extends Player {
         State childState = new State(parentNode.state); // inherits copy of parent state
         int nextPlayer = childState.advanceState(parentCurHand.get(childIndex), parentCurHand, debug);
 
-        ArrayList<Card> myCurHand = new ArrayList<>(parentNode.myCurHand); // pass my hand along 
         ArrayList<ArrayList<Card>> playerHandsCopy = new ArrayList<>();
 
         for (ArrayList<Card> copyHand : parentNode.curPlayerHands) {
             playerHandsCopy.add(new ArrayList<>(copyHand));
-        }
-
-        if (parentNode.playerIndex == myPNumber) { // if I just went 
-            myCurHand.remove(childIndex); // then update my hand 
         }
 
         // update player's hand based on who just went 
@@ -385,7 +378,7 @@ class UCTPlayer extends Player {
         int handIndex = childIndex;
 
 		// Create a new child node that corresponds to the card we have just successfully played
-		parentNode.children.add(new Node(childState, childHand, myCurHand, playerHandsCopy, parentNode, handIndex));
+		parentNode.children.add(new Node(childState, childHand, playerHandsCopy, parentNode, handIndex));
     }
 
     // pick a random node to simulate
