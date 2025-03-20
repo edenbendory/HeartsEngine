@@ -18,14 +18,13 @@ class UCTPlayer extends Player {
     Random          rand;
     boolean         debug = false;
 
-	final int 		numIterations = 100; 		// How many times we go through MCTS before making a decision
-    final int       numTrees = 100;              // How many monte-carlo trees will be generated (how many times we'll runMCTS)
+	final int 		numIterations = 10; 		// How many times we go through MCTS before making a decision
+    final int       numTrees = 10;              // How many monte-carlo trees will be generated (how many times we'll runMCTS)
 	final int 		maxDepth = Integer.MAX_VALUE; 	// How many nodes to expand to before doing random playouts
 	Node 			root;
 
     public class Node {
 		State 			state; // the current state of the game
-		ArrayList<Card> curHand; // the card hand of that node
         ArrayList<ArrayList<Card>> curPlayerHands; // Player hands at that point in the game
         ArrayList<Card> myCurHand; // My card hand at the point of the game of that node
         int             playerIndex; // which player is this node
@@ -40,7 +39,6 @@ class UCTPlayer extends Player {
 
 		Node (State s, ArrayList<Card> hand, ArrayList<Card> myCurHand, ArrayList<ArrayList<Card>> curPlayerHands, Node p, int index) {
 			state = s;
-			curHand = new ArrayList<>(hand);
             this.myCurHand = new ArrayList<>(myCurHand);
             this.curPlayerHands = new ArrayList<>(curPlayerHands);
             playerIndex = state.playerIndex;
@@ -270,12 +268,15 @@ class UCTPlayer extends Player {
         if (curNode.depth >= maxDepth) {
             return;
         }
-        if (curNode.curHand.isEmpty()) {
+
+        ArrayList<Card> curHand = curNode.curPlayerHands.get(curNode.playerIndex); // !!! CHECK
+
+        if (curHand.isEmpty()) {
             return;
         }
 
         // Find out which children are valid 
-        int[] indexRange = getValidRange(curNode.state, curNode.curHand);
+        int[] indexRange = getValidRange(curNode.state, curHand);
     
         int firstIndex = indexRange[0];
         int lastIndex = indexRange[1];
@@ -358,8 +359,10 @@ class UCTPlayer extends Player {
     }
 
     private void addNewChild(Node parentNode, int childIndex) {
+        ArrayList<Card> parentCurHand = parentNode.curPlayerHands.get(parentNode.playerIndex);
+
         State childState = new State(parentNode.state); // inherits copy of parent state
-        int nextPlayer = childState.advanceState(parentNode.curHand.get(childIndex), parentNode.curHand, debug);
+        int nextPlayer = childState.advanceState(parentCurHand.get(childIndex), parentCurHand, debug);
 
         ArrayList<Card> myCurHand = new ArrayList<>(parentNode.myCurHand); // pass my hand along 
         ArrayList<ArrayList<Card>> playerHandsCopy = new ArrayList<>();
