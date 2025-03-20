@@ -87,8 +87,6 @@ class UCTPlayer extends Player {
 
         assert(root.children.isEmpty());
 
-        // new PrintWriter("./bestScore.log").close();
-        // new PrintWriter("./bestChild.log").close();
         // run multiple games until we've hit the max number
         for (int i = 0; i < numIterations; i++) {
 
@@ -452,7 +450,7 @@ class UCTPlayer extends Player {
         System.setOut(new PrintStream(new FileOutputStream("./bestScore.log", true)));
         System.out.println(bestWinScore); // !!! STILL NEED TO MAKE SURE IT PREDICTED THE RIGHT CHILD, NOT JUST THE RIGHT SCORE!!!
         System.setOut(new PrintStream(new FileOutputStream("./bestChild.log", true)));
-        System.out.println(root.children.get(bestChildIndex).handIndex);
+        System.out.println(bestChildIndex);
         System.setOut(originalOut);
 
         return root.children.get(bestChildIndex).handIndex; // handIndex is not necessarily = bestChildIndex

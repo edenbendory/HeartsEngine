@@ -1,68 +1,74 @@
-def process_best_score_log(input_filename, output_filename):
+def process_score_log(input_filename, output_filename, tolerance=0.5):
     """
-    Parses bestScore.log, calculates the convergencePoint for each section,
-    and writes results to convergencePoints.log.
+    Processes a log file (bestScore.log) to find convergence points where the value is
+    within 'tolerance' of the value at data point 999.
+    Saves results to the specified output file.
     """
-    convergence_results = []  # Stores results to write to the output file
+    trick_number = 0
+    real_scores = {}
 
     try:
         with open(input_filename, "r") as file:
             lines = file.readlines()
 
-        current_convergence_point = -1
-        real_score = None
-        processing_section = False  # Track if we're in a valid section
-
-        for i, line in enumerate(lines):
+        # First pass: Identify all real_score values for each trick (999 values)
+        for line in lines:
             values = line.strip().split()
             if len(values) < 2:
-                continue  # Skip empty/malformed lines
+                continue
 
             try:
                 data_point = int(values[0])
                 value = float(values[1])
 
-                # If we hit 999, set realScore and reset processing state
-                if data_point == 999:
-                    real_score = value
-                    processing_section = True  # Start tracking differences
-                    current_convergence_point = -1  # Reset for new section
+                if data_point == 0:
+                    trick_number += 1
                     continue
+
+                if data_point == 999:
+                    real_scores[trick_number] = value
 
             except ValueError:
                 print(f"Skipping invalid line in {input_filename}: {line.strip()}")
 
-        for i, line in enumerate(lines):
+        # Second pass: Find convergence points
+        trick_number = 0
+        convergence_point = -1
+        convergence_points = {}
+
+        for line in lines:
             values = line.strip().split()
             if len(values) < 2:
-                continue  # Skip empty/malformed lines
+                continue
 
             try:
                 data_point = int(values[0])
                 value = float(values[1])
 
-                # If we hit 999, set realScore and reset processing state
-                if data_point == 999:
-                    real_score = value
-                    processing_section = True  # Start tracking differences
-                    current_convergence_point = -1  # Reset for new section
+                if data_point == 0:
+                    trick_number += 1
+                    convergence_point = -1
+
+                if trick_number not in real_scores:
                     continue
 
-                # If we're processing a section (i.e., after seeing 999)
-                if processing_section and real_score is not None:
-                    difference = abs(value - real_score)
+                if data_point == 999:
+                    convergence_points[trick_number] = convergence_point
+                    continue
 
-                    if difference > 0.5:
-                        current_convergence_point = -1  # Reset if difference exceeds 0.5
-                    elif difference <= 0.5 and current_convergence_point == -1:
-                        current_convergence_point = data_point  # Store first valid convergence point
+                difference = abs(value - real_scores[trick_number])
+
+                if difference > tolerance:
+                    convergence_point = -1
+                elif difference <= tolerance and convergence_point == -1:
+                    convergence_point = data_point
 
             except ValueError:
                 print(f"Skipping invalid line in {input_filename}: {line.strip()}")
 
-        # Write results to file
-        with open(output_filename, "w") as out_file:
-            out_file.write(f"{input_filename} {current_convergence_point}\n")
+        with open(output_filename, "a") as out_file:
+            for trick, convergence in convergence_points.items():
+                out_file.write(f"Trick {trick} {convergence}\n")
 
         print(f"Convergence results saved to {output_filename}")
 
@@ -70,5 +76,82 @@ def process_best_score_log(input_filename, output_filename):
         print(f"Error: File '{input_filename}' not found.")
 
 
-# Run the function on bestScore.log and save to convergencePoints.log
-process_best_score_log("bestScore.log", "convergencePoints.log")
+def process_child_log(input_filename, output_filename):
+    """
+    Processes a log file (bestChild.log) to find convergence points where the value
+    is EXACTLY equal to the value at data point 999.
+    Saves results to the specified output file.
+    """
+    trick_number = 0
+    real_scores = {}
+
+    try:
+        with open(input_filename, "r") as file:
+            lines = file.readlines()
+
+        # First pass: Identify all real_score values for each trick (999 values)
+        for line in lines:
+            values = line.strip().split()
+            if len(values) < 2:
+                continue
+
+            try:
+                data_point = int(values[0])
+                value = float(values[1])
+
+                if data_point == 0:
+                    trick_number += 1
+                    continue
+
+                if data_point == 999:
+                    real_scores[trick_number] = value
+
+            except ValueError:
+                print(f"Skipping invalid line in {input_filename}: {line.strip()}")
+
+        # Second pass: Find convergence points
+        trick_number = 0
+        convergence_point = -1
+        convergence_points = {}
+
+        for line in lines:
+            values = line.strip().split()
+            if len(values) < 2:
+                continue
+
+            try:
+                data_point = int(values[0])
+                value = float(values[1])
+
+                if data_point == 0:
+                    trick_number += 1
+                    convergence_point = -1
+
+                if trick_number not in real_scores:
+                    continue
+
+                if data_point == 999:
+                    convergence_points[trick_number] = convergence_point
+                    continue
+
+                if value == real_scores[trick_number] and convergence_point == -1:
+                    convergence_point = data_point
+
+            except ValueError:
+                print(f"Skipping invalid line in {input_filename}: {line.strip()}")
+
+        with open(output_filename, "a") as out_file:
+            for trick, convergence in convergence_points.items():
+                out_file.write(f"Trick {trick} {convergence}\n")
+
+        print(f"Convergence results saved to {output_filename}")
+
+    except FileNotFoundError:
+        print(f"Error: File '{input_filename}' not found.")
+
+
+# Run the function on bestScore.log and save to convergenceScore.log
+process_score_log("bestScore.log", "convergenceScore.log", tolerance=0.5)
+
+# Run the function on bestChild.log and save to convergenceChild.log
+process_child_log("bestChild.log", "convergenceChild.log")
