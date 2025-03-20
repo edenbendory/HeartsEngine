@@ -43,8 +43,8 @@ UCTPlayer_HighLowPlayer: 4.96
 HighLowPlayer: 6.68
 UCTPlayer_HighLowPlayer: 6.32
 
-HighLowPlayer: 9.29
-UCTPlayer_HighLowPlayer: 3.71
+HighLowPlayer: 8.75
+UCTPlayer_HighLowPlayer: 7.96
 
 HighLowPlayer: 9.25
 UCTPlayer_HighLowPlayer: 3.75
@@ -73,8 +73,8 @@ UCTPlayer_RandomPlayer: 5.89
 RandomPlayer: 9.96
 UCTPlayer_RandomPlayer: 3.04
 
-RandomPlayer: 10.32
-UCTPlayer_RandomPlayer: 2.68
+RandomPlayer: 9.93
+UCTPlayer_RandomPlayer: 6.79
 
 RandomPlayer: 8.64
 UCTPlayer_RandomPlayer: 4.36
