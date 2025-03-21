@@ -26,6 +26,7 @@ class UCTPlayer extends Player {
     public class Node {
 		State 			state; // the current state of the game
         ArrayList<ArrayList<Card>> curPlayerHands; // Player hands at that point in the game
+        // ArrayList<int[]> YMN;
         int             playerIndex; // which player is this node
 		int 			winScore;	// the win score of this node		
 		int 			visitCount; // the visit count of this node
@@ -39,6 +40,7 @@ class UCTPlayer extends Player {
 		Node (State s, ArrayList<Card> hand, ArrayList<ArrayList<Card>> curPlayerHands, Node p, int index) {
 			state = s;
             this.curPlayerHands = new ArrayList<>(curPlayerHands);
+            // this.YMN = new ArrayList<>(YMN);
             playerIndex = state.playerIndex;
             // playerHands.set(playerIndex, hand); // replace whatever hand was there before with the hand being passed in 
             // System.out.println("Num player hands now: " + playerHands.size());
@@ -113,6 +115,7 @@ class UCTPlayer extends Player {
         myPNumber = originalState.playerIndex;
         myHand = new ArrayList<>(hand);
         playerHands = generateHands(originalState);
+        // ArrayList<int[]> YMN = initializeYMN();
         root = new Node(originalState, myHand, playerHands, null, -1);
 
         assert(root.children.isEmpty());
@@ -199,6 +202,26 @@ class UCTPlayer extends Player {
 
         return playerHands;
     }
+
+    // private ArrayList<int[]> initializeYMN(State state) {
+    //     // initializes a YMN for each player, where -1 = no, 0 = maybe, and 1 = yes
+
+    //     ArrayList<HashMap<Card, Integer>> YMN = new ArrayList<>();
+    //     YMN.add(new HashMap<>());
+    //     YMN.add(new HashMap<>());
+    //     YMN.add(new HashMap<>());
+    //     YMN.add(new HashMap<>());
+
+    //     // fills each HashMap with the cards in the deck that haven't been played
+    //     for (Card card : state.cardsPlayed.invertDeck) {
+    //         YMN.get(0).put(card, 0);
+    //         YMN.get(1).put(card, 0);
+    //         YMN.get(2).put(card, 0);
+    //         YMN.get(3).put(card, 0);
+    //     }
+
+    //     YMN.get(myPNumber).clear();
+    // }
 
     // Select which node to expand next using UCT
 	Node selectBestNode(Node rootNode) {
