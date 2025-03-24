@@ -1,3 +1,4 @@
+# ChatGPT was used to help compose this file 
 #!/bin/bash
 
 javac *.java

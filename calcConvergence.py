@@ -1,3 +1,4 @@
+# ChatGPT was used to help compose this file 
 def process_score_log(input_filename, output_filename, tolerance=0.5):
     """
     Processes a log file (bestScore.log) to find convergence points where the value is
