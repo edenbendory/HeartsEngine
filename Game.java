@@ -176,8 +176,8 @@ class Game {
 		}
 
 		// if the card played is hearts, then hearts has broken
-		// playing queen of spades will NOT break hearts
-		if (playedCard.getSuit() == Suit.HEARTS && !hasHeartsBroken) {
+		// playing queen of spades WILL break hearts
+		if (playedCard.getSuit() == Suit.HEARTS || (playedCard.getSuit() == Suit.SPADES && playedCard.getValue() == Value.QUEEN) && !hasHeartsBroken) {
 			System.out.println("Hearts has been broken!");
 			hasHeartsBroken = true;
 		}
