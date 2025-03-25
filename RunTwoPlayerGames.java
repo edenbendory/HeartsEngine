@@ -108,7 +108,7 @@ public class RunTwoPlayerGames {
         p1List.add(new RandomPlayAI("RandomPlayer"));
         p1List.add(new MCTSPlayer("MCTSPlayer"));
         // p1List.add(new LowPlayAI("LowPlayer"));
-        p1List.add(new LookAheadPlayer("LookAheadPlayer"));
+        // p1List.add(new LookAheadPlayer("LookAheadPlayer"));
         UCTPlayer p2 = new UCTPlayer("UCTPlayer");
 
         System.setOut(originalOut);
@@ -130,6 +130,7 @@ public class RunTwoPlayerGames {
     
             System.out.println(String.format("%s: %.2f", p1.name, twoPlayerStats.get(0)));
             System.out.println(String.format("%s_%s: %.2f", p2.name, p1.name, twoPlayerStats.get(1)));
+            System.out.println(String.format("%s_%s_Difference: %.2f", p2.name, p1.name, twoPlayerStats.get(0) - twoPlayerStats.get(1)));
             System.out.println();
         }
     }

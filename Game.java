@@ -23,7 +23,7 @@ class Game {
 	// Note: This WILL NOT shuffle the deck or deal the cards here
 	// We ONLY do that upon playing a new game
 	Game (Deck deck, Player p1, Player p2, Player p3, Player p4) {
-		debug = true;
+		debug = false;
 		playerOrder = new ArrayList<Player>();
 		playerOrder.add(p1);
 		playerOrder.add(p2);
