@@ -164,14 +164,14 @@ class Game {
 				System.out.println("Hearts has not broken yet. You cannot play a Heart suit.");
 				return false;
 			}
-			if (!hasHeartsBroken && !playerOrder.get(0).hasAllHeartsAndQueen() && playedCard.getSuit() == Suit.SPADES && playedCard.getValue() == Value.QUEEN) { 
-				System.out.println("Hearts has not broken yet. You cannot play the Queen of Spades.");
-				return false;
-			}
-			if (!hasHeartsBroken && playerOrder.get(0).hasAllHeartsAndQueen() && !(playedCard.getSuit() == Suit.SPADES && playedCard.getValue() == Value.QUEEN)) {
-				System.out.println("You must play the Queen of Spades to break Hearts.");
-				return false;
-			}
+			// if (!hasHeartsBroken && !playerOrder.get(0).hasAllHeartsAndQueen() && playedCard.getSuit() == Suit.SPADES && playedCard.getValue() == Value.QUEEN) { 
+			// 	System.out.println("Hearts has not broken yet. You cannot play the Queen of Spades.");
+			// 	return false;
+			// }
+			// if (!hasHeartsBroken && playerOrder.get(0).hasAllHeartsAndQueen() && !(playedCard.getSuit() == Suit.SPADES && playedCard.getValue() == Value.QUEEN)) {
+			// 	System.out.println("You must play the Queen of Spades to break Hearts.");
+			// 	return false;
+			// }
 			return true;
 		}
 

@@ -102,19 +102,19 @@ class State {
 	}
 
 	// Used to check if all the cards in this hand is hearts or Queen of Spades
-	boolean hasAllHeartsAndQueen(ArrayList<Card> hand) {
-		boolean flag = true;
-		boolean queen = false;
-		for (Card c : hand) { 
-			if (c.getSuit() != Suit.HEARTS && !(c.getValue() == Value.QUEEN && c.getSuit() == Suit.SPADES)) {
-				flag = false;
-			}
-			if (c.getValue() == Value.QUEEN && c.getSuit() == Suit.SPADES) {
-				queen = true;
-			}
-		}
-		return (flag && queen);
-	}
+	// boolean hasAllHeartsAndQueen(ArrayList<Card> hand) {
+	// 	boolean flag = true;
+	// 	boolean queen = false;
+	// 	for (Card c : hand) { 
+	// 		if (c.getSuit() != Suit.HEARTS && !(c.getValue() == Value.QUEEN && c.getSuit() == Suit.SPADES)) {
+	// 			flag = false;
+	// 		}
+	// 		if (c.getValue() == Value.QUEEN && c.getSuit() == Suit.SPADES) {
+	// 			queen = true;
+	// 		}
+	// 	}
+	// 	return (flag && queen);
+	// }
 
 	// Given a Card c, check against the current round to see if it's a valid play
 	boolean checkRound(Card c, ArrayList<Card> playoutHand) {
@@ -128,9 +128,9 @@ class State {
 		if (firstInRound()) {
 			if (c.getSuit() == Suit.HEARTS && !hasHeartsBroken && !hasAllHearts(playoutHand)) 
 				return false;
-			// if (c.getSuit() == Suit.SPADES && c.getValue() == Value.QUEEN && !hasHeartsBroken && !hasAllHeartsAndQueen(playoutHand))
+			// if (c.getSuit() == Suit.SPADES && c.getValue() == Value.QUEEN && !hasHeartsBroken && !hasAllHearts(playoutHand))
 			// 	return false;
-			// if (!(c.getSuit() == Suit.SPADES && c.getValue() == Value.QUEEN) && !hasHeartsBroken && hasAllHeartsAndQueen(playoutHand))
+			// if (c.getSuit() == Suit.HEARTS && !hasHeartsBroken && hasAllHeartsAndQueen(playoutHand))
 			// 	return false;
 			return true;
 		} else {

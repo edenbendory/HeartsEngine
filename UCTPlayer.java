@@ -384,9 +384,6 @@ class UCTPlayer extends Player {
 
         State childState = new State(parentNode.state); // inherits copy of parent state
         int nextPlayer = childState.advanceState(parentCurHand.get(childIndex), parentCurHand, debug);
-        if (nextPlayer == -1) {
-            System.out.println(parentCurHand.get(childIndex));
-        }
 
         ArrayList<ArrayList<Card>> playerHandsCopy = new ArrayList<>();
 
@@ -467,9 +464,6 @@ class UCTPlayer extends Player {
 
             curPlayer = tempState.advanceState(cardToPlay, simulatedHand, debug);
             // simulatedHand.remove(cardToPlay);
-            if (curPlayer == -1) {
-                System.out.println(cardToPlay);
-            }
         }
 
         System.setOut(originalOut);
