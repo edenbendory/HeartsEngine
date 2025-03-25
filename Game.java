@@ -160,8 +160,16 @@ class Game {
 		// if playing hearts first, check if hearts has been broken
 		// otherwise, just return true (they can play anything if hearts has broken)
 		if (currentRound.size() == 0) {
-			if (!hasHeartsBroken && playedCard.getSuit() == Suit.HEARTS) { 
+			if (!hasHeartsBroken && !playerOrder.get(0).hasAllHearts() && playedCard.getSuit() == Suit.HEARTS) { 
 				System.out.println("Hearts has not broken yet. You cannot play a Heart suit.");
+				return false;
+			}
+			if (!hasHeartsBroken && !playerOrder.get(0).hasAllHeartsAndQueen() && playedCard.getSuit() == Suit.SPADES && playedCard.getValue() == Value.QUEEN) { 
+				System.out.println("Hearts has not broken yet. You cannot play the Queen of Spades.");
+				return false;
+			}
+			if (!hasHeartsBroken && playerOrder.get(0).hasAllHeartsAndQueen() && !(playedCard.getSuit() == Suit.SPADES && playedCard.getValue() == Value.QUEEN)) {
+				System.out.println("You must play the Queen of Spades to break Hearts.");
 				return false;
 			}
 			return true;
