@@ -305,6 +305,13 @@ class UCTPlayer extends Player {
         // Create a new Node representing each valid child 
         for (int i = firstIndex; i <= lastIndex; i++) { 
             // Notice: This will exclude the invalid children (only valid children are added as children)
+            if (curHand.isEmpty()) {
+                System.out.println("");
+            }
+            if (curHand.get(i).getSuit() == Suit.SPADES && curHand.get(i).getValue() == Value.QUEEN
+                && !curNode.state.hasHeartsBroken && !curNode.state.hasAllHeartsAndQueen(curHand)) {
+                    continue;
+                }
             addNewChild(curNode, i);
         }
 
@@ -359,8 +366,20 @@ class UCTPlayer extends Player {
        
         // If we are void in firstSuit (if firstIndex is -1 and firstSuit != null), we can play any card in our hand
         if (firstIndex == -1) {
-            firstIndex = 0;
-            lastIndex = curHand.size() - 1;
+            // unless we only have the Queen and Hearts. then we must play the Queen 
+            if (!curState.hasHeartsBroken && curState.hasAllHeartsAndQueen(curHand)) {
+                for (int i = 0; i < curHand.size(); i++) {
+                    Card c = curHand.get(i);
+                    if (c.getSuit() == Suit.SPADES && c.getValue() == Value.QUEEN) {
+                        firstIndex = i;
+                        lastIndex = i;
+                    }
+                }
+            }
+            else {
+                firstIndex = 0;
+                lastIndex = curHand.size() - 1;
+            }
         }
 
         int[] indexRange = new int[2];

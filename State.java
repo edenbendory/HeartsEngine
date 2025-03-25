@@ -128,10 +128,10 @@ class State {
 		if (firstInRound()) {
 			if (c.getSuit() == Suit.HEARTS && !hasHeartsBroken && !hasAllHearts(playoutHand)) 
 				return false;
-			// if (c.getSuit() == Suit.SPADES && c.getValue() == Value.QUEEN && !hasHeartsBroken && !hasAllHeartsAndQueen(playoutHand))
-			// 	return false;
-			// if (!(c.getSuit() == Suit.SPADES && c.getValue() == Value.QUEEN) && !hasHeartsBroken && hasAllHeartsAndQueen(playoutHand))
-			// 	return false;
+			if (c.getSuit() == Suit.SPADES && c.getValue() == Value.QUEEN && !hasHeartsBroken && !hasAllHearts(playoutHand))
+				return false;
+			if (c.getSuit() == Suit.HEARTS && !hasHeartsBroken && hasAllHeartsAndQueen(playoutHand))
+				return false;
 			return true;
 		} else {
 			// Check if suit is appropriate

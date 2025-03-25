@@ -32,6 +32,15 @@ class HighLowPlayAI extends Player {
 
         boolean heartsBroken = masterCopy.hasHeartsBroken;
 
+        if (!masterCopy.hasHeartsBroken && masterCopy.hasAllHeartsAndQueen(hand)) {
+            for (int i = 0; i < hand.size(); i++) {
+                Card c = hand.get(i);
+                if (c.getSuit() == Suit.SPADES && c.getValue() == Value.QUEEN) {
+                    return hand.remove(i);
+                }
+            }
+        }
+
         // If we are the first move in the round, play the lowest card
         if (firstSuit == null) {
             // return the lowest card that's not a hearts - DONE
@@ -42,6 +51,26 @@ class HighLowPlayAI extends Player {
             Value lowValue = Value.ACE;
             Value diamondsLow = null;
             Value spadesLow = null;
+
+            // if hearts haven't been broken, we can't play the queen of spades unless we only have queen and hearts
+            if (spadesSuitRange.endIndex != -1 && !heartsBroken && !masterCopy.hasAllHeartsAndQueen(hand) && hand.get(spadesSuitRange.endIndex - 1).getValue() == Value.QUEEN) {
+                // if the queen is the only spades card, we can play no other spades
+                if (spadesSuitRange.startIndex == spadesSuitRange.endIndex - 1) {
+                    spadesSuitRange.startIndex = -1;
+                    spadesSuitRange.endIndex = -1;
+                } else {
+                    // otherwise, we just can't play the queen 
+                    spadesSuitRange.endIndex--;
+                }
+            }
+            if (spadesSuitRange.startIndex != -1 && !heartsBroken && !masterCopy.hasAllHeartsAndQueen(hand) && hand.get(spadesSuitRange.startIndex).getValue() == Value.QUEEN) {
+                if (spadesSuitRange.startIndex == spadesSuitRange.endIndex - 1) {
+                    spadesSuitRange.startIndex = -1;
+                    spadesSuitRange.endIndex = -1;
+                } else {
+                    spadesSuitRange.startIndex++;
+                }
+            }
 
             // !!! make this check cleaner later!!! - maybe make a helper function in Player called getAnyValue() that returns -1 when you call hand.getAnyValue() on a Value that's not in your hand 
             if (clubsSuitRange.startIndex != -1) {
@@ -99,6 +128,28 @@ class HighLowPlayAI extends Player {
             SuitRange clubsSuitRange = getSuitRange(Suit.CLUBS, hand);
             SuitRange diamondsSuitRange = getSuitRange(Suit.DIAMONDS, hand);
             SuitRange spadesSuitRange = getSuitRange(Suit.SPADES, hand);
+
+            // if hearts haven't been broken, we can't play the queen of spades unless we only have queen and hearts
+            if (!heartsBroken && spadesSuitRange.endIndex != -1 && !masterCopy.hasAllHeartsAndQueen(hand) && hand.get(spadesSuitRange.endIndex - 1).getValue() == Value.QUEEN) {
+                // if the queen is the only spades card, we can play no other spades
+                if (spadesSuitRange.startIndex == spadesSuitRange.endIndex - 1) {
+                    spadesSuitRange.startIndex = -1;
+                    spadesSuitRange.endIndex = -1;
+                    
+                } else {
+                    // otherwise, we just can't play the queen 
+                    spadesSuitRange.endIndex--;
+                }
+            }
+            if (!heartsBroken && spadesSuitRange.startIndex != -1 && !masterCopy.hasAllHeartsAndQueen(hand) && hand.get(spadesSuitRange.startIndex).getValue() == Value.QUEEN) {
+                if (spadesSuitRange.startIndex == spadesSuitRange.endIndex - 1) {
+                    spadesSuitRange.startIndex = -1;
+                    spadesSuitRange.endIndex = -1;
+                } else {
+                    spadesSuitRange.startIndex++;
+                }
+            }
+
             int highIndex = hand.size() - 1;
             Value highValue = Value.TWO;
             Value diamondsHigh = null;
