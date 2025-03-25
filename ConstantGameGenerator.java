@@ -11,7 +11,7 @@ public class ConstantGameGenerator {
 		//Player p4 = new RandomPlayAI("Wells");
 		Player p2 = new RandomPlayAI("JaiRandomPlay");
 		// Player p3 = new LookAheadPlayer("AntLookAhead");
-		Player p3 = new UCTPlayer("UCTPlayer");
+		Player p3 = new PerfectInfoUCTPlayer("UCTPlayer");
 		Player p4 = new MCTSPlayer("JulianMCTS");
 
         ArrayList<Player> playerOrder = new ArrayList<Player>();

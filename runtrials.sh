@@ -17,23 +17,29 @@ output_file="perfectInfoOutput.log"
 
 # To process and compute averages
 awk '
-/HighLowPlayer:/ { highlow_sum += $2; highlow_count++ }
-/UCTPlayer_HighLowPlayer:/     { uct_highlow_sum += $2; uct_highlow_count++ }
-/RandomPlayer:/   { random_sum += $2; random_count++ }
-/UCTPlayer_RandomPlayer:/     { uct_random_sum += $2; uct_random_count++ }
-/MCTSPlayer:/     { mcts_sum += $2; mcts_count++ }
-/UCTPlayer_MCTSPlayer:/     { uct_mcts_sum += $2; uct_mcts_count++ }
+/UCTPlayer:/ { uct_sum += $2; uct_count++ }
+/PerfectInfoUCTPlayer_UCTPlayer:/     { perfectuct_uct_sum += $2; perfectuct_uct_count++ }
+# /HighLowPlayer:/ { highlow_sum += $2; highlow_count++ }
+# /PerfectInfoUCTPlayer_HighLowPlayer:/     { perfectuct_highlow_sum += $2; perfectuct_highlow_count++ }
+# /RandomPlayer:/   { random_sum += $2; random_count++ }
+# /PerfectInfoUCTPlayer_RandomPlayer:/     { perfectuct_random_sum += $2; perfectuct_random_count++ }
+# /MCTSPlayer:/     { mcts_sum += $2; mcts_count++ }
+# /PerfectInfoUCTPlayer_MCTSPlayer:/     { perfectuct_mcts_sum += $2; perfectuct_mcts_count++ }
 END {
-    printf "HighLowPlayer Average: %.2f\n", highlow_sum / highlow_count;
-    printf "UCTPlayer Average: %.2f\n", uct_highlow_sum / uct_highlow_count;
+    printf "UCTPlayer Average: %.2f\n", uct_sum / uct_count;
+    printf "PerfectInfoUCTPlayer Average: %.2f\n", perfectuct_uct_sum / perfectuct_uct_count;
     printf"\n";
 
-    printf "RandomPlayer Average: %.2f\n", random_sum / random_count;
-    printf "UCTPlayer Average: %.2f\n", uct_random_sum / uct_random_count;
-    printf"\n";
+    # printf "HighLowPlayer Average: %.2f\n", highlow_sum / highlow_count;
+    # printf "PerfectInfoUCTPlayer Average: %.2f\n", perfectuct_highlow_sum / perfectuct_highlow_count;
+    # printf"\n";
 
-    printf "MCTSPlayer Average: %.2f\n", mcts_sum / mcts_count;
-    printf "UCTPlayer Average: %.2f\n", uct_mcts_sum / uct_mcts_count;
-    printf"\n";
+    # printf "RandomPlayer Average: %.2f\n", random_sum / random_count;
+    # printf "PerfectInfoUCTPlayer Average: %.2f\n", perfectuct_random_sum / perfectuct_random_count;
+    # printf"\n";
+
+    # printf "MCTSPlayer Average: %.2f\n", mcts_sum / mcts_count;
+    # printf "PerfectInfoUCTPlayer Average: %.2f\n", perfectuct_mcts_sum / perfectuct_mcts_count;
+    # printf"\n";
 }
 ' "$output_file"

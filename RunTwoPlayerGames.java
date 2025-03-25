@@ -117,12 +117,13 @@ public class RunTwoPlayerGames {
         }));
 
         ArrayList<Player> p1List = new ArrayList<>();
-        p1List.add(new HighLowPlayAI("HighLowPlayer"));
-        p1List.add(new RandomPlayAI("RandomPlayer"));
-        p1List.add(new MCTSPlayer("MCTSPlayer"));
+        p1List.add(new UCTPlayer("UCTPlayer"));
+        // p1List.add(new HighLowPlayAI("HighLowPlayer"));
+        // p1List.add(new RandomPlayAI("RandomPlayer"));
+        // p1List.add(new MCTSPlayer("MCTSPlayer"));
         // p1List.add(new LowPlayAI("LowPlayer"));
         // p1List.add(new LookAheadPlayer("LookAheadPlayer"));
-        UCTPlayer p2 = new UCTPlayer("UCTPlayer");
+        PerfectInfoUCTPlayer p2 = new PerfectInfoUCTPlayer("PerfectInfoUCTPlayer");
 
         System.setOut(originalOut);
         System.out.println("Number of Iterations: " + p2.getNumIterations());

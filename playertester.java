@@ -3,15 +3,15 @@ import java.util.List;
 
 public class playertester {
     public static void main(String[] args) {
-        Player p1 = new UCTPlayer("UCTPlayer");
+        Player p1 = new PerfectInfoUCTPlayer("UCTPlayer");
         Player p2 = new HighLowPlayAI("HighLowPlayer");
 
         ArrayList<ArrayList<Player>> playerCombos = new ArrayList<>();
 
         playerCombos.add(new ArrayList<>(
-            List.of(new UCTPlayer("UCTPlayer"), 
-            new UCTPlayer("UCTPlayer"), 
-            new UCTPlayer("UCTPlayer"), 
+            List.of(new PerfectInfoUCTPlayer("UCTPlayer"), 
+            new PerfectInfoUCTPlayer("UCTPlayer"), 
+            new PerfectInfoUCTPlayer("UCTPlayer"), 
             new HighLowPlayAI("HighLowPlayer"))));
 
         p2.points = 1;

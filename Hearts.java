@@ -19,7 +19,7 @@ public class Hearts {
 		//Player p4 = new RandomPlayAI("Wells");
 		Player p2 = new RandomPlayAI("RandomPlayer");
 		// Player p3 = new LookAheadPlayer("AntLookAhead");
-		Player p3 = new UCTPlayer("UCTPlayer");
+		Player p3 = new PerfectInfoUCTPlayer("UCTPlayer");
 		Player p4 = new MCTSPlayer("MCTSPlayer");
 		// Player p4 = new HumanPlayer("EdenPlay");
 
