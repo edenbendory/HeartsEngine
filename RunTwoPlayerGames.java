@@ -33,23 +33,19 @@ public class RunTwoPlayerGames {
         ArrayList<Double> totalAvgScore = new ArrayList<>();
         totalAvgScore.add(0.0);
         totalAvgScore.add(0.0);
-        ArrayList<Integer> totalScoreCount = new ArrayList<>();
-        totalScoreCount.add(0);
-        totalScoreCount.add(0);
 
         // Play Multiple Games
         // Initalize the deck of cards
         Deck thing = new Deck();
         thing.shuffleDeck();
 
-        ArrayList<Double> thisAvgScore = new ArrayList<>();
-        thisAvgScore.add(0.0);
-        thisAvgScore.add(0.0);
-        ArrayList<Integer> thisAvgScoreCount = new ArrayList<>();
-        thisAvgScoreCount.add(0);
-        thisAvgScoreCount.add(0);
+        double totalScoreOne=0;
+        int totalCountOne=0;
+        double totalScoreTwo=0;
+        int totalCountTwo=0;
 
         for (int j = 0; j < 14; j++) {
+            int score = 0;
             // for the purposes of this experimental setup, one round = one game ???
             Deck thisRound = new Deck(thing);
 
@@ -73,33 +69,25 @@ public class RunTwoPlayerGames {
             Game round = new Game(thisRound, first, second, third, fourth);
             round.playNewGame(true, round.cardsPlayed);
 
-            for (Player p : playerCombos.get(j)) {
-                if (p.name.equals(p1.name)) {
-                    int scoreCount = thisAvgScoreCount.get(0);
-                    double avgScoreOne = (thisAvgScore.get(0) * scoreCount + p.points) / (scoreCount + 1);
-                    thisAvgScore.set(0, avgScoreOne);
-                    thisAvgScoreCount.set(0, scoreCount + 1);
+            for (int k = 0; k < 4; k++) {
+                if (round.playerOrder.get(k).name.equals(p1.name)) {
+                    totalScoreOne+=round.playerScores.get(k);
+                    totalCountOne++;
                 }
                 else {
-                    int scoreCount = thisAvgScoreCount.get(1);
-                    double avgScoreTwo = (thisAvgScore.get(1) * scoreCount + p.points) / (scoreCount + 1);
-                    thisAvgScore.set(1, avgScoreTwo);
-                    thisAvgScoreCount.set(1, scoreCount + 1);
+                    totalScoreTwo+=round.playerScores.get(k);
+                    totalCountTwo++;
                 }
+                score+=round.playerScores.get(k);
             }
             
-            
+            assert (score == 16 || score == 78);
         }
 
-        int totalScoreCount1 = totalScoreCount.get(0);
-        double totalAvgScoreOne = ((totalAvgScore.get(0) * totalScoreCount1) + (thisAvgScore.get(0) * 28)) /    (totalScoreCount1 + 28);
-        totalAvgScore.set(0, totalAvgScoreOne);
-        totalScoreCount.set(0, totalScoreCount1 + 28);
+        assert (totalCountOne == 28 && totalCountTwo == 28);
 
-        int totalScoreCount2 = totalScoreCount.get(1);
-        double totalAvgScoreTwo = ((totalAvgScore.get(1) * totalScoreCount2) + (thisAvgScore.get(1) * 28)) /    (totalScoreCount2 + 28);
-        totalAvgScore.set(1, totalAvgScoreTwo);
-        totalScoreCount.set(1, totalScoreCount2 + 28);
+        totalAvgScore.set(0, totalScoreOne/28);
+        totalAvgScore.set(1, totalScoreTwo/28);
 
         return totalAvgScore;
     }
