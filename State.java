@@ -152,7 +152,7 @@ class State {
 		for (Card c : currentRound) {
 			if (c.getSuit() == Suit.HEARTS) points++;
 			if (c.getValue() == Value.QUEEN && c.getSuit() == Suit.SPADES) points += 13;
-			// @edenbendory: !!! add jack of diamonds -10
+			if (c.getValue() == Value.JACK && c.getSuit() == Suit.DIAMONDS) points -= 10; // @edenbendory
 		}
 		return points;
 	}
