@@ -63,12 +63,16 @@ abstract class Player {
 	// Used to check if all the cards in this player's hand is hearts or Queen of Spades
 	boolean hasAllHeartsAndQueen() {
 		boolean flag = true;
+		boolean queen = false;
 		for (Card c : hand) { 
 			if (c.getSuit() != Suit.HEARTS && !(c.getValue() == Value.QUEEN && c.getSuit() == Suit.SPADES)) {
 				flag = false;
 			}
+			if (c.getValue() == Value.QUEEN && c.getSuit() == Suit.SPADES) {
+				queen = true;
+			}
 		}
-		return flag;
+		return (flag && queen);
 	}
 
 	// Get the first suit that was played this round
