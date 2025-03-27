@@ -46,7 +46,7 @@ public class RunTwoPlayerGames {
 
         for (int j = 0; j < 14; j++) {
             int score = 0;
-            // for the purposes of this experimental setup, one round = one game ???
+            // for the purposes of this experimental setup, one round = one game 
             Deck thisRound = new Deck(thing);
 
             // determine which arrangement of hands we want for this game

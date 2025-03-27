@@ -3,7 +3,12 @@
 The code was based on and partially supplemented by:
 * MCTSPlayer.java in the repo at this link https://github.com/Devking/HeartsAI
 * The MCTS structure and code snippets from this tutorial: https://www.baeldung.com/java-monte-carlo-tree-search
-* The functions in the mcts folder in the repo at this link: https://github.com/eugenp/tutorials/tree/master/algorithms-modules/algorithms-searching/src/main/java/com/baeldung/algorithms/mcts */
+* The functions in the mcts folder in the repo at this link: https://github.com/eugenp/tutorials/tree/master/algorithms-modules/algorithms-searching/src/main/java/com/baeldung/algorithms/mcts 
+
+This code plays hearts using the UCT Monte-Carlo Algorithm. 
+It handles imperfect information by dealing out random hands for all the
+players before the game tree is created. It repeats this numTrees times.
+*/
 
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -165,7 +170,7 @@ class UCTPlayer extends Player {
             }
         }
 
-        // !!! reality check: there should be around 39 cardsLeft
+        // reality check: there should be around 39 cardsLeft
 
         // int p1 = myPNumber + 1 % 4; // 3
         // int p2 = myPNumber + 2 % 4; // 0
