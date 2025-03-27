@@ -18,7 +18,7 @@ class UCTPlayer extends Player {
     Random          rand;
     boolean         debug = false;
 
-	final int 		numIterations = 200; 		// How many times we go through MCTS before making a decision
+	final int 		numIterations = 10; 		// How many times we go through MCTS before making a decision
     final int       numTrees = 10;              // How many monte-carlo trees will be generated (how many times we'll runMCTS)
 	final int 		maxDepth = Integer.MAX_VALUE; 	// How many nodes to expand to before doing random playouts
 	Node 			root;
@@ -37,7 +37,7 @@ class UCTPlayer extends Player {
         int             handIndex; // which number card this node is in their parent's hand
 		int 			depth; // the depth of this node 
 
-		Node (State s, ArrayList<Card> hand, ArrayList<ArrayList<Card>> curPlayerHands, Node p, int index) {
+		Node (State s, ArrayList<ArrayList<Card>> curPlayerHands, Node p, int index) {
 			state = s;
             this.curPlayerHands = new ArrayList<>(curPlayerHands);
             // this.YMN = new ArrayList<>(YMN);
@@ -116,7 +116,7 @@ class UCTPlayer extends Player {
         myHand = new ArrayList<>(hand);
         playerHands = generateHands(originalState);
         // ArrayList<int[]> YMN = initializeYMN();
-        root = new Node(originalState, myHand, playerHands, null, -1);
+        root = new Node(originalState, playerHands, null, -1);
 
         assert(root.children.isEmpty());
 
@@ -383,7 +383,7 @@ class UCTPlayer extends Player {
         ArrayList<Card> parentCurHand = parentNode.curPlayerHands.get(parentNode.playerIndex);
 
         State childState = new State(parentNode.state); // inherits copy of parent state
-        int nextPlayer = childState.advanceState(parentCurHand.get(childIndex), parentCurHand, debug);
+        childState.advanceState(parentCurHand.get(childIndex), parentCurHand, debug);
 
         ArrayList<ArrayList<Card>> playerHandsCopy = new ArrayList<>();
 
@@ -394,14 +394,10 @@ class UCTPlayer extends Player {
         // update player's hand based on who just went 
         playerHandsCopy.get(parentNode.playerIndex).remove(childIndex); 
 
-        ArrayList<Card> childHand;
-        int playerIndex = nextPlayer;
-        childHand = new ArrayList<>(playerHandsCopy.get(playerIndex)); // ??? needs to be a deep copy ???
-
         int handIndex = childIndex;
 
 		// Create a new child node that corresponds to the card we have just successfully played
-		parentNode.children.add(new Node(childState, childHand, playerHandsCopy, parentNode, handIndex));
+		parentNode.children.add(new Node(childState, playerHandsCopy, parentNode, handIndex));
     }
 
     // pick a random node to simulate
