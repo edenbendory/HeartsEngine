@@ -6,6 +6,7 @@ The code was based on and partially supplemented by:
 * The functions in the mcts folder in the repo at this link: https://github.com/eugenp/tutorials/tree/master/algorithms-modules/algorithms-searching/src/main/java/com/baeldung/algorithms/mcts */
 
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.*;
@@ -18,7 +19,7 @@ class PerfectInfoUCTPlayer extends Player {
     Random          rand;
     boolean         debug = false;
 
-    final int 		numIterations = 200; 		// How many times we go through MCTS before making a decision
+    final int 		numIterations = 1000; 		// How many times we go through MCTS before making a decision
     final int 		maxDepth = Integer.MAX_VALUE; 	// How many nodes to expand to before doing random playouts
     Node 			root;
 
@@ -108,13 +109,13 @@ class PerfectInfoUCTPlayer extends Player {
             // backpropogation
             backPropogate(nodeToExplore, sampleScores); 
 
-            // PrintStream originalOut = System.out;
-            // System.setOut(new PrintStream(new FileOutputStream("./bestScore.log", true)));
-            // System.out.print(i + " ");
-            // System.setOut(new PrintStream(new FileOutputStream("./bestChild.log", true)));
-            // System.out.print(i + " ");
-            // System.setOut(originalOut);
-            // bestRewardChild(root);
+            PrintStream originalOut = System.out;
+            System.setOut(new PrintStream(new FileOutputStream("./bestScore.log", true)));
+            System.out.print(i + " ");
+            System.setOut(new PrintStream(new FileOutputStream("./bestChild.log", true)));
+            System.out.print(i + " ");
+            System.setOut(originalOut);
+            bestRewardChild(root);
         }
 
         return bestRewardChild(root);
@@ -161,7 +162,7 @@ class PerfectInfoUCTPlayer extends Player {
     }
 
     public static double uctValue(int totalVisitCount, double nodeWinScore, int nodeVisitCount) {
-        double c = Math.sqrt(2);
+        double c = 0;
         if (nodeVisitCount == 0) {
             return Integer.MAX_VALUE;
         }
@@ -445,12 +446,12 @@ class PerfectInfoUCTPlayer extends Player {
             }
         }
 
-        // PrintStream originalOut = System.out;
-        // System.setOut(new PrintStream(new FileOutputStream("./bestScore.log", true)));
-        // System.out.println(bestWinScore); // !!! STILL NEED TO MAKE SURE IT PREDICTED THE RIGHT CHILD, NOT JUST THE RIGHT SCORE!!!
-        // System.setOut(new PrintStream(new FileOutputStream("./bestChild.log", true)));
-        // System.out.println(bestChildIndex);
-        // System.setOut(originalOut);
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(new FileOutputStream("./bestScore.log", true)));
+        System.out.println(bestWinScore); // !!! STILL NEED TO MAKE SURE IT PREDICTED THE RIGHT CHILD, NOT JUST THE RIGHT SCORE!!!
+        System.setOut(new PrintStream(new FileOutputStream("./bestChild.log", true)));
+        System.out.println(bestChildIndex);
+        System.setOut(originalOut);
 
         return root.children.get(bestChildIndex).handIndex; // handIndex is not necessarily = bestChildIndex
 	}
