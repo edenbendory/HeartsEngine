@@ -20,25 +20,61 @@ public class ConstantGameGenerator {
 		playerOrder.add(p3);
 		playerOrder.add(p4);
 
-        p1.addToHand ( new Card(Suit.DIAMONDS, Value.NINE));
-        p1.addToHand ( new Card(Suit.DIAMONDS, Value.ACE));
-        p1.addToHand ( new Card(Suit.SPADES, Value.KING));
-        p1.addToHand ( new Card(Suit.HEARTS, Value.THREE));
-
+        p1.addToHand ( new Card(Suit.CLUBS, Value.ACE));
+        p1.addToHand ( new Card(Suit.HEARTS, Value.FIVE));
+        p1.addToHand ( new Card(Suit.SPADES, Value.FOUR));
+        p1.addToHand ( new Card(Suit.HEARTS, Value.KING));
+        p1.addToHand ( new Card(Suit.SPADES, Value.SIX));
+        p1.addToHand ( new Card(Suit.CLUBS, Value.FOUR));
+        p1.addToHand ( new Card(Suit.HEARTS, Value.SEVEN));
+        p1.addToHand ( new Card(Suit.SPADES, Value.NINE));
+        p1.addToHand ( new Card(Suit.DIAMONDS, Value.FOUR));
+        p1.addToHand ( new Card(Suit.DIAMONDS, Value.JACK));
+        p1.addToHand ( new Card(Suit.SPADES, Value.TEN));
+        p1.addToHand ( new Card(Suit.HEARTS, Value.QUEEN));
+        p1.addToHand ( new Card(Suit.CLUBS, Value.SEVEN));
+        
+        p2.addToHand ( new Card(Suit.CLUBS, Value.FIVE));
+        p2.addToHand ( new Card(Suit.DIAMONDS, Value.SIX));
+        p2.addToHand ( new Card(Suit.SPADES, Value.EIGHT));
+        p2.addToHand ( new Card(Suit.SPADES, Value.JACK));
+        p2.addToHand ( new Card(Suit.DIAMONDS, Value.TWO));
+        p2.addToHand ( new Card(Suit.HEARTS, Value.TWO));
+        p2.addToHand ( new Card(Suit.HEARTS, Value.ACE));
+        p2.addToHand ( new Card(Suit.SPADES, Value.SEVEN));
+        p2.addToHand ( new Card(Suit.CLUBS, Value.NINE));
+        p2.addToHand ( new Card(Suit.DIAMONDS, Value.KING));
         p2.addToHand ( new Card(Suit.CLUBS, Value.TEN));
-        p2.addToHand ( new Card(Suit.CLUBS, Value.ACE));
-        p2.addToHand ( new Card(Suit.HEARTS, Value.FOUR));
-        p2.addToHand ( new Card(Suit.HEARTS, Value.SIX));
-
-        p3.addToHand ( new Card(Suit.SPADES, Value.THREE));
-        p3.addToHand ( new Card(Suit.SPADES, Value.FIVE));
-        p3.addToHand ( new Card(Suit.SPADES, Value.SIX));
-        p3.addToHand ( new Card(Suit.SPADES, Value.JACK));
-
-        p4.addToHand ( new Card(Suit.HEARTS, Value.TWO));
-        p4.addToHand ( new Card(Suit.HEARTS, Value.NINE));
-        p4.addToHand ( new Card(Suit.HEARTS, Value.TEN));
+        p2.addToHand ( new Card(Suit.HEARTS, Value.NINE));
+        p2.addToHand ( new Card(Suit.SPADES, Value.KING));
+        
+        p3.addToHand ( new Card(Suit.HEARTS, Value.THREE));
+        p3.addToHand ( new Card(Suit.SPADES, Value.TWO));
+        p3.addToHand ( new Card(Suit.CLUBS, Value.KING));
+        p3.addToHand ( new Card(Suit.CLUBS, Value.SIX));
+        p3.addToHand ( new Card(Suit.SPADES, Value.ACE));
+        p3.addToHand ( new Card(Suit.DIAMONDS, Value.THREE));
+        p3.addToHand ( new Card(Suit.HEARTS, Value.FOUR));
+        p3.addToHand ( new Card(Suit.DIAMONDS, Value.EIGHT));
+        p3.addToHand ( new Card(Suit.SPADES, Value.QUEEN));
+        p3.addToHand ( new Card(Suit.DIAMONDS, Value.QUEEN));
+        p3.addToHand ( new Card(Suit.CLUBS, Value.TWO));
+        p3.addToHand ( new Card(Suit.HEARTS, Value.SIX));
+        p3.addToHand ( new Card(Suit.HEARTS, Value.TEN));
+        
+        p4.addToHand ( new Card(Suit.SPADES, Value.FIVE));
+        p4.addToHand ( new Card(Suit.DIAMONDS, Value.FIVE));
+        p4.addToHand ( new Card(Suit.CLUBS, Value.THREE));
+        p4.addToHand ( new Card(Suit.CLUBS, Value.QUEEN));
+        p4.addToHand ( new Card(Suit.DIAMONDS, Value.TEN));
+        p4.addToHand ( new Card(Suit.SPADES, Value.THREE));
+        p4.addToHand ( new Card(Suit.DIAMONDS, Value.ACE));
+        p4.addToHand ( new Card(Suit.HEARTS, Value.EIGHT));
+        p4.addToHand ( new Card(Suit.SPADES, Value.QUEEN));
+        p4.addToHand ( new Card(Suit.CLUBS, Value.EIGHT));
         p4.addToHand ( new Card(Suit.HEARTS, Value.JACK));
+        p4.addToHand ( new Card(Suit.DIAMONDS, Value.SEVEN));
+        p4.addToHand ( new Card(Suit.CLUBS, Value.JACK));
 
         // p1.addToHand ( new Card(Suit.CLUBS, Value.ACE));
         // p1.addToHand ( new Card(Suit.HEARTS, Value.ACE));
@@ -77,16 +113,16 @@ public class ConstantGameGenerator {
 
         // boolean gameOver = false;
 		Game round = new Game(deck, p1, p2, p3, p4);
-        round.allowForMidGamePlaying();
-        round.playerScores.add(0);
-        round.playerScores.add(0);
-        round.playerScores.add(5);
-        round.playerScores.add(14);
-        round.firstPlayer = 2;
-        p1.points = 0;
-        p2.points = 0;
-        p3.points = 5;
-        p4.points = 14;
+        // round.allowForMidGamePlaying();
+        // round.playerScores.add(0);
+        // round.playerScores.add(0);
+        // round.playerScores.add(5);
+        // round.playerScores.add(14);
+        // round.firstPlayer = 2;
+        // p1.points = 0;
+        // p2.points = 0;
+        // p3.points = 5;
+        // p4.points = 14;
         round.playExistingGame();
 		// int i = 1;
 		// while (!gameOver) {
