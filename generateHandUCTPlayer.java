@@ -7,7 +7,8 @@ The code was based on and partially supplemented by:
 
 This code plays hearts using the UCT Monte-Carlo Algorithm. 
 It handles imperfect information by generating a random hand for playerIndex
-at every node (so that different nodes for the same player may have different hands.)
+every time playerIndex's hand is needed (so that different nodes for the
+ same player may have different hands.)
 */
 
 import java.util.*;
