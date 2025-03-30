@@ -23,7 +23,7 @@ class UCTPlayer extends Player {
     Random          rand;
     boolean         debug = false;
 
-	final int 		numIterations = 10; 		// How many times we go through MCTS before making a decision
+	final int 		numIterations = 200; 		// How many times we go through MCTS before making a decision
     final int       numTrees = 10;              // How many monte-carlo trees will be generated (how many times we'll runMCTS)
 	final int 		maxDepth = Integer.MAX_VALUE; 	// How many nodes to expand to before doing random playouts
 	Node 			root;
@@ -95,7 +95,6 @@ class UCTPlayer extends Player {
             // update average reward based on this game
             for (int j = 0; j < 13; j++) {
                 double childScore = childStats[j];
-                // ??? replace tally with i ???
                 int tally = handIndexTally[j];
                 handIndexAvgScores[j] = (handIndexAvgScores[j] * tally + childScore) / (tally + 1);
                 handIndexTally[j] = tally + 1;

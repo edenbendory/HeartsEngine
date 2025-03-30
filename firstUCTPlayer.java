@@ -20,8 +20,8 @@ class firstUCTPlayer extends Player {
     boolean         debug = false;
     // ArrayList<ArrayList<Card>>	playerHands; // To keep track of each player's hand
 
-	final int 		numIterations = 100; 		// How many times we go through MCTS before making a decision
-	final int 		maxDepth = 9; 	// How many nodes to expand to before doing random playouts
+	final int 		numIterations = 200; 		// How many times we go through MCTS before making a decision
+	final int 		maxDepth = Integer.MAX_VALUE;; 	// How many nodes to expand to before doing random playouts
 	Node 			root;
 
     public class Node {
