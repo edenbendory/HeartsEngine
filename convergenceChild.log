@@ -1,65 +1,110 @@
-c=0
-Trick 1 0
-Trick 2 50
-Trick 3 0
-Trick 4 88
-Trick 5 0
-Trick 6 12
-Trick 7 18
-Trick 8 36
-Trick 9 16
-Trick 10 2
-Trick 11 0
-Trick 12 0
+c=0.0
+Trick 1 -1
 c=0.5
-Trick 1 0
-Trick 2 1
-Trick 3 0
-Trick 4 235
-Trick 5 0
-Trick 6 0
-Trick 7 38
-Trick 8 16
-Trick 9 1
-Trick 10 0
-Trick 11 4
-Trick 12 0
-c=1
-Trick 1 0
-Trick 2 0
-Trick 3 0
-Trick 4 1
-Trick 5 0
-Trick 6 6
-Trick 7 0
-Trick 8 7
-Trick 9 14
-Trick 10 7
-Trick 11 2
-Trick 12 0
+Trick 1 -1
+c=1.0
+Trick 1 -1
 c=1.414
-Trick 1 20
-Trick 2 0
-Trick 3 1
-Trick 4 2
-Trick 5 31
-Trick 6 5
-Trick 7 36
-Trick 8 0
-Trick 9 1
-Trick 10 1
-Trick 11 0
-Trick 12 1
+Trick 1 -1
 c=2.0
 Trick 1 0
-Trick 2 1
-Trick 3 7
-Trick 4 1
-Trick 5 1
-Trick 6 2
-Trick 7 1
-Trick 8 29
-Trick 9 8
-Trick 10 0
-Trick 11 1
-Trick 12 1
+c=0.0
+Trick 1 -1
+c=0.5
+Trick 1 -1
+c=1.0
+Trick 1 -1
+c=1.414
+Trick 1 -1
+c=2.0
+Trick 1 1
+c=0.0
+Trick 1 -1
+c=0.5
+Trick 1 -1
+c=1.0
+Trick 1 -1
+c=1.414
+Trick 1 -1
+c=2.0
+Trick 1 5
+c=0.0
+Trick 1 -1
+c=0.5
+Trick 1 -1
+c=1.0
+Trick 1 -1
+c=1.414
+Trick 1 -1
+c=2.0
+Trick 1 1
+c=0.0
+Trick 1 -1
+c=0.5
+Trick 1 -1
+c=1.0
+Trick 1 -1
+c=1.414
+Trick 1 -1
+c=2.0
+Trick 1 63
+c=0.0
+Trick 1 -1
+c=0.5
+Trick 1 -1
+c=1.0
+Trick 1 -1
+c=1.414
+Trick 1 -1
+c=2.0
+Trick 1 0
+c=0.0
+Trick 1 -1
+c=0.5
+Trick 1 -1
+c=1.0
+Trick 1 -1
+c=1.414
+Trick 1 -1
+c=2.0
+Trick 1 0
+c=0.0
+Trick 1 -1
+c=0.5
+Trick 1 -1
+c=1.0
+Trick 1 -1
+c=1.414
+Trick 1 -1
+c=2.0
+Trick 1 1
+c=0.0
+Trick 1 -1
+c=0.5
+Trick 1 -1
+c=1.0
+Trick 1 -1
+c=1.414
+Trick 1 -1
+c=2.0
+Trick 1 1
+c=0.0
+Trick 1 -1
+c=0.5
+Trick 1 -1
+c=1.0
+Trick 1 -1
+c=1.414
+Trick 1 -1
+c=2.0
+Trick 1 1
+c=0.0
+Trick 1 -1
+c=0.5
+Trick 1 -1
+c=1.0
+Trick 1 -1
+c=1.414
+Trick 1 -1
+c=2.0
+Trick 1 0

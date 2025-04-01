@@ -6,6 +6,7 @@ The code was based on and partially supplemented by:
 * The functions in the mcts folder in the repo at this link: https://github.com/eugenp/tutorials/tree/master/algorithms-modules/algorithms-searching/src/main/java/com/baeldung/algorithms/mcts */
 
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.*;
@@ -18,7 +19,7 @@ class PerfectInfoUCTPlayer extends Player {
     Random          rand;
     boolean         debug = false;
 
-    final int 		numIterations = 200; 		// How many times we go through MCTS before making a decision
+    final int 		numIterations = 1000; 		// How many times we go through MCTS before making a decision
     final int 		maxDepth = Integer.MAX_VALUE; 	// How many nodes to expand to before doing random playouts
     Node 			root;
 
@@ -78,7 +79,7 @@ class PerfectInfoUCTPlayer extends Player {
     public int getNumIterations() { return numIterations; }
     public int getMaxDepth() { return maxDepth; }
 
-    int runMCTS (State originalState, ArrayList<Player> playerOrder) throws FileNotFoundException {
+    int runMCTS (State originalState, ArrayList<Player> playerOrder, double c) throws FileNotFoundException {
         myPNumber = originalState.playerIndex;
         myHand = new ArrayList<>(hand);
         playerHands = generateHands(originalState, playerOrder);
@@ -90,7 +91,7 @@ class PerfectInfoUCTPlayer extends Player {
         for (int i = 0; i < numIterations; i++) {
 
             // Select which Node to expand
-            Node bestNode = selectBestNode(root); 
+            Node bestNode = selectBestNode(root, c); 
 
             // Expand that Node
             if (bestNode.children.isEmpty()) {
@@ -108,12 +109,12 @@ class PerfectInfoUCTPlayer extends Player {
             // backpropogation
             backPropogate(nodeToExplore, sampleScores); 
 
-            // PrintStream originalOut = System.out;
-            // System.setOut(new PrintStream(new FileOutputStream("./bestScore.log", true)));
-            // System.out.print(i + " ");
-            // System.setOut(new PrintStream(new FileOutputStream("./bestChild.log", true)));
-            // System.out.print(i + " ");
-            // System.setOut(originalOut);
+            PrintStream originalOut = System.out;
+            System.setOut(new PrintStream(new FileOutputStream("./bestScore.log", true)));
+            System.out.print(i + " ");
+            System.setOut(new PrintStream(new FileOutputStream("./bestChild.log", true)));
+            System.out.print(i + " ");
+            System.setOut(originalOut);
             bestRewardChild(root);
         }
 
@@ -134,7 +135,7 @@ class PerfectInfoUCTPlayer extends Player {
     }
 
     // Select which node to expand next using UCT
-    Node selectBestNode(Node rootNode) {
+    Node selectBestNode(Node rootNode, double c) {
         Node curNode = rootNode;
 
         // Go through this node
@@ -154,14 +155,13 @@ class PerfectInfoUCTPlayer extends Player {
                     }
                 }
                 // choose which Node is the best of the valid child nodes
-                curNode = bestUCTChild(curNode);
+                curNode = bestUCTChild(curNode, c);
             }
         }
         return curNode;
     }
 
-    public static double uctValue(int totalVisitCount, double nodeWinScore, int nodeVisitCount) {
-        double c = Math.sqrt(2);
+    public static double uctValue(int totalVisitCount, double nodeWinScore, int nodeVisitCount, double c) {
         if (nodeVisitCount == 0) {
             return Integer.MAX_VALUE;
         }
@@ -170,13 +170,13 @@ class PerfectInfoUCTPlayer extends Player {
             + (c * Math.sqrt(Math.log(totalVisitCount) / (double) nodeVisitCount)));
     }
 
-    private static Node bestUCTChild(Node node) {
+    private static Node bestUCTChild(Node node, double c) {
         // return the child with the max uctValue
         double bestValue = -Double.MAX_VALUE;
         Node bestChild = node.children.get(0); 
 
         for (Node child : node.children) {
-            double uctVal = uctValue(node.visitCount, child.winScore, child.visitCount);
+            double uctVal = uctValue(node.visitCount, child.winScore, child.visitCount, c);
             if (uctVal > bestValue) {
                 bestValue = uctVal;
                 bestChild = child;
@@ -445,12 +445,12 @@ class PerfectInfoUCTPlayer extends Player {
             }
         }
 
-        // PrintStream originalOut = System.out;
-        // System.setOut(new PrintStream(new FileOutputStream("./bestScore.log", true)));
-        // System.out.println(bestWinScore); // !!! STILL NEED TO MAKE SURE IT PREDICTED THE RIGHT CHILD, NOT JUST THE RIGHT SCORE!!!
-        // System.setOut(new PrintStream(new FileOutputStream("./bestChild.log", true)));
-        // System.out.println(bestChildIndex);
-        // System.setOut(originalOut);
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(new FileOutputStream("./bestScore.log", true)));
+        System.out.println(bestWinScore); 
+        System.setOut(new PrintStream(new FileOutputStream("./bestChild.log", true)));
+        System.out.println(bestChildIndex);
+        System.setOut(originalOut);
 
         return root.children.get(bestChildIndex).handIndex; // handIndex is not necessarily = bestChildIndex
 	}
@@ -473,7 +473,20 @@ class PerfectInfoUCTPlayer extends Player {
 			return hand.remove(0);
 
 		// Actually play the card, after doing MCTS
-		return hand.remove(runMCTS(masterCopy, playerOrder));
+        double[] cVals = {0.0, 0.5, 1.0, 1.414, 2.0};
+
+        for (double c : cVals) {
+            PrintStream originalOut = System.out;
+            System.setOut(new PrintStream(new FileOutputStream("bestChild.log", true)));
+            System.out.println("c=" + c);
+            System.setOut(new PrintStream(new FileOutputStream("bestScore.log", true)));
+            System.out.println("c=" + c);
+            System.setOut(originalOut);
+            
+            runMCTS(masterCopy, playerOrder, c);
+        }
+
+		return hand.remove(runMCTS(masterCopy, playerOrder, Math.sqrt(2)));
 	}
 }
 
