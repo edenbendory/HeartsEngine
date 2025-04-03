@@ -59,7 +59,7 @@ def read_tricks_by_c(filename):
     return data_by_c
 
 
-def plot_tricks_by_c(data_by_c, y_label, title_prefix):
+def plot_tricks_by_c(data_by_c, y_label):
     """
     Plots one graph per c= value with multiple tricks overlaid.
     """
@@ -86,7 +86,7 @@ def plot_tricks_by_c(data_by_c, y_label, title_prefix):
                 markersize=2,
                 label=f"Trick {i+1}",
             )
-        ax.set_title(f"{title_prefix} - {c_value}")
+        ax.set_title(f"{c_value}")
         ax.set_xlabel("Simulation Number")
         ax.set_ylabel(y_label)
         ax.legend(fontsize="xx-small", loc="upper right")
@@ -99,7 +99,7 @@ def plot_tricks_by_c(data_by_c, y_label, title_prefix):
 
 # Plot for bestScore.log
 score_data = read_tricks_by_c("bestScorewithC.log")
-plot_tricks_by_c(score_data, y_label="Win Score", title_prefix="Best Score")
+plot_tricks_by_c(score_data, y_label="Win Score")
 
 # Plot for bestChild.log
 child_data = read_tricks_by_c("bestChild.log")
