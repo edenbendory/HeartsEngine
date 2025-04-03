@@ -1,6 +1,7 @@
 # ChatGPT was used to help compose this file
 import matplotlib.pyplot as plt
 
+
 def read_tricks_by_c(filename):
     """
     Reads simulation data from the file and groups tricks by each 'c=' value.
@@ -67,17 +68,28 @@ def plot_tricks_by_c(data_by_c, y_label, title_prefix):
         print("No data to plot.")
         return
 
-    fig, axes = plt.subplots(1, num_c_values, figsize=(6 * num_c_values, 5), squeeze=False)
+    fig, axes = plt.subplots(
+        1, num_c_values, figsize=(6 * num_c_values, 5), squeeze=False
+    )
 
     for idx, (c_value, tricks) in enumerate(sorted(data_by_c.items())):
         ax = axes[0][idx]
         for i, (x_vals, y_vals) in enumerate(tricks):
-            if i > 11: break
-            ax.plot(x_vals, y_vals, marker="o", linestyle="-", linewidth=1.5, markersize=2, label=f"Trick {i+1}")
+            if i > 11:
+                break
+            ax.plot(
+                x_vals,
+                y_vals,
+                marker="o",
+                linestyle="-",
+                linewidth=1.5,
+                markersize=2,
+                label=f"Trick {i+1}",
+            )
         ax.set_title(f"{title_prefix} - {c_value}")
         ax.set_xlabel("Simulation Number")
         ax.set_ylabel(y_label)
-        ax.legend(fontsize="small", loc="upper left")
+        ax.legend(fontsize="xx-small", loc="upper right")
 
     plt.tight_layout()
     plt.show()
