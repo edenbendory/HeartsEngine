@@ -109,11 +109,11 @@ public class RunTwoPlayerGames {
         p1List.add(new MCTSPlayer("MCTSPlayer"));
         // p1List.add(new LowPlayAI("LowPlayer"));
         // p1List.add(new LookAheadPlayer("LookAheadPlayer"));
-        // UCTPlayer p2 = new UCTPlayer("UCTPlayer");
+        UCTPlayer p2 = new UCTPlayer("UCTPlayer");
         // HighLowPlayAI p2 = new HighLowPlayAI("HighLowPlayer");
         // RandomPlayAI p2 = new RandomPlayAI("RandomPlayer");
         // firstUCTPlayer p2 = new firstUCTPlayer("UCTPlayer");
-        generateHandUCTPlayer p2 = new generateHandUCTPlayer("UCTPlayer");
+        // generateHandUCTPlayer p2 = new generateHandUCTPlayer("UCTPlayer");
 
         System.setOut(originalOut);
         // System.out.println("Number of Iterations: " + p2.getNumIterations());
