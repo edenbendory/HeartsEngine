@@ -143,7 +143,7 @@ class State {
 				if (flag) return false;
 			}
 			// If suit is appropriate, check if hearts
-			if (c.getSuit() == Suit.HEARTS || (c.getSuit() == Suit.SPADES && c.getValue() == Value.QUEEN)) {
+			if (c.getSuit() == Suit.HEARTS) {
 				hasHeartsBroken = true;
 			}
 		}
