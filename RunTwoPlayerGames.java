@@ -81,7 +81,7 @@ public class RunTwoPlayerGames {
                 score+=round.playerScores.get(k);
             }
             
-            assert (score == 16 || score == 78);
+            assert (score == 16 || score == 68);
         }
 
         assert (totalCountOne == 28 && totalCountTwo == 28);

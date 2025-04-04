@@ -333,12 +333,10 @@ class Game {
 			for (int i = 0; i < playerOrder.size(); i++) {
 				if (i != index) {
 					playerOrder.get(i).addPoints(26);
-					playerScores.set(i, 26);
 				}
 				// Remove the 26 points that this player received this round
 				else {
 					playerOrder.get(i).addPoints(-26);
-					playerScores.set(i,0);
 				}
 			}
 			if (playerOrder.get(index).getPoints() < 0)
