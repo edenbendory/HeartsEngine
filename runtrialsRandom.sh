@@ -6,7 +6,7 @@ javac *.java
 
 for i in {1..10}; do
     echo "Starting Trial $i" 
-    java RunTwoPlayerGames >> "output.log" &
+    java -ea RunTwoPlayerGames >> "output.log" &
 done
 
 wait 
@@ -17,26 +17,24 @@ output_file="output.log"
 
 # To process and compute averages and differences
 awk '
-/MCTSPlayer:/ { mcts_sum += $2; mcts_count++ }
-/RandomPlayer_MCTSPlayer:/ { random_mcts_sum += $2; random_mcts_count++ }
-/LowPlayer:/ { low_sum += $2; low_count++ }
-/RandomPlayer_LowPlayer:/ { random_low_sum += $2; random_low_count++ }
-/LookAheadPlayer:/ { look_sum += $2; look_count++ }
-/RandomPlayer_LookAheadPlayer:/ { random_look_sum += $2; random_look_count++ }
+$1 == "MCTSPlayer:" { mcts_sum += $2; mcts_count++ }
+$1 == "RandomPlayer_MCTSPlayer:" { random_mcts_sum += $2; random_mcts_count++ }
+$1 == "LowPlayer:" { low_sum += $2; low_count++ }
+$1 == "RandomPlayer_LowPlayer:" { random_low_sum += $2; random_low_count++ }
+$1 == "LookAheadPlayer:" { look_sum += $2; look_count++ }
+$1 == "RandomPlayer_LookAheadPlayer:" { random_look_sum += $2; random_look_count++ }
 
-# Capture differences
+# Differences
 /^[A-Za-z]+_[A-Za-z]+_Difference:/ {
-    key = $1;
-    gsub(":", "", key);
-    diff_map[key] += $2;
-    diff_sq_map[key] += ($2)^2;
-    count_map[key]++;
-    diff_list[key, count_map[key]] = $2;
+    key = $1; gsub(":", "", key);
+    n = ++count_map[key];
+    diff_sum[key] += $2;
+    diff_sq_sum[key] += $2^2;
+    diff_values[key, n] = $2;
 }
 
 END {
     # Print averages
-
     printf "MCTSPlayer Average: %.2f\n", mcts_sum / mcts_count;
     printf "RandomPlayer Average: %.2f\n", random_mcts_sum / random_mcts_count;
     printf "\n";
@@ -56,37 +54,40 @@ END {
     diff_keys[2] = "RandomPlayer_LowPlayer_Difference";
     diff_keys[3] = "RandomPlayer_LookAheadPlayer_Difference";
 
+    # Compute mean and median 
     for (dk = 1; dk <= 3; dk++) {
-        k = diff_keys[dk];
-        n = count_map[k];
+        key = diff_keys[dk];
+        n = count_map[key];
         if (n == 0) continue;
 
-        mean = diff_map[k] / n;
-        stddev = sqrt(diff_sq_map[k]/n - mean^2);
+        mean = diff_sum[key] / n;
+        stddev = sqrt(diff_sq_sum[key] / n - mean^2);
 
-        # Build sorted array for median
-        split("", sorted);
+        # Copy values to local array and clear it each time
+        delete vals;
         for (i = 1; i <= n; i++) {
-            sorted[i] = diff_list[k, i];
+            vals[i] = diff_values[key, i];
         }
+
+        # Sort (bubble sort)
         for (i = 1; i <= n; i++) {
-            for (j = i + 1; j <= n; j++) {
-                if (sorted[i] > sorted[j]) {
-                    tmp = sorted[i];
-                    sorted[i] = sorted[j];
-                    sorted[j] = tmp;
+            for (j = 1; j <= n-i; j++) {
+                if (vals[j] > vals[j+1]) {
+                    temp = vals[j];
+                    vals[j] = vals[j+1];
+                    vals[j+1] = temp;
                 }
             }
         }
 
+        # Median
         if (n % 2 == 1) {
-            median = sorted[(n + 1) / 2];
+            median = vals[int((n + 1) / 2)];
         } else {
-            median = (sorted[n / 2] + sorted[n / 2 + 1]) / 2;
+            median = (vals[n / 2] + vals[(n / 2) + 1]) / 2;
         }
 
-        # Pretty print
-        split(k, parts, "_");
+        split(key, parts, "_");
         p1 = parts[1];
         p2 = parts[2];
 

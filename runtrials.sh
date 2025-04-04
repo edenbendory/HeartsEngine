@@ -72,7 +72,7 @@ END {
 
         # Sort (bubble sort)
         for (i = 1; i <= n; i++) {
-            for (j = 1; j <= n-i-1; j++) {
+            for (j = 1; j <= n-i; j++) {
                 if (vals[j] > vals[j+1]) {
                     temp = vals[j];
                     vals[j] = vals[j+1];
