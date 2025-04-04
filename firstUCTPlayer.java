@@ -110,7 +110,7 @@ class firstUCTPlayer extends Player {
                 int randomNode = (int) (Math.random() * bestNode.children.size());
                 nodeToExplore = bestNode.children.get(randomNode); // select which random child to simulate (attach a winScore to)
             }
-            ArrayList<Integer> sampleScores = simulateRandomPlayout(nodeToExplore); // Simulate
+            ArrayList<Integer> sampleScores = simulateHighLowPlayout(nodeToExplore); // Simulate
 
             // backpropogation
             backPropogate(nodeToExplore, sampleScores); 
@@ -387,6 +387,43 @@ class firstUCTPlayer extends Player {
             if (firstIndex == lastIndex) { cardNum = firstIndex; }
             else { cardNum = firstIndex + rand.nextInt(lastIndex - firstIndex); } // ToDo: Change so that it isn't random (optimization)
             Card cardToPlay = cardPile.get(cardNum);
+
+            curPlayer = tempState.advanceState(cardToPlay, cardPile, debug);
+            cardPile.remove(cardToPlay);
+        }
+
+        return tempState.playerScores;
+    }
+
+    // simulate out the rest of the game, assuming each player uses highLow strategy
+    private ArrayList<Integer> simulateHighLowPlayout(Node node) {
+        // "global" variables that we want to alter throughout the simulation 
+        State tempState = new State(node.state); // state of the game
+        ArrayList<Card> mySimulatedHand = new ArrayList<>(node.myCurHand); // my hand
+        ArrayList<Card> cardsLeft = new ArrayList<>(tempState.cardsPlayed.invertDeck); // essentially every other player's hand
+        Collections.sort(cardsLeft);
+
+        // remove each card in my hand from the potential cards that other players can play 
+        for (Card myCard : mySimulatedHand) {
+            for (int i = 0; i < cardsLeft.size(); i++) {
+                Card cardLeft = cardsLeft.get(i);
+                if (cardLeft.equals(myCard)) { cardsLeft.remove(i); }
+            }
+        }
+
+        int curPlayer = node.playerIndex; // to start off
+        ArrayList<Card> cardPile;
+        while (!cardsLeft.isEmpty()) {
+            if (curPlayer == myPNumber) {
+                cardPile = mySimulatedHand; // My hand as that node knows it at that point in the tree (not my hand when the tree was created)
+            } else {
+                cardPile = cardsLeft; // !!! later change this to be the YM cards in YMN table
+            }
+
+            Player highLow = new HighLowPlayAI("HighLowPlayer");
+            highLow.hand = cardPile;
+
+            Card cardToPlay = highLow.performAction(tempState); 
 
             curPlayer = tempState.advanceState(cardToPlay, cardPile, debug);
             cardPile.remove(cardToPlay);
