@@ -475,16 +475,17 @@ class PerfectInfoUCTPlayer extends Player {
 		// Actually play the card, after doing MCTS
         double[] cVals = {0.0, 0.5, 1.0, 1.414, 2.0};
 
-        for (double c : cVals) {
-            PrintStream originalOut = System.out;
-            System.setOut(new PrintStream(new FileOutputStream("bestChild.log", true)));
-            System.out.println("c=" + c);
-            System.setOut(new PrintStream(new FileOutputStream("bestScore.log", true)));
-            System.out.println("c=" + c);
-            System.setOut(originalOut);
+        // To test how c values change convergence 
+        // for (double c : cVals) {
+        //     PrintStream originalOut = System.out;
+        //     System.setOut(new PrintStream(new FileOutputStream("bestChild.log", true)));
+        //     System.out.println("c=" + c);
+        //     System.setOut(new PrintStream(new FileOutputStream("bestScore.log", true)));
+        //     System.out.println("c=" + c);
+        //     System.setOut(originalOut);
             
-            runMCTS(masterCopy, playerOrder, c);
-        }
+        //     runMCTS(masterCopy, playerOrder, c);
+        // }
 
 		return hand.remove(runMCTS(masterCopy, playerOrder, Math.sqrt(2)));
 	}
