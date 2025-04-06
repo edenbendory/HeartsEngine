@@ -373,7 +373,7 @@ class firstUCTPlayer extends Player {
             if (curPlayer == myPNumber) {
                 cardPile = mySimulatedHand; // My hand as that node knows it at that point in the tree (not my hand when the tree was created)
             } else {
-                cardPile = cardsLeft; // !!! later change this to be the YM cards in YMN table
+                cardPile = cardsLeft; // TODO: later change this to be the YM cards in YMN table
             }
 
             // given the cards in the "pile" (my hand or cardsLeft) we can draw from, determine the valid range of cards that can be played
@@ -385,7 +385,7 @@ class firstUCTPlayer extends Player {
             int cardNum;
 
             if (firstIndex == lastIndex) { cardNum = firstIndex; }
-            else { cardNum = firstIndex + rand.nextInt(lastIndex - firstIndex); } // ToDo: Change so that it isn't random (optimization)
+            else { cardNum = firstIndex + rand.nextInt(lastIndex - firstIndex); } 
             Card cardToPlay = cardPile.get(cardNum);
 
             curPlayer = tempState.advanceState(cardToPlay, cardPile, debug);
@@ -417,7 +417,7 @@ class firstUCTPlayer extends Player {
             if (curPlayer == myPNumber) {
                 cardPile = mySimulatedHand; // My hand as that node knows it at that point in the tree (not my hand when the tree was created)
             } else {
-                cardPile = cardsLeft; // !!! later change this to be the YM cards in YMN table
+                cardPile = cardsLeft; // TODO: later change this to be the YM cards in YMN table
             }
 
             Player highLow = new HighLowPlayAI("HighLowPlayer");

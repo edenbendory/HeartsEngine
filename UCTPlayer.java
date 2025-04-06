@@ -83,7 +83,6 @@ class UCTPlayer extends Player {
     public int getMaxDepth() { return maxDepth; }
 
     int runMultipleMCTS(State originalState) {
-        // !!! TEST THIS !!!!
         double[] handIndexAvgScores = new double[13];
         int[] handIndexTally = new int[13];
 
@@ -426,7 +425,7 @@ class UCTPlayer extends Player {
             int cardNum;
 
             if (firstIndex == lastIndex) { cardNum = firstIndex; }
-            else { cardNum = firstIndex + rand.nextInt(lastIndex - firstIndex); } // ToDo: Change so that it isn't random (optimization)
+            else { cardNum = firstIndex + rand.nextInt(lastIndex - firstIndex); } 
             Card cardToPlay = simulatedHand.get(cardNum);
 
             curPlayer = tempState.advanceState(cardToPlay, simulatedHand, debug);

@@ -376,7 +376,7 @@ class generateHandUCTPlayer extends Player {
             if (curPlayer == myPNumber) {
                 playHand = mySimulatedHand; // My hand as that node knows it at that point in the tree (not my hand when the tree was created)
             } else {
-                // !!! later change this to be the YM cards in YMN table
+                // TODO: later change this to be the YM cards in YMN table
                 // generate a random hand 
                 playHand = new ArrayList<>();
                 for (int i = 0; i < handSize; i++) { 
@@ -393,7 +393,7 @@ class generateHandUCTPlayer extends Player {
             int cardNum;
 
             if (firstIndex == lastIndex) { cardNum = firstIndex; }
-            else { cardNum = firstIndex + rand.nextInt(lastIndex - firstIndex); } // ToDo: Change so that it isn't random (optimization)
+            else { cardNum = firstIndex + rand.nextInt(lastIndex - firstIndex); } 
             Card cardToPlay = playHand.get(cardNum);
 
             curPlayer = tempState.advanceState(cardToPlay, playHand, debug);
@@ -428,7 +428,7 @@ class generateHandUCTPlayer extends Player {
             if (curPlayer == myPNumber) {
                 playHand = mySimulatedHand; // My hand as that node knows it at that point in the tree (not my hand when the tree was created)
             } else {
-                // !!! later change this to be the YM cards in YMN table
+                // TODO: later change this to be the YM cards in YMN table
                 // generate a random hand 
                 playHand = new ArrayList<>();
                 for (int i = 0; i < handSize; i++) { 
