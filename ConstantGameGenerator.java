@@ -1,3 +1,7 @@
+/* Written by @edenbendory
+ * Allows for game play from a predetermined deck, and starting from 
+ * the middle of the game */
+
 import java.util.ArrayList;
 
 public class ConstantGameGenerator {

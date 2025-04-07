@@ -1,4 +1,4 @@
-# ChatGPT was used to help compose this file
+# ChatGPT was used to help @edenbendory compose this file 
 #!/bin/bash
 
 javac *.java

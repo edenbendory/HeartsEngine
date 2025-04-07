@@ -87,6 +87,7 @@ class firstUCTPlayer extends Player {
     public int getNumIterations() { return numIterations; }
     public int getMaxDepth() { return maxDepth; }
 
+    // run the 4 phases of Monte-Carlo tree search, for numIterations times
     int runMCTS (State originalState) {
         myHand = new ArrayList<>(hand);
         root = new Node(originalState, myHand, myHand, null, -1);
@@ -146,6 +147,7 @@ class firstUCTPlayer extends Player {
 		return curNode;
 	}
 
+    // calculate the UCT value corresponding to this node 
     public static double uctValue(int totalVisitCount, double nodeWinScore, int nodeVisitCount) {
         if (nodeVisitCount == 0) {
             return Integer.MAX_VALUE;
@@ -155,6 +157,7 @@ class firstUCTPlayer extends Player {
             + Math.sqrt(2) * Math.sqrt(Math.log(totalVisitCount) / (double) nodeVisitCount));
     }
 
+    // return the node's child with the best UCT score 
     private static Node bestUCTChild(Node node) {
         // return the child with the max uctValue
         double bestValue = -Double.MAX_VALUE;
@@ -272,6 +275,7 @@ class firstUCTPlayer extends Player {
         return flag;
     }
 
+    // add a new child to parentNode.children of card index childIndex
     private void addNewChild(Node parentNode, int childIndex) {
         State childState = new State(parentNode.state); // inherits copy of parent state
         int nextPlayer = childState.advanceState(parentNode.curHand.get(childIndex), parentNode.curHand, debug);
@@ -325,30 +329,6 @@ class firstUCTPlayer extends Player {
 
 		// Create a new child node that corresponds to the card we have just successfully played
 		parentNode.children.add(new Node(childState, childHand, myCurHand, parentNode, handIndex));
-    }
-
-    private ArrayList<Card> generateHand(State state, Node node) {
-        ArrayList<Card> cardsLeft = new ArrayList<>(state.cardsPlayed.invertDeck);
-        Collections.shuffle(cardsLeft);
-        ArrayList<Card> genHand = new ArrayList<>();
-
-        // currentRound.size() = number player this round (ex- 2 cards have been put down, this is the third player of the round)
-        // (# cards played this round) + (index of first player to go - say it's player 1) % 4 = index of current player 
-        // for (int i = 0; i < state.currentRound.size(); i++) {
-        //     int playerIndex = i + firstPlayer % 4;
-        // }
-
-        // everyone has the same amount of cards at the beginning of a round - so I should have the same as my parent
-        int handSize = node.curHand.size(); 
-        // unless a new round just started, in which case everyone has put a card down, and so I have one less card than my parent b/c I am first
-        if (state.firstInRound()) {handSize--;} 
-
-        // right now this is random, but later we will change this to update based on player tables 
-        for (int i = 0; i < handSize; i++) { 
-            genHand.add(cardsLeft.remove(i)); 
-        }
-
-        return genHand;
     }
 
     // pick a random node to simulate
@@ -432,6 +412,7 @@ class firstUCTPlayer extends Player {
         return tempState.playerScores;
     }
 
+    // backup the scores of each node beginning at baseNode until the root node 
     private void backPropogate (Node baseNode, ArrayList<Integer> scores) {
 		Node no = baseNode;
 		while (no.parent != null) {

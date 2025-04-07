@@ -82,6 +82,7 @@ class UCTPlayer extends Player {
     public int getNumIterations() { return numIterations; }
     public int getMaxDepth() { return maxDepth; }
 
+    // Call runMCTS() for each generated hand arrangement, numTrees times
     int runMultipleMCTS(State originalState) {
         double[] handIndexAvgScores = new double[13];
         int[] handIndexTally = new int[13];
@@ -114,6 +115,7 @@ class UCTPlayer extends Player {
         return bestHandIndex;
     }
 
+    // run the 4 phases of Monte-Carlo tree search, for numIterations times
     double[] runMCTS (State originalState) {
         myPNumber = originalState.playerIndex;
         myHand = new ArrayList<>(hand);
@@ -149,6 +151,8 @@ class UCTPlayer extends Player {
         return getChildStats(root);
     }
 
+    // randomly assign hands to the 3 opposing players based on the 
+    // remaining cards
     private ArrayList<ArrayList<Card>> generateHands(State state) {
         ArrayList<ArrayList<Card>> playerHands = new ArrayList<>();
         playerHands.add(new ArrayList<>());
@@ -253,6 +257,7 @@ class UCTPlayer extends Player {
 		return curNode;
 	}
 
+    // calculate the UCT value corresponding to this node 
     public static double uctValue(int totalVisitCount, double nodeWinScore, int nodeVisitCount) {
         if (nodeVisitCount == 0) {
             return Integer.MAX_VALUE;
@@ -262,6 +267,7 @@ class UCTPlayer extends Player {
             + (Math.sqrt(2) * Math.sqrt(Math.log(totalVisitCount) / (double) nodeVisitCount)));
     }
 
+    // return the node's child with the best UCT score 
     private static Node bestUCTChild(Node node) {
         // return the child with the max uctValue
         double bestValue = -Double.MAX_VALUE;
@@ -382,6 +388,7 @@ class UCTPlayer extends Player {
         return flag;
     }
 
+    // add a new child to parentNode.children of card index childIndex
     private void addNewChild(Node parentNode, int childIndex) {
         ArrayList<Card> parentCurHand = parentNode.curPlayerHands.get(parentNode.playerIndex);
 
@@ -435,7 +442,7 @@ class UCTPlayer extends Player {
         return tempState.playerScores;
     }
 
-    // simulate out the rest of the game, assuming each player uses highLow strategy
+    // simulate out the rest of the game, assuming each player uses the HighLowPlayer strategy
     private ArrayList<Integer> simulateHighLowPlayout(Node node) {
         // "global" variables that we want to alter throughout the simulation 
         State tempState = new State(node.state); // state of the game
@@ -470,6 +477,7 @@ class UCTPlayer extends Player {
         return tempState.playerScores;
     }
 
+    // backup the scores of each node beginning at baseNode until the root node 
     private void backPropogate (Node baseNode, ArrayList<Integer> scores) {
 		Node no = baseNode;
 		while (no.parent != null) {

@@ -88,6 +88,7 @@ class generateHandUCTPlayer extends Player {
     public int getNumIterations() { return numIterations; }
     public int getMaxDepth() { return maxDepth; }
 
+    // run the 4 phases of Monte-Carlo tree search, for numIterations times
     int runMCTS (State originalState) {
         myHand = new ArrayList<>(hand);
         root = new Node(originalState, myHand, myHand, null, -1);
@@ -147,6 +148,7 @@ class generateHandUCTPlayer extends Player {
 		return curNode;
 	}
 
+    // calculate the UCT value corresponding to this node 
     public static double uctValue(int totalVisitCount, double nodeWinScore, int nodeVisitCount) {
         if (nodeVisitCount == 0) {
             return Integer.MAX_VALUE;
@@ -156,6 +158,7 @@ class generateHandUCTPlayer extends Player {
             + Math.sqrt(2) * Math.sqrt(Math.log(totalVisitCount) / (double) nodeVisitCount));
     }
 
+    // return the node's child with the best UCT score 
     private static Node bestUCTChild(Node node) {
         // return the child with the max uctValue
         double bestValue = -Double.MAX_VALUE;
@@ -273,6 +276,7 @@ class generateHandUCTPlayer extends Player {
         return flag;
     }
 
+    // add a new child to parentNode.children of card index childIndex
     private void addNewChild(Node parentNode, int childIndex) {
         State childState = new State(parentNode.state); // inherits copy of parent state
         int nextPlayer = childState.advanceState(parentNode.curHand.get(childIndex), parentNode.curHand, debug);
@@ -322,6 +326,7 @@ class generateHandUCTPlayer extends Player {
 		parentNode.children.add(new Node(childState, childHand, myCurHand, parentNode, handIndex));
     }
 
+    // generates a random hand for node consistent with the state of the game
     private ArrayList<Card> generateHand(State state, Node node) {
         ArrayList<Card> cardsLeft = new ArrayList<>(state.cardsPlayed.invertDeck);
         Collections.shuffle(cardsLeft);
@@ -451,6 +456,7 @@ class generateHandUCTPlayer extends Player {
         return tempState.playerScores;
     }
 
+    // backup the scores of each node beginning at baseNode until the root node 
     private void backPropogate (Node baseNode, ArrayList<Integer> scores) {
 		Node no = baseNode;
 		while (no.parent != null) {
