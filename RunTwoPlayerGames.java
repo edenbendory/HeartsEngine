@@ -1,3 +1,10 @@
+/* Written by @edenbendory
+ * Plays 14 games for one dealing of card hands, so that the strategy
+ * assigned to each of the 4 players varies, but the 4 players' card 
+ * hands do not. Do this for each opponent selected to play against
+ * the player in question, usually UCTPlayer. 
+ */
+
 import java.io.FileNotFoundException;
 import java.io.OutputStream;
 import java.io.PrintStream;

@@ -1,4 +1,5 @@
-# ChatGPT was used to help compose this file 
+# ChatGPT was used to help @edenbendory compose this file
+
 # Multiple curves
 import matplotlib.pyplot as plt
 
