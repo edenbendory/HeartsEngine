@@ -1,5 +1,6 @@
 /* This file was taken from another GitHub repo that implements a Hearts
- game and players system. Linked here: https://github.com/Devking/HeartsAI */
+ game and players system. Linked here: https://github.com/Devking/HeartsAI 
+ * @edenbendory modified this file, indicated below */
 
 // This AI will look at the first suit played this round
 // If no cards have been played, will pick a random card out of the hand

@@ -1,3 +1,7 @@
+/* Written by @edenbendory
+ * Runs 1000 games of the inputted players, and prints the number of 
+ * games won by each
+ */
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
