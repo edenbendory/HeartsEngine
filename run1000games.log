@@ -12,6 +12,1326 @@ Playing Game #1
 --------------------------------------------
 --------------------------------------------
 
+HighLowPlayer has the two of clubs and will play first.
+
+
+[2J[H
+--------------------------------------------
+Round #1:
+--------------------------------------------
+HighLowPlayer played TWO of CLUBS.
+
+[2J[H
+RandomPlayer played JACK of CLUBS.
+
+[2J[H
+UCTPlayer played ACE of CLUBS.
+
+[2J[H
+MCTSPlayer played NINE of CLUBS.
+
+[2J[H
+--------------------------------------------
+Round #2:
+--------------------------------------------
+UCTPlayer played JACK of DIAMONDS.
+
+[2J[H
+MCTSPlayer played TEN of DIAMONDS.
+
+[2J[H
+HighLowPlayer played SEVEN of DIAMONDS.
+
+[2J[H
+RandomPlayer played KING of DIAMONDS.
+
+[2J[H
+--------------------------------------------
+Round #3:
+--------------------------------------------
+RandomPlayer played EIGHT of SPADES.
+
+[2J[H
+UCTPlayer played FIVE of SPADES.
+
+[2J[H
+MCTSPlayer played JACK of SPADES.
+
+[2J[H
+HighLowPlayer played TEN of SPADES.
+
+[2J[H
+--------------------------------------------
+Round #4:
+--------------------------------------------
+MCTSPlayer played THREE of DIAMONDS.
+
+[2J[H
+HighLowPlayer played ACE of DIAMONDS.
+
+[2J[H
+RandomPlayer played FOUR of DIAMONDS.
+
+[2J[H
+UCTPlayer played QUEEN of DIAMONDS.
+
+[2J[H
+--------------------------------------------
+Round #5:
+--------------------------------------------
+HighLowPlayer played THREE of SPADES.
+
+[2J[H
+RandomPlayer played TWO of SPADES.
+
+[2J[H
+UCTPlayer played FOUR of SPADES.
+
+[2J[H
+MCTSPlayer played KING of SPADES.
+
+[2J[H
+--------------------------------------------
+Round #6:
+--------------------------------------------
+MCTSPlayer played EIGHT of DIAMONDS.
+
+[2J[H
+HighLowPlayer played ACE of SPADES.
+
+[2J[H
+RandomPlayer played FIVE of DIAMONDS.
+
+[2J[H
+UCTPlayer played NINE of DIAMONDS.
+
+[2J[H
+--------------------------------------------
+Round #7:
+--------------------------------------------
+UCTPlayer played SEVEN of CLUBS.
+
+[2J[H
+MCTSPlayer played SIX of CLUBS.
+
+[2J[H
+HighLowPlayer played THREE of CLUBS.
+
+[2J[H
+RandomPlayer played FOUR of CLUBS.
+
+[2J[H
+--------------------------------------------
+Round #8:
+--------------------------------------------
+UCTPlayer played FIVE of CLUBS.
+
+[2J[H
+MCTSPlayer played QUEEN of CLUBS.
+
+[2J[H
+HighLowPlayer played TEN of CLUBS.
+
+[2J[H
+RandomPlayer played KING of CLUBS.
+
+[2J[H
+--------------------------------------------
+Round #9:
+--------------------------------------------
+RandomPlayer played SIX of SPADES.
+
+[2J[H
+UCTPlayer played QUEEN of SPADES.
+
+[2J[H
+MCTSPlayer played TWO of DIAMONDS.
+
+[2J[H
+HighLowPlayer played NINE of SPADES.
+
+[2J[H
+--------------------------------------------
+Round #10:
+--------------------------------------------
+UCTPlayer played THREE of HEARTS.
+
+[2J[H
+MCTSPlayer played KING of HEARTS.
+
+[2J[H
+HighLowPlayer played SEVEN of HEARTS.
+
+[2J[H
+RandomPlayer played EIGHT of HEARTS.
+
+[2J[H
+--------------------------------------------
+Round #11:
+--------------------------------------------
+MCTSPlayer played JACK of HEARTS.
+
+[2J[H
+HighLowPlayer played SIX of HEARTS.
+
+[2J[H
+RandomPlayer played QUEEN of HEARTS.
+
+[2J[H
+UCTPlayer played FIVE of HEARTS.
+
+[2J[H
+--------------------------------------------
+Round #12:
+--------------------------------------------
+RandomPlayer played SEVEN of SPADES.
+
+[2J[H
+UCTPlayer played ACE of HEARTS.
+
+[2J[H
+MCTSPlayer played TEN of HEARTS.
+
+[2J[H
+HighLowPlayer played FOUR of HEARTS.
+
+[2J[H
+--------------------------------------------
+Round #13:
+--------------------------------------------
+RandomPlayer played NINE of HEARTS.
+
+[2J[H
+UCTPlayer played TWO of HEARTS.
+
+[2J[H
+MCTSPlayer played SIX of DIAMONDS.
+
+[2J[H
+HighLowPlayer played EIGHT of CLUBS.
+
+[2J[H
+------------------------------------------
+Game Summary:
+------------------------------------------
+
+Points received this game:
+--------------------------
+HighLowPlayer has 0 points.
+RandomPlayer has -1 points.
+UCTPlayer has 13 points.
+MCTSPlayer has 4 points.
+
+RandomPlayer is in the lead after this round.
+
+Total cumulative points between all games:
+------------------------------------------
+HighLowPlayer has 0 points.
+RandomPlayer has -1 points.
+UCTPlayer has 13 points.
+MCTSPlayer has 4 points.
+
+[2J[H
+MCTSPlayer has the two of clubs and will play first.
+
+
+[2J[H
+--------------------------------------------
+Round #1:
+--------------------------------------------
+MCTSPlayer played TWO of CLUBS.
+
+[2J[H
+HighLowPlayer played SIX of CLUBS.
+
+[2J[H
+RandomPlayer played THREE of CLUBS.
+
+[2J[H
+UCTPlayer played FIVE of CLUBS.
+
+[2J[H
+--------------------------------------------
+Round #2:
+--------------------------------------------
+HighLowPlayer played TWO of SPADES.
+
+[2J[H
+RandomPlayer played EIGHT of SPADES.
+
+[2J[H
+UCTPlayer played NINE of SPADES.
+
+[2J[H
+MCTSPlayer played THREE of SPADES.
+
+[2J[H
+--------------------------------------------
+Round #3:
+--------------------------------------------
+UCTPlayer played KING of DIAMONDS.
+
+[2J[H
+MCTSPlayer played TEN of DIAMONDS.
+
+[2J[H
+HighLowPlayer played QUEEN of DIAMONDS.
+
+[2J[H
+RandomPlayer played ACE of DIAMONDS.
+
+[2J[H
+--------------------------------------------
+Round #4:
+--------------------------------------------
+RandomPlayer played FIVE of DIAMONDS.
+
+[2J[H
+UCTPlayer played SIX of DIAMONDS.
+
+[2J[H
+MCTSPlayer played NINE of DIAMONDS.
+
+[2J[H
+HighLowPlayer played FOUR of DIAMONDS.
+
+[2J[H
+--------------------------------------------
+Round #5:
+--------------------------------------------
+MCTSPlayer played SEVEN of HEARTS.
+
+[2J[H
+HighLowPlayer played QUEEN of HEARTS.
+
+[2J[H
+RandomPlayer played KING of HEARTS.
+
+[2J[H
+UCTPlayer played JACK of HEARTS.
+
+[2J[H
+--------------------------------------------
+Round #6:
+--------------------------------------------
+RandomPlayer played JACK of DIAMONDS.
+
+[2J[H
+UCTPlayer played JACK of CLUBS.
+
+[2J[H
+MCTSPlayer played ACE of CLUBS.
+
+[2J[H
+HighLowPlayer played THREE of DIAMONDS.
+
+[2J[H
+--------------------------------------------
+Round #7:
+--------------------------------------------
+RandomPlayer played SEVEN of DIAMONDS.
+
+[2J[H
+UCTPlayer played EIGHT of CLUBS.
+
+[2J[H
+MCTSPlayer played KING of SPADES.
+
+[2J[H
+HighLowPlayer played TWO of DIAMONDS.
+
+[2J[H
+--------------------------------------------
+Round #8:
+--------------------------------------------
+RandomPlayer played SIX of SPADES.
+
+[2J[H
+UCTPlayer played FOUR of SPADES.
+
+[2J[H
+MCTSPlayer played FIVE of SPADES.
+
+[2J[H
+HighLowPlayer played SEVEN of SPADES.
+
+[2J[H
+--------------------------------------------
+Round #9:
+--------------------------------------------
+HighLowPlayer played NINE of CLUBS.
+
+[2J[H
+RandomPlayer played SEVEN of CLUBS.
+
+[2J[H
+UCTPlayer played FOUR of CLUBS.
+
+[2J[H
+MCTSPlayer played QUEEN of CLUBS.
+
+[2J[H
+--------------------------------------------
+Round #10:
+--------------------------------------------
+MCTSPlayer played TEN of HEARTS.
+
+[2J[H
+HighLowPlayer played ACE of SPADES.
+
+[2J[H
+RandomPlayer played SIX of HEARTS.
+
+[2J[H
+UCTPlayer played THREE of HEARTS.
+
+[2J[H
+--------------------------------------------
+Round #11:
+--------------------------------------------
+MCTSPlayer played EIGHT of HEARTS.
+
+[2J[H
+HighLowPlayer played KING of CLUBS.
+
+[2J[H
+RandomPlayer played FOUR of HEARTS.
+
+[2J[H
+UCTPlayer played FIVE of HEARTS.
+
+[2J[H
+--------------------------------------------
+Round #12:
+--------------------------------------------
+MCTSPlayer played TEN of SPADES.
+
+[2J[H
+HighLowPlayer played QUEEN of SPADES.
+
+[2J[H
+RandomPlayer played NINE of HEARTS.
+
+[2J[H
+UCTPlayer played TWO of HEARTS.
+
+[2J[H
+--------------------------------------------
+Round #13:
+--------------------------------------------
+HighLowPlayer played TEN of CLUBS.
+
+[2J[H
+RandomPlayer played EIGHT of DIAMONDS.
+
+[2J[H
+UCTPlayer played ACE of HEARTS.
+
+[2J[H
+MCTSPlayer played JACK of SPADES.
+
+[2J[H
+------------------------------------------
+Game Summary:
+------------------------------------------
+
+Points received this game:
+--------------------------
+HighLowPlayer has 16 points.
+RandomPlayer has -6 points.
+UCTPlayer has 0 points.
+MCTSPlayer has 6 points.
+
+RandomPlayer is in the lead after this round.
+
+Total cumulative points between all games:
+------------------------------------------
+HighLowPlayer has 16 points.
+RandomPlayer has -7 points.
+UCTPlayer has 13 points.
+MCTSPlayer has 10 points.
+
+[2J[H
+MCTSPlayer has the two of clubs and will play first.
+
+
+[2J[H
+--------------------------------------------
+Round #1:
+--------------------------------------------
+MCTSPlayer played TWO of CLUBS.
+
+[2J[H
+HighLowPlayer played SIX of CLUBS.
+
+[2J[H
+RandomPlayer played SEVEN of CLUBS.
+
+[2J[H
+UCTPlayer played FOUR of CLUBS.
+
+[2J[H
+--------------------------------------------
+Round #2:
+--------------------------------------------
+RandomPlayer played SIX of HEARTS.
+
+[2J[H
+UCTPlayer played THREE of HEARTS.
+
+[2J[H
+MCTSPlayer played TEN of HEARTS.
+
+[2J[H
+HighLowPlayer played SEVEN of HEARTS.
+
+[2J[H
+--------------------------------------------
+Round #3:
+--------------------------------------------
+MCTSPlayer played TWO of SPADES.
+
+[2J[H
+HighLowPlayer played THREE of SPADES.
+
+[2J[H
+RandomPlayer played FIVE of SPADES.
+
+[2J[H
+UCTPlayer played TEN of CLUBS.
+
+[2J[H
+--------------------------------------------
+Round #4:
+--------------------------------------------
+RandomPlayer played JACK of SPADES.
+
+[2J[H
+UCTPlayer played KING of CLUBS.
+
+[2J[H
+MCTSPlayer played SIX of SPADES.
+
+[2J[H
+HighLowPlayer played EIGHT of SPADES.
+
+[2J[H
+--------------------------------------------
+Round #5:
+--------------------------------------------
+RandomPlayer played NINE of HEARTS.
+
+[2J[H
+UCTPlayer played FIVE of HEARTS.
+
+[2J[H
+MCTSPlayer played EIGHT of HEARTS.
+
+[2J[H
+HighLowPlayer played FOUR of HEARTS.
+
+[2J[H
+--------------------------------------------
+Round #6:
+--------------------------------------------
+RandomPlayer played ACE of SPADES.
+
+[2J[H
+UCTPlayer played FOUR of DIAMONDS.
+
+[2J[H
+MCTSPlayer played FOUR of SPADES.
+
+[2J[H
+HighLowPlayer played KING of SPADES.
+
+[2J[H
+--------------------------------------------
+Round #7:
+--------------------------------------------
+RandomPlayer played JACK of CLUBS.
+
+[2J[H
+UCTPlayer played FIVE of DIAMONDS.
+
+[2J[H
+MCTSPlayer played EIGHT of CLUBS.
+
+[2J[H
+HighLowPlayer played QUEEN of CLUBS.
+
+[2J[H
+--------------------------------------------
+Round #8:
+--------------------------------------------
+HighLowPlayer played TWO of DIAMONDS.
+
+[2J[H
+RandomPlayer played SEVEN of DIAMONDS.
+
+[2J[H
+UCTPlayer played KING of DIAMONDS.
+
+[2J[H
+MCTSPlayer played QUEEN of DIAMONDS.
+
+[2J[H
+--------------------------------------------
+Round #9:
+--------------------------------------------
+UCTPlayer played EIGHT of DIAMONDS.
+
+[2J[H
+MCTSPlayer played TEN of DIAMONDS.
+
+[2J[H
+HighLowPlayer played THREE of DIAMONDS.
+
+[2J[H
+RandomPlayer played SEVEN of SPADES.
+
+[2J[H
+--------------------------------------------
+Round #10:
+--------------------------------------------
+MCTSPlayer played ACE of HEARTS.
+
+[2J[H
+HighLowPlayer played KING of HEARTS.
+
+[2J[H
+RandomPlayer played QUEEN of HEARTS.
+
+[2J[H
+UCTPlayer played TWO of HEARTS.
+
+[2J[H
+--------------------------------------------
+Round #11:
+--------------------------------------------
+MCTSPlayer played JACK of DIAMONDS.
+
+[2J[H
+HighLowPlayer played ACE of DIAMONDS.
+
+[2J[H
+RandomPlayer played FIVE of CLUBS.
+
+[2J[H
+UCTPlayer played SIX of DIAMONDS.
+
+[2J[H
+--------------------------------------------
+Round #12:
+--------------------------------------------
+HighLowPlayer played QUEEN of SPADES.
+
+[2J[H
+RandomPlayer played NINE of SPADES.
+
+[2J[H
+UCTPlayer played NINE of DIAMONDS.
+
+[2J[H
+MCTSPlayer played TEN of SPADES.
+
+[2J[H
+--------------------------------------------
+Round #13:
+--------------------------------------------
+HighLowPlayer played ACE of CLUBS.
+
+[2J[H
+RandomPlayer played THREE of CLUBS.
+
+[2J[H
+UCTPlayer played JACK of HEARTS.
+
+[2J[H
+MCTSPlayer played NINE of CLUBS.
+
+[2J[H
+------------------------------------------
+Game Summary:
+------------------------------------------
+
+Points received this game:
+--------------------------
+HighLowPlayer has 4 points.
+RandomPlayer has 4 points.
+UCTPlayer has 0 points.
+MCTSPlayer has 8 points.
+
+RandomPlayer is in the lead after this round.
+
+Total cumulative points between all games:
+------------------------------------------
+HighLowPlayer has 20 points.
+RandomPlayer has -3 points.
+UCTPlayer has 13 points.
+MCTSPlayer has 18 points.
+
+[2J[H
+HighLowPlayer has the two of clubs and will play first.
+
+
+[2J[H
+--------------------------------------------
+Round #1:
+--------------------------------------------
+HighLowPlayer played TWO of CLUBS.
+
+[2J[H
+RandomPlayer played SEVEN of CLUBS.
+
+[2J[H
+UCTPlayer played EIGHT of CLUBS.
+
+[2J[H
+MCTSPlayer played FIVE of CLUBS.
+
+[2J[H
+--------------------------------------------
+Round #2:
+--------------------------------------------
+UCTPlayer played KING of DIAMONDS.
+
+[2J[H
+MCTSPlayer played QUEEN of DIAMONDS.
+
+[2J[H
+HighLowPlayer played TEN of DIAMONDS.
+
+[2J[H
+RandomPlayer played SIX of DIAMONDS.
+
+[2J[H
+--------------------------------------------
+Round #3:
+--------------------------------------------
+UCTPlayer played FIVE of HEARTS.
+
+[2J[H
+MCTSPlayer played KING of HEARTS.
+
+[2J[H
+HighLowPlayer played QUEEN of HEARTS.
+
+[2J[H
+RandomPlayer played FOUR of HEARTS.
+
+[2J[H
+--------------------------------------------
+Round #4:
+--------------------------------------------
+MCTSPlayer played FIVE of SPADES.
+
+[2J[H
+HighLowPlayer played THREE of SPADES.
+
+[2J[H
+RandomPlayer played NINE of SPADES.
+
+[2J[H
+UCTPlayer played FOUR of SPADES.
+
+[2J[H
+--------------------------------------------
+Round #5:
+--------------------------------------------
+RandomPlayer played QUEEN of CLUBS.
+
+[2J[H
+UCTPlayer played JACK of CLUBS.
+
+[2J[H
+MCTSPlayer played FOUR of CLUBS.
+
+[2J[H
+HighLowPlayer played TEN of CLUBS.
+
+[2J[H
+--------------------------------------------
+Round #6:
+--------------------------------------------
+RandomPlayer played SEVEN of DIAMONDS.
+
+[2J[H
+UCTPlayer played NINE of DIAMONDS.
+
+[2J[H
+MCTSPlayer played TWO of DIAMONDS.
+
+[2J[H
+HighLowPlayer played EIGHT of DIAMONDS.
+
+[2J[H
+--------------------------------------------
+Round #7:
+--------------------------------------------
+UCTPlayer played TWO of SPADES.
+
+[2J[H
+MCTSPlayer played ACE of SPADES.
+
+[2J[H
+HighLowPlayer played QUEEN of SPADES.
+
+[2J[H
+RandomPlayer played TEN of SPADES.
+
+[2J[H
+--------------------------------------------
+Round #8:
+--------------------------------------------
+MCTSPlayer played JACK of DIAMONDS.
+
+[2J[H
+HighLowPlayer played FOUR of DIAMONDS.
+
+[2J[H
+RandomPlayer played FIVE of DIAMONDS.
+
+[2J[H
+UCTPlayer played NINE of HEARTS.
+
+[2J[H
+--------------------------------------------
+Round #9:
+--------------------------------------------
+MCTSPlayer played KING of CLUBS.
+
+[2J[H
+HighLowPlayer played NINE of CLUBS.
+
+[2J[H
+RandomPlayer played THREE of CLUBS.
+
+[2J[H
+UCTPlayer played SIX of CLUBS.
+
+[2J[H
+--------------------------------------------
+Round #10:
+--------------------------------------------
+MCTSPlayer played SEVEN of SPADES.
+
+[2J[H
+HighLowPlayer played EIGHT of SPADES.
+
+[2J[H
+RandomPlayer played KING of SPADES.
+
+[2J[H
+UCTPlayer played ACE of CLUBS.
+
+[2J[H
+--------------------------------------------
+Round #11:
+--------------------------------------------
+RandomPlayer played THREE of HEARTS.
+
+[2J[H
+UCTPlayer played SEVEN of HEARTS.
+
+[2J[H
+MCTSPlayer played ACE of DIAMONDS.
+
+[2J[H
+HighLowPlayer played SIX of HEARTS.
+
+[2J[H
+--------------------------------------------
+Round #12:
+--------------------------------------------
+UCTPlayer played JACK of HEARTS.
+
+[2J[H
+MCTSPlayer played SIX of SPADES.
+
+[2J[H
+HighLowPlayer played EIGHT of HEARTS.
+
+[2J[H
+RandomPlayer played TEN of HEARTS.
+
+[2J[H
+--------------------------------------------
+Round #13:
+--------------------------------------------
+UCTPlayer played ACE of HEARTS.
+
+[2J[H
+MCTSPlayer played JACK of SPADES.
+
+[2J[H
+HighLowPlayer played THREE of DIAMONDS.
+
+[2J[H
+RandomPlayer played TWO of HEARTS.
+
+[2J[H
+------------------------------------------
+Game Summary:
+------------------------------------------
+
+Points received this game:
+--------------------------
+HighLowPlayer has 0 points.
+RandomPlayer has 0 points.
+UCTPlayer has 8 points.
+MCTSPlayer has 8 points.
+
+RandomPlayer is in the lead after this round.
+
+Total cumulative points between all games:
+------------------------------------------
+HighLowPlayer has 20 points.
+RandomPlayer has -3 points.
+UCTPlayer has 21 points.
+MCTSPlayer has 26 points.
+
+[2J[H
+MCTSPlayer has the two of clubs and will play first.
+
+
+[2J[H
+--------------------------------------------
+Round #1:
+--------------------------------------------
+MCTSPlayer played TWO of CLUBS.
+
+[2J[H
+HighLowPlayer played SEVEN of CLUBS.
+
+[2J[H
+RandomPlayer played TWO of SPADES.
+
+[2J[H
+UCTPlayer played THREE of CLUBS.
+
+[2J[H
+--------------------------------------------
+Round #2:
+--------------------------------------------
+HighLowPlayer played THREE of DIAMONDS.
+
+[2J[H
+RandomPlayer played FOUR of DIAMONDS.
+
+[2J[H
+UCTPlayer played QUEEN of SPADES.
+
+[2J[H
+MCTSPlayer played TWO of DIAMONDS.
+
+[2J[H
+--------------------------------------------
+Round #3:
+--------------------------------------------
+RandomPlayer played FIVE of SPADES.
+
+[2J[H
+UCTPlayer played JACK of SPADES.
+
+[2J[H
+MCTSPlayer played TEN of SPADES.
+
+[2J[H
+HighLowPlayer played NINE of SPADES.
+
+[2J[H
+--------------------------------------------
+Round #4:
+--------------------------------------------
+UCTPlayer played QUEEN of CLUBS.
+
+[2J[H
+MCTSPlayer played FIVE of CLUBS.
+
+[2J[H
+HighLowPlayer played NINE of CLUBS.
+
+[2J[H
+RandomPlayer played FIVE of DIAMONDS.
+
+[2J[H
+--------------------------------------------
+Round #5:
+--------------------------------------------
+UCTPlayer played KING of CLUBS.
+
+[2J[H
+MCTSPlayer played JACK of CLUBS.
+
+[2J[H
+HighLowPlayer played ACE of CLUBS.
+
+[2J[H
+RandomPlayer played ACE of DIAMONDS.
+
+[2J[H
+--------------------------------------------
+Round #6:
+--------------------------------------------
+HighLowPlayer played THREE of HEARTS.
+
+[2J[H
+RandomPlayer played QUEEN of HEARTS.
+
+[2J[H
+UCTPlayer played SEVEN of HEARTS.
+
+[2J[H
+MCTSPlayer played TWO of HEARTS.
+
+[2J[H
+--------------------------------------------
+Round #7:
+--------------------------------------------
+RandomPlayer played TEN of HEARTS.
+
+[2J[H
+UCTPlayer played ACE of HEARTS.
+
+[2J[H
+MCTSPlayer played JACK of HEARTS.
+
+[2J[H
+HighLowPlayer played NINE of HEARTS.
+
+[2J[H
+--------------------------------------------
+Round #8:
+--------------------------------------------
+UCTPlayer played FOUR of SPADES.
+
+[2J[H
+MCTSPlayer played FOUR of HEARTS.
+
+[2J[H
+HighLowPlayer played KING of SPADES.
+
+[2J[H
+RandomPlayer played THREE of SPADES.
+
+[2J[H
+--------------------------------------------
+Round #9:
+--------------------------------------------
+HighLowPlayer played NINE of DIAMONDS.
+
+[2J[H
+RandomPlayer played SIX of DIAMONDS.
+
+[2J[H
+UCTPlayer played TEN of CLUBS.
+
+[2J[H
+MCTSPlayer played SEVEN of DIAMONDS.
+
+[2J[H
+--------------------------------------------
+Round #10:
+--------------------------------------------
+HighLowPlayer played TEN of DIAMONDS.
+
+[2J[H
+RandomPlayer played JACK of DIAMONDS.
+
+[2J[H
+UCTPlayer played EIGHT of CLUBS.
+
+[2J[H
+MCTSPlayer played EIGHT of HEARTS.
+
+[2J[H
+--------------------------------------------
+Round #11:
+--------------------------------------------
+RandomPlayer played FIVE of HEARTS.
+
+[2J[H
+UCTPlayer played SIX of SPADES.
+
+[2J[H
+MCTSPlayer played KING of HEARTS.
+
+[2J[H
+HighLowPlayer played ACE of SPADES.
+
+[2J[H
+--------------------------------------------
+Round #12:
+--------------------------------------------
+MCTSPlayer played FOUR of CLUBS.
+
+[2J[H
+HighLowPlayer played KING of DIAMONDS.
+
+[2J[H
+RandomPlayer played EIGHT of DIAMONDS.
+
+[2J[H
+UCTPlayer played SEVEN of SPADES.
+
+[2J[H
+--------------------------------------------
+Round #13:
+--------------------------------------------
+MCTSPlayer played SIX of CLUBS.
+
+[2J[H
+HighLowPlayer played QUEEN of DIAMONDS.
+
+[2J[H
+RandomPlayer played SIX of HEARTS.
+
+[2J[H
+UCTPlayer played EIGHT of SPADES.
+
+[2J[H
+------------------------------------------
+Game Summary:
+------------------------------------------
+
+Points received this game:
+--------------------------
+HighLowPlayer has 1 points.
+RandomPlayer has 8 points.
+UCTPlayer has 4 points.
+MCTSPlayer has 3 points.
+
+RandomPlayer is in the lead after this round.
+
+Total cumulative points between all games:
+------------------------------------------
+HighLowPlayer has 21 points.
+RandomPlayer has 5 points.
+UCTPlayer has 25 points.
+MCTSPlayer has 29 points.
+
+[2J[H
+MCTSPlayer has the two of clubs and will play first.
+
+
+[2J[H
+--------------------------------------------
+Round #1:
+--------------------------------------------
+MCTSPlayer played TWO of CLUBS.
+
+[2J[H
+HighLowPlayer played SIX of CLUBS.
+
+[2J[H
+RandomPlayer played EIGHT of CLUBS.
+
+[2J[H
+UCTPlayer played TEN of CLUBS.
+
+[2J[H
+--------------------------------------------
+Round #2:
+--------------------------------------------
+UCTPlayer played SEVEN of SPADES.
+
+[2J[H
+MCTSPlayer played TWO of SPADES.
+
+[2J[H
+HighLowPlayer played SIX of SPADES.
+
+[2J[H
+RandomPlayer played FOUR of SPADES.
+
+[2J[H
+--------------------------------------------
+Round #3:
+--------------------------------------------
+UCTPlayer played ACE of DIAMONDS.
+
+[2J[H
+MCTSPlayer played NINE of DIAMONDS.
+
+[2J[H
+HighLowPlayer played FIVE of DIAMONDS.
+
+[2J[H
+RandomPlayer played KING of DIAMONDS.
+
+[2J[H
+--------------------------------------------
+Round #4:
+--------------------------------------------
+UCTPlayer played SIX of HEARTS.
+
+[2J[H
+MCTSPlayer played FOUR of HEARTS.
+
+[2J[H
+HighLowPlayer played FIVE of HEARTS.
+
+[2J[H
+RandomPlayer played JACK of HEARTS.
+
+[2J[H
+--------------------------------------------
+Round #5:
+--------------------------------------------
+RandomPlayer played QUEEN of DIAMONDS.
+
+[2J[H
+UCTPlayer played EIGHT of DIAMONDS.
+
+[2J[H
+MCTSPlayer played FOUR of DIAMONDS.
+
+[2J[H
+HighLowPlayer played THREE of DIAMONDS.
+
+[2J[H
+--------------------------------------------
+Round #6:
+--------------------------------------------
+RandomPlayer played KING of CLUBS.
+
+[2J[H
+UCTPlayer played FIVE of CLUBS.
+
+[2J[H
+MCTSPlayer played QUEEN of CLUBS.
+
+[2J[H
+HighLowPlayer played NINE of CLUBS.
+
+[2J[H
+--------------------------------------------
+Round #7:
+--------------------------------------------
+RandomPlayer played KING of SPADES.
+
+[2J[H
+UCTPlayer played JACK of SPADES.
+
+[2J[H
+MCTSPlayer played TEN of SPADES.
+
+[2J[H
+HighLowPlayer played QUEEN of SPADES.
+
+[2J[H
+--------------------------------------------
+Round #8:
+--------------------------------------------
+RandomPlayer played TEN of DIAMONDS.
+
+[2J[H
+UCTPlayer played SIX of DIAMONDS.
+
+[2J[H
+MCTSPlayer played SEVEN of DIAMONDS.
+
+[2J[H
+HighLowPlayer played TWO of DIAMONDS.
+
+[2J[H
+--------------------------------------------
+Round #9:
+--------------------------------------------
+RandomPlayer played THREE of HEARTS.
+
+[2J[H
+UCTPlayer played NINE of HEARTS.
+
+[2J[H
+MCTSPlayer played SEVEN of HEARTS.
+
+[2J[H
+HighLowPlayer played EIGHT of HEARTS.
+
+[2J[H
+--------------------------------------------
+Round #10:
+--------------------------------------------
+UCTPlayer played FIVE of SPADES.
+
+[2J[H
+MCTSPlayer played ACE of CLUBS.
+
+[2J[H
+HighLowPlayer played NINE of SPADES.
+
+[2J[H
+RandomPlayer played THREE of SPADES.
+
+[2J[H
+--------------------------------------------
+Round #11:
+--------------------------------------------
+HighLowPlayer played TWO of HEARTS.
+
+[2J[H
+RandomPlayer played EIGHT of SPADES.
+
+[2J[H
+UCTPlayer played TEN of HEARTS.
+
+[2J[H
+MCTSPlayer played KING of HEARTS.
+
+[2J[H
+--------------------------------------------
+Round #12:
+--------------------------------------------
+MCTSPlayer played FOUR of CLUBS.
+
+[2J[H
+HighLowPlayer played QUEEN of HEARTS.
+
+[2J[H
+RandomPlayer played JACK of CLUBS.
+
+[2J[H
+UCTPlayer played THREE of CLUBS.
+
+[2J[H
+--------------------------------------------
+Round #13:
+--------------------------------------------
+RandomPlayer played JACK of DIAMONDS.
+
+[2J[H
+UCTPlayer played ACE of HEARTS.
+
+[2J[H
+MCTSPlayer played SEVEN of CLUBS.
+
+[2J[H
+HighLowPlayer played ACE of SPADES.
+
+[2J[H
+------------------------------------------
+Game Summary:
+------------------------------------------
+
+Points received this game:
+--------------------------
+HighLowPlayer has 0 points.
+RandomPlayer has 9 points.
+UCTPlayer has 4 points.
+MCTSPlayer has 3 points.
+
+RandomPlayer is in the lead after this round.
+
+Total cumulative points between all games:
+------------------------------------------
+HighLowPlayer has 21 points.
+RandomPlayer has 14 points.
+UCTPlayer has 29 points.
+MCTSPlayer has 32 points.
+
+[2J[H
 RandomPlayer has the two of clubs and will play first.
 
 
@@ -22,69 +1342,1094 @@ Round #1:
 RandomPlayer played TWO of CLUBS.
 
 [2J[H
-
-UCTPlayer`s hand (13 cards):
-|  0|  1|  2|  3|  4|  5|  6|  7|  8|  9| 10| 11| 12|
-| 4♣| 5♣| 6♣| A♣| 3♢| 8♢| 8♠| 2♡| 8♡|10♡| J♡| K♡| A♡|
-UCTPlayer played ACE of CLUBS.
+UCTPlayer played KING of CLUBS.
 
 [2J[H
-
-MCTSPlayer`s hand (13 cards):
-|  0|  1|  2|  3|  4|  5|  6|  7|  8|  9| 10| 11| 12|
-| 7♣| 9♣|10♣| K♣| 5♢| 7♢| 9♢| Q♢|10♠| Q♠| K♠| 4♡| 5♡|
-MCTSPlayer played SEVEN of CLUBS.
+MCTSPlayer played QUEEN of CLUBS.
 
 [2J[H
-
-HighLowPlayer`s hand (13 cards):
-|  0|  1|  2|  3|  4|  5|  6|  7|  8|  9| 10| 11| 12|
-| 3♣| 8♣| Q♣| 2♢| J♢| 2♠| 3♠| 6♠| A♠| 3♡| 6♡| 7♡| 9♡|
-HighLowPlayer played QUEEN of CLUBS.
+HighLowPlayer played SEVEN of CLUBS.
 
 [2J[H
 --------------------------------------------
 Round #2:
 --------------------------------------------
-
-UCTPlayer`s hand (12 cards):
-|  0|  1|  2|  3|  4|  5|  6|  7|  8|  9| 10| 11|
-| 4♣| 5♣| 6♣| 3♢| 8♢| 8♠| 2♡| 8♡|10♡| J♡| K♡| A♡|
-UCTPlayer played THREE of DIAMONDS.
+UCTPlayer played JACK of DIAMONDS.
 
 [2J[H
-
-MCTSPlayer`s hand (12 cards):
-|  0|  1|  2|  3|  4|  5|  6|  7|  8|  9| 10| 11|
-| 9♣|10♣| K♣| 5♢| 7♢| 9♢| Q♢|10♠| Q♠| K♠| 4♡| 5♡|
-MCTSPlayer played NINE of DIAMONDS.
+MCTSPlayer played EIGHT of DIAMONDS.
 
 [2J[H
-
-HighLowPlayer`s hand (12 cards):
-|  0|  1|  2|  3|  4|  5|  6|  7|  8|  9| 10| 11|
-| 3♣| 8♣| 2♢| J♢| 2♠| 3♠| 6♠| A♠| 3♡| 6♡| 7♡| 9♡|
-HighLowPlayer played TWO of DIAMONDS.
+HighLowPlayer played THREE of DIAMONDS.
 
 [2J[H
-
-RandomPlayer`s hand (12 cards):
-|  0|  1|  2|  3|  4|  5|  6|  7|  8|  9| 10| 11|
-| J♣| 4♢| 6♢|10♢| K♢| A♢| 4♠| 5♠| 7♠| 9♠| J♠| Q♡|
-RandomPlayer played ACE of DIAMONDS.
+RandomPlayer played QUEEN of DIAMONDS.
 
 [2J[H
 --------------------------------------------
 Round #3:
 --------------------------------------------
+RandomPlayer played FIVE of DIAMONDS.
 
-RandomPlayer`s hand (11 cards):
-|  0|  1|  2|  3|  4|  5|  6|  7|  8|  9| 10|
-| J♣| 4♢| 6♢|10♢| K♢| 4♠| 5♠| 7♠| 9♠| J♠| Q♡|
+[2J[H
+UCTPlayer played ACE of DIAMONDS.
+
+[2J[H
+MCTSPlayer played TEN of DIAMONDS.
+
+[2J[H
+HighLowPlayer played ACE of HEARTS.
+
+[2J[H
+--------------------------------------------
+Round #4:
+--------------------------------------------
+UCTPlayer played SIX of DIAMONDS.
+
+[2J[H
+MCTSPlayer played SEVEN of DIAMONDS.
+
+[2J[H
+HighLowPlayer played SEVEN of HEARTS.
+
+[2J[H
+RandomPlayer played FOUR of DIAMONDS.
+
+[2J[H
+--------------------------------------------
+Round #5:
+--------------------------------------------
+MCTSPlayer played QUEEN of SPADES.
+
+[2J[H
+HighLowPlayer played NINE of SPADES.
+
+[2J[H
+RandomPlayer played EIGHT of SPADES.
+
+[2J[H
+UCTPlayer played JACK of SPADES.
+
+[2J[H
+--------------------------------------------
+Round #6:
+--------------------------------------------
+MCTSPlayer played TEN of SPADES.
+
+[2J[H
+HighLowPlayer played SEVEN of SPADES.
+
+[2J[H
+RandomPlayer played QUEEN of HEARTS.
+
+[2J[H
+UCTPlayer played KING of SPADES.
+
+[2J[H
+--------------------------------------------
+Round #7:
+--------------------------------------------
+UCTPlayer played TWO of SPADES.
+
+[2J[H
+MCTSPlayer played ACE of SPADES.
+
+[2J[H
+HighLowPlayer played SIX of SPADES.
+
+[2J[H
+RandomPlayer played TWO of DIAMONDS.
+
+[2J[H
+--------------------------------------------
+Round #8:
+--------------------------------------------
+MCTSPlayer played EIGHT of CLUBS.
+
+[2J[H
+HighLowPlayer played FIVE of CLUBS.
+
+[2J[H
+RandomPlayer played NINE of CLUBS.
+
+[2J[H
+UCTPlayer played ACE of CLUBS.
+
+[2J[H
+--------------------------------------------
+Round #9:
+--------------------------------------------
+UCTPlayer played TEN of CLUBS.
+
+[2J[H
+MCTSPlayer played FOUR of CLUBS.
+
+[2J[H
+HighLowPlayer played THREE of CLUBS.
+
+[2J[H
+RandomPlayer played SIX of HEARTS.
+
+[2J[H
+--------------------------------------------
+Round #10:
+--------------------------------------------
+UCTPlayer played TEN of HEARTS.
+
+[2J[H
+MCTSPlayer played THREE of HEARTS.
+
+[2J[H
+HighLowPlayer played TWO of HEARTS.
+
+[2J[H
+RandomPlayer played NINE of HEARTS.
+
+[2J[H
+--------------------------------------------
+Round #11:
+--------------------------------------------
+UCTPlayer played SIX of CLUBS.
+
+[2J[H
+MCTSPlayer played JACK of CLUBS.
+
+[2J[H
+HighLowPlayer played FIVE of SPADES.
+
+[2J[H
 RandomPlayer played KING of DIAMONDS.
 
 [2J[H
+--------------------------------------------
+Round #12:
+--------------------------------------------
+MCTSPlayer played FIVE of HEARTS.
 
-UCTPlayer`s hand (11 cards):
-|  0|  1|  2|  3|  4|  5|  6|  7|  8|  9| 10|
-| 4♣| 5♣| 6♣| 8♢| 8♠| 2♡| 8♡|10♡| J♡| K♡| A♡|
+[2J[H
+HighLowPlayer played FOUR of SPADES.
+
+[2J[H
+RandomPlayer played FOUR of HEARTS.
+
+[2J[H
+UCTPlayer played JACK of HEARTS.
+
+[2J[H
+--------------------------------------------
+Round #13:
+--------------------------------------------
+UCTPlayer played KING of HEARTS.
+
+[2J[H
+MCTSPlayer played EIGHT of HEARTS.
+
+[2J[H
+HighLowPlayer played THREE of SPADES.
+
+[2J[H
+RandomPlayer played NINE of DIAMONDS.
+
+[2J[H
+------------------------------------------
+Game Summary:
+------------------------------------------
+
+Points received this game:
+--------------------------
+HighLowPlayer has 0 points.
+RandomPlayer has -10 points.
+UCTPlayer has 12 points.
+MCTSPlayer has 14 points.
+
+RandomPlayer is in the lead after this round.
+
+Total cumulative points between all games:
+------------------------------------------
+HighLowPlayer has 21 points.
+RandomPlayer has 4 points.
+UCTPlayer has 41 points.
+MCTSPlayer has 46 points.
+
+[2J[H
+RandomPlayer has the two of clubs and will play first.
+
+
+[2J[H
+--------------------------------------------
+Round #1:
+--------------------------------------------
+RandomPlayer played TWO of CLUBS.
+
+[2J[H
+UCTPlayer played NINE of CLUBS.
+
+[2J[H
+MCTSPlayer played QUEEN of CLUBS.
+
+[2J[H
+HighLowPlayer played SEVEN of CLUBS.
+
+[2J[H
+--------------------------------------------
+Round #2:
+--------------------------------------------
+MCTSPlayer played ACE of DIAMONDS.
+
+[2J[H
+HighLowPlayer played FIVE of DIAMONDS.
+
+[2J[H
+RandomPlayer played SIX of DIAMONDS.
+
+[2J[H
+UCTPlayer played TEN of DIAMONDS.
+
+[2J[H
+--------------------------------------------
+Round #3:
+--------------------------------------------
+MCTSPlayer played EIGHT of SPADES.
+
+[2J[H
+HighLowPlayer played QUEEN of SPADES.
+
+[2J[H
+RandomPlayer played JACK of SPADES.
+
+[2J[H
+UCTPlayer played NINE of SPADES.
+
+[2J[H
+--------------------------------------------
+Round #4:
+--------------------------------------------
+HighLowPlayer played TWO of DIAMONDS.
+
+[2J[H
+RandomPlayer played JACK of DIAMONDS.
+
+[2J[H
+UCTPlayer played QUEEN of DIAMONDS.
+
+[2J[H
+MCTSPlayer played KING of DIAMONDS.
+
+[2J[H
+--------------------------------------------
+Round #5:
+--------------------------------------------
+MCTSPlayer played TEN of SPADES.
+
+[2J[H
+HighLowPlayer played ACE of SPADES.
+
+[2J[H
+RandomPlayer played FIVE of SPADES.
+
+[2J[H
+UCTPlayer played SEVEN of SPADES.
+
+[2J[H
+--------------------------------------------
+Round #6:
+--------------------------------------------
+HighLowPlayer played TWO of HEARTS.
+
+[2J[H
+RandomPlayer played FIVE of HEARTS.
+
+[2J[H
+UCTPlayer played EIGHT of HEARTS.
+
+[2J[H
+MCTSPlayer played SEVEN of HEARTS.
+
+[2J[H
+--------------------------------------------
+Round #7:
+--------------------------------------------
+UCTPlayer played SIX of SPADES.
+
+[2J[H
+MCTSPlayer played FOUR of SPADES.
+
+[2J[H
+HighLowPlayer played JACK of HEARTS.
+
+[2J[H
+RandomPlayer played THREE of SPADES.
+
+[2J[H
+--------------------------------------------
+Round #8:
+--------------------------------------------
+UCTPlayer played NINE of HEARTS.
+
+[2J[H
+MCTSPlayer played SIX of HEARTS.
+
+[2J[H
+HighLowPlayer played THREE of HEARTS.
+
+[2J[H
+RandomPlayer played FOUR of HEARTS.
+
+[2J[H
+--------------------------------------------
+Round #9:
+--------------------------------------------
+UCTPlayer played NINE of DIAMONDS.
+
+[2J[H
+MCTSPlayer played EIGHT of DIAMONDS.
+
+[2J[H
+HighLowPlayer played THREE of DIAMONDS.
+
+[2J[H
+RandomPlayer played FOUR of DIAMONDS.
+
+[2J[H
+--------------------------------------------
+Round #10:
+--------------------------------------------
+UCTPlayer played TEN of CLUBS.
+
+[2J[H
+MCTSPlayer played TWO of SPADES.
+
+[2J[H
+HighLowPlayer played FIVE of CLUBS.
+
+[2J[H
+RandomPlayer played SIX of CLUBS.
+
+[2J[H
+--------------------------------------------
+Round #11:
+--------------------------------------------
+UCTPlayer played JACK of CLUBS.
+
+[2J[H
+MCTSPlayer played KING of SPADES.
+
+[2J[H
+HighLowPlayer played KING of CLUBS.
+
+[2J[H
+RandomPlayer played FOUR of CLUBS.
+
+[2J[H
+--------------------------------------------
+Round #12:
+--------------------------------------------
+HighLowPlayer played TEN of HEARTS.
+
+[2J[H
+RandomPlayer played EIGHT of CLUBS.
+
+[2J[H
+UCTPlayer played ACE of HEARTS.
+
+[2J[H
+MCTSPlayer played QUEEN of HEARTS.
+
+[2J[H
+--------------------------------------------
+Round #13:
+--------------------------------------------
+UCTPlayer played THREE of CLUBS.
+
+[2J[H
+MCTSPlayer played KING of HEARTS.
+
+[2J[H
+HighLowPlayer played ACE of CLUBS.
+
+[2J[H
+RandomPlayer played SEVEN of DIAMONDS.
+
+[2J[H
+------------------------------------------
+Game Summary:
+------------------------------------------
+
+Points received this game:
+--------------------------
+HighLowPlayer has 14 points.
+RandomPlayer has 0 points.
+UCTPlayer has 12 points.
+MCTSPlayer has -10 points.
+
+RandomPlayer is in the lead after this round.
+
+Total cumulative points between all games:
+------------------------------------------
+HighLowPlayer has 35 points.
+RandomPlayer has 4 points.
+UCTPlayer has 53 points.
+MCTSPlayer has 36 points.
+
+[2J[H
+RandomPlayer has the two of clubs and will play first.
+
+
+[2J[H
+--------------------------------------------
+Round #1:
+--------------------------------------------
+RandomPlayer played TWO of CLUBS.
+
+[2J[H
+UCTPlayer played JACK of CLUBS.
+
+[2J[H
+MCTSPlayer played TEN of HEARTS.
+
+[2J[H
+HighLowPlayer played FIVE of CLUBS.
+
+[2J[H
+--------------------------------------------
+Round #2:
+--------------------------------------------
+UCTPlayer played JACK of DIAMONDS.
+
+[2J[H
+MCTSPlayer played ACE of DIAMONDS.
+
+[2J[H
+HighLowPlayer played KING of DIAMONDS.
+
+[2J[H
+RandomPlayer played TWO of DIAMONDS.
+
+[2J[H
+--------------------------------------------
+Round #3:
+--------------------------------------------
+MCTSPlayer played THREE of SPADES.
+
+[2J[H
+HighLowPlayer played TWO of SPADES.
+
+[2J[H
+RandomPlayer played KING of SPADES.
+
+[2J[H
+UCTPlayer played QUEEN of SPADES.
+
+[2J[H
+--------------------------------------------
+Round #4:
+--------------------------------------------
+RandomPlayer played TEN of DIAMONDS.
+
+[2J[H
+UCTPlayer played SIX of DIAMONDS.
+
+[2J[H
+MCTSPlayer played FOUR of DIAMONDS.
+
+[2J[H
+HighLowPlayer played FIVE of DIAMONDS.
+
+[2J[H
+--------------------------------------------
+Round #5:
+--------------------------------------------
+RandomPlayer played FIVE of SPADES.
+
+[2J[H
+UCTPlayer played SIX of SPADES.
+
+[2J[H
+MCTSPlayer played EIGHT of SPADES.
+
+[2J[H
+HighLowPlayer played NINE of SPADES.
+
+[2J[H
+--------------------------------------------
+Round #6:
+--------------------------------------------
+HighLowPlayer played THREE of DIAMONDS.
+
+[2J[H
+RandomPlayer played JACK of SPADES.
+
+[2J[H
+UCTPlayer played JACK of HEARTS.
+
+[2J[H
+MCTSPlayer played NINE of DIAMONDS.
+
+[2J[H
+--------------------------------------------
+Round #7:
+--------------------------------------------
+MCTSPlayer played EIGHT of DIAMONDS.
+
+[2J[H
+HighLowPlayer played QUEEN of DIAMONDS.
+
+[2J[H
+RandomPlayer played SEVEN of CLUBS.
+
+[2J[H
+UCTPlayer played KING of CLUBS.
+
+[2J[H
+--------------------------------------------
+Round #8:
+--------------------------------------------
+HighLowPlayer played THREE of CLUBS.
+
+[2J[H
+RandomPlayer played NINE of CLUBS.
+
+[2J[H
+UCTPlayer played SIX of CLUBS.
+
+[2J[H
+MCTSPlayer played SEVEN of DIAMONDS.
+
+[2J[H
+--------------------------------------------
+Round #9:
+--------------------------------------------
+RandomPlayer played KING of HEARTS.
+
+[2J[H
+UCTPlayer played SEVEN of HEARTS.
+
+[2J[H
+MCTSPlayer played QUEEN of HEARTS.
+
+[2J[H
+HighLowPlayer played NINE of HEARTS.
+
+[2J[H
+--------------------------------------------
+Round #10:
+--------------------------------------------
+RandomPlayer played TEN of SPADES.
+
+[2J[H
+UCTPlayer played SEVEN of SPADES.
+
+[2J[H
+MCTSPlayer played EIGHT of HEARTS.
+
+[2J[H
+HighLowPlayer played THREE of HEARTS.
+
+[2J[H
+--------------------------------------------
+Round #11:
+--------------------------------------------
+RandomPlayer played EIGHT of CLUBS.
+
+[2J[H
+UCTPlayer played FIVE of HEARTS.
+
+[2J[H
+MCTSPlayer played ACE of HEARTS.
+
+[2J[H
+HighLowPlayer played FOUR of CLUBS.
+
+[2J[H
+--------------------------------------------
+Round #12:
+--------------------------------------------
+RandomPlayer played TWO of HEARTS.
+
+[2J[H
+UCTPlayer played FOUR of SPADES.
+
+[2J[H
+MCTSPlayer played FOUR of HEARTS.
+
+[2J[H
+HighLowPlayer played ACE of CLUBS.
+
+[2J[H
+--------------------------------------------
+Round #13:
+--------------------------------------------
+MCTSPlayer played SIX of HEARTS.
+
+[2J[H
+HighLowPlayer played QUEEN of CLUBS.
+
+[2J[H
+RandomPlayer played TEN of CLUBS.
+
+[2J[H
+UCTPlayer played ACE of SPADES.
+
+[2J[H
+------------------------------------------
+Game Summary:
+------------------------------------------
+
+Points received this game:
+--------------------------
+HighLowPlayer has 0 points.
+RandomPlayer has 21 points.
+UCTPlayer has 1 points.
+MCTSPlayer has -6 points.
+
+RandomPlayer is in the lead after this round.
+
+Total cumulative points between all games:
+------------------------------------------
+HighLowPlayer has 35 points.
+RandomPlayer has 25 points.
+UCTPlayer has 54 points.
+MCTSPlayer has 30 points.
+
+[2J[H
+RandomPlayer has the two of clubs and will play first.
+
+
+[2J[H
+--------------------------------------------
+Round #1:
+--------------------------------------------
+RandomPlayer played TWO of CLUBS.
+
+[2J[H
+UCTPlayer played KING of CLUBS.
+
+[2J[H
+MCTSPlayer played NINE of CLUBS.
+
+[2J[H
+HighLowPlayer played JACK of CLUBS.
+
+[2J[H
+--------------------------------------------
+Round #2:
+--------------------------------------------
+UCTPlayer played KING of DIAMONDS.
+
+[2J[H
+MCTSPlayer played NINE of DIAMONDS.
+
+[2J[H
+HighLowPlayer played QUEEN of DIAMONDS.
+
+[2J[H
+RandomPlayer played JACK of DIAMONDS.
+
+[2J[H
+--------------------------------------------
+Round #3:
+--------------------------------------------
+UCTPlayer played EIGHT of CLUBS.
+
+[2J[H
+MCTSPlayer played ACE of CLUBS.
+
+[2J[H
+HighLowPlayer played TEN of CLUBS.
+
+[2J[H
+RandomPlayer played SIX of CLUBS.
+
+[2J[H
+--------------------------------------------
+Round #4:
+--------------------------------------------
+MCTSPlayer played FIVE of SPADES.
+
+[2J[H
+HighLowPlayer played TWO of SPADES.
+
+[2J[H
+RandomPlayer played SEVEN of SPADES.
+
+[2J[H
+UCTPlayer played KING of SPADES.
+
+[2J[H
+--------------------------------------------
+Round #5:
+--------------------------------------------
+UCTPlayer played SIX of HEARTS.
+
+[2J[H
+MCTSPlayer played THREE of HEARTS.
+
+[2J[H
+HighLowPlayer played SEVEN of HEARTS.
+
+[2J[H
+RandomPlayer played FIVE of HEARTS.
+
+[2J[H
+--------------------------------------------
+Round #6:
+--------------------------------------------
+HighLowPlayer played TWO of DIAMONDS.
+
+[2J[H
+RandomPlayer played FOUR of HEARTS.
+
+[2J[H
+UCTPlayer played SEVEN of DIAMONDS.
+
+[2J[H
+MCTSPlayer played EIGHT of DIAMONDS.
+
+[2J[H
+--------------------------------------------
+Round #7:
+--------------------------------------------
+MCTSPlayer played TEN of DIAMONDS.
+
+[2J[H
+HighLowPlayer played SIX of DIAMONDS.
+
+[2J[H
+RandomPlayer played NINE of HEARTS.
+
+[2J[H
+UCTPlayer played FOUR of DIAMONDS.
+
+[2J[H
+--------------------------------------------
+Round #8:
+--------------------------------------------
+MCTSPlayer played ACE of HEARTS.
+
+[2J[H
+HighLowPlayer played JACK of HEARTS.
+
+[2J[H
+RandomPlayer played TWO of HEARTS.
+
+[2J[H
+UCTPlayer played QUEEN of HEARTS.
+
+[2J[H
+--------------------------------------------
+Round #9:
+--------------------------------------------
+MCTSPlayer played SIX of SPADES.
+
+[2J[H
+HighLowPlayer played JACK of SPADES.
+
+[2J[H
+RandomPlayer played TEN of SPADES.
+
+[2J[H
+UCTPlayer played NINE of SPADES.
+
+[2J[H
+--------------------------------------------
+Round #10:
+--------------------------------------------
+HighLowPlayer played THREE of DIAMONDS.
+
+[2J[H
+RandomPlayer played FOUR of CLUBS.
+
+[2J[H
+UCTPlayer played QUEEN of CLUBS.
+
+[2J[H
+MCTSPlayer played QUEEN of SPADES.
+
+[2J[H
+--------------------------------------------
+Round #11:
+--------------------------------------------
+HighLowPlayer played FIVE of DIAMONDS.
+
+[2J[H
+RandomPlayer played SEVEN of CLUBS.
+
+[2J[H
+UCTPlayer played EIGHT of SPADES.
+
+[2J[H
+MCTSPlayer played THREE of SPADES.
+
+[2J[H
+--------------------------------------------
+Round #12:
+--------------------------------------------
+HighLowPlayer played TEN of HEARTS.
+
+[2J[H
+RandomPlayer played FIVE of CLUBS.
+
+[2J[H
+UCTPlayer played EIGHT of HEARTS.
+
+[2J[H
+MCTSPlayer played FOUR of SPADES.
+
+[2J[H
+--------------------------------------------
+Round #13:
+--------------------------------------------
+HighLowPlayer played ACE of DIAMONDS.
+
+[2J[H
+RandomPlayer played THREE of CLUBS.
+
+[2J[H
+UCTPlayer played KING of HEARTS.
+
+[2J[H
+MCTSPlayer played ACE of SPADES.
+
+[2J[H
+------------------------------------------
+Game Summary:
+------------------------------------------
+
+Points received this game:
+--------------------------
+HighLowPlayer has 20 points.
+RandomPlayer has 0 points.
+UCTPlayer has -10 points.
+MCTSPlayer has 6 points.
+
+RandomPlayer is in the lead after this round.
+
+Total cumulative points between all games:
+------------------------------------------
+HighLowPlayer has 55 points.
+RandomPlayer has 25 points.
+UCTPlayer has 44 points.
+MCTSPlayer has 36 points.
+
+[2J[H
+HighLowPlayer has the two of clubs and will play first.
+
+
+[2J[H
+--------------------------------------------
+Round #1:
+--------------------------------------------
+HighLowPlayer played TWO of CLUBS.
+
+[2J[H
+RandomPlayer played SIX of CLUBS.
+
+[2J[H
+UCTPlayer played THREE of CLUBS.
+
+[2J[H
+MCTSPlayer played KING of CLUBS.
+
+[2J[H
+--------------------------------------------
+Round #2:
+--------------------------------------------
+MCTSPlayer played QUEEN of HEARTS.
+
+[2J[H
+HighLowPlayer played NINE of HEARTS.
+
+[2J[H
+RandomPlayer played ACE of HEARTS.
+
+[2J[H
+UCTPlayer played FIVE of HEARTS.
+
+[2J[H
+--------------------------------------------
+Round #3:
+--------------------------------------------
+RandomPlayer played KING of SPADES.
+
+[2J[H
+UCTPlayer played QUEEN of SPADES.
+
+[2J[H
+MCTSPlayer played EIGHT of HEARTS.
+
+[2J[H
+HighLowPlayer played NINE of SPADES.
+
+[2J[H
+--------------------------------------------
+Round #4:
+--------------------------------------------
+RandomPlayer played JACK of SPADES.
+
+[2J[H
+UCTPlayer played SEVEN of SPADES.
+
+[2J[H
+MCTSPlayer played FIVE of CLUBS.
+
+[2J[H
+HighLowPlayer played SIX of SPADES.
+
+[2J[H
+--------------------------------------------
+Round #5:
+--------------------------------------------
+RandomPlayer played SEVEN of CLUBS.
+
+[2J[H
+UCTPlayer played ACE of CLUBS.
+
+[2J[H
+MCTSPlayer played QUEEN of CLUBS.
+
+[2J[H
+HighLowPlayer played EIGHT of CLUBS.
+
+[2J[H
+--------------------------------------------
+Round #6:
+--------------------------------------------
+UCTPlayer played KING of DIAMONDS.
+
+[2J[H
+MCTSPlayer played TWO of DIAMONDS.
+
+[2J[H
+HighLowPlayer played QUEEN of DIAMONDS.
+
+[2J[H
+RandomPlayer played FIVE of DIAMONDS.
+
+[2J[H
+--------------------------------------------
+Round #7:
+--------------------------------------------
+UCTPlayer played TWO of HEARTS.
+
+[2J[H
+MCTSPlayer played THREE of HEARTS.
+
+[2J[H
+HighLowPlayer played FOUR of HEARTS.
+
+[2J[H
+RandomPlayer played KING of HEARTS.
+
+[2J[H
+--------------------------------------------
+Round #8:
+--------------------------------------------
+RandomPlayer played TEN of DIAMONDS.
+
+[2J[H
+UCTPlayer played NINE of DIAMONDS.
+
+[2J[H
+MCTSPlayer played THREE of DIAMONDS.
+
+[2J[H
+HighLowPlayer played SEVEN of DIAMONDS.
+
+[2J[H
+--------------------------------------------
+Round #9:
+--------------------------------------------
+RandomPlayer played FIVE of SPADES.
+
+[2J[H
+UCTPlayer played TWO of SPADES.
+
+[2J[H
+MCTSPlayer played SEVEN of HEARTS.
+
+[2J[H
+HighLowPlayer played THREE of SPADES.
+
+[2J[H
+--------------------------------------------
+Round #10:
+--------------------------------------------
+RandomPlayer played EIGHT of DIAMONDS.
+
+[2J[H
+UCTPlayer played TEN of CLUBS.
+
+[2J[H
+MCTSPlayer played ACE of DIAMONDS.
+
+[2J[H
+HighLowPlayer played JACK of DIAMONDS.
+
+[2J[H
+--------------------------------------------
+Round #11:
+--------------------------------------------
+MCTSPlayer played FOUR of CLUBS.
+
+[2J[H
+HighLowPlayer played SIX of HEARTS.
+
+[2J[H
+RandomPlayer played JACK of CLUBS.
+
+[2J[H
+UCTPlayer played NINE of CLUBS.
+
+[2J[H
+--------------------------------------------
+Round #12:
+--------------------------------------------
+RandomPlayer played ACE of SPADES.
+
+[2J[H
+UCTPlayer played TEN of SPADES.
+
+[2J[H
+MCTSPlayer played TEN of HEARTS.
+
+[2J[H
+HighLowPlayer played SIX of DIAMONDS.
+
+[2J[H
+--------------------------------------------
+Round #13:
+--------------------------------------------
+RandomPlayer played EIGHT of SPADES.
+
+[2J[H
+UCTPlayer played FOUR of SPADES.
+
+[2J[H
+MCTSPlayer played JACK of HEARTS.
+
+[2J[H
+HighLowPlayer played FOUR of DIAMONDS.
+
+[2J[H
+RandomPlayer shot the moon!
+------------------------------------------
+Game Summary:
+------------------------------------------
+
+Points received this game:
+--------------------------
+HighLowPlayer has 0 points.
+RandomPlayer has 26 points.
+UCTPlayer has 0 points.
+MCTSPlayer has -10 points.
+
+RandomPlayer is in the lead after this round.
+
+Total cumulative points between all games:
+------------------------------------------
+HighLowPlayer has 81 points.
+RandomPlayer has 25 points.
+UCTPlayer has 70 points.
+MCTSPlayer has 52 points.
+
+[2J[H
