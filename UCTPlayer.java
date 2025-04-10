@@ -79,7 +79,6 @@ class UCTPlayer extends Player {
     public int getMaxDepth() { return maxDepth; }
 
     int runMultipleMCTS(State originalState, ArrayList<Player> playerOrder) throws FileNotFoundException {
-        // !!! TEST THIS !!!!
         double[] handIndexAvgScores = new double[13];
         int[] handIndexTally = new int[13];
 
@@ -91,7 +90,6 @@ class UCTPlayer extends Player {
             // update average reward based on this game
             for (int j = 0; j < 13; j++) {
                 double childScore = childStats[j];
-                // ??? replace tally with i ???
                 int tally = handIndexTally[j];
                 handIndexAvgScores[j] = (handIndexAvgScores[j] * tally + childScore) / (tally + 1);
                 handIndexTally[j] = tally + 1;
@@ -165,8 +163,6 @@ class UCTPlayer extends Player {
                 if (cardLeft.equals(myCard)) { cardsLeft.remove(i); }
             }
         }
-
-        // !!! reality check: there should be around 39 cardsLeft
 
         // int p1 = myPNumber + 1 % 4; // 3
         // int p2 = myPNumber + 2 % 4; // 0
@@ -397,7 +393,7 @@ class UCTPlayer extends Player {
 
         ArrayList<Card> childHand;
         int playerIndex = nextPlayer;
-        childHand = new ArrayList<>(playerHandsCopy.get(playerIndex)); // ??? needs to be a deep copy ???
+        childHand = new ArrayList<>(playerHandsCopy.get(playerIndex)); 
 
         int handIndex = childIndex;
 

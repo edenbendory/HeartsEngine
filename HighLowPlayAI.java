@@ -45,7 +45,7 @@ class HighLowPlayAI extends Player {
             Value diamondsLow = null;
             Value spadesLow = null;
 
-            // !!! make this check cleaner later!!! - maybe make a helper function in Player called getAnyValue() that returns -1 when you call hand.getAnyValue() on a Value that's not in your hand 
+            // TODO: make this check cleaner later - maybe make a helper function in Player called getAnyValue() that returns -1 when you call hand.getAnyValue() on a Value that's not in your hand 
             if (clubsSuitRange.startIndex != -1) {
                 lowValue = hand.get(clubsSuitRange.startIndex).getValue(); 
                 lowIndex = clubsSuitRange.startIndex;
@@ -106,7 +106,7 @@ class HighLowPlayAI extends Player {
             Value diamondsHigh = null;
             Value spadesHigh = null;
 
-            // !!! make this check cleaner later!!! - maybe make a helper function in Player called getAnyValue() that returns -1 when you call hand.getAnyValue() on a Value that's not in your hand 
+            // TODO: make this check cleaner later - maybe make a helper function in Player called getAnyValue() that returns -1 when you call hand.getAnyValue() on a Value that's not in your hand 
             if (clubsSuitRange.endIndex != -1) {
                 highValue = hand.get(clubsSuitRange.endIndex - 1).getValue(); 
                 highIndex = clubsSuitRange.endIndex - 1;

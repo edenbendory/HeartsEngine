@@ -307,7 +307,7 @@ class PerfectInfoUCTPlayer extends Player {
 
         ArrayList<Card> childHand;
         int playerIndex = nextPlayer;
-        childHand = new ArrayList<>(playerHandsCopy.get(playerIndex)); // ??? needs to be a deep copy ???
+        childHand = new ArrayList<>(playerHandsCopy.get(playerIndex)); 
 
         int handIndex = childIndex;
 
